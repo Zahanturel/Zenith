@@ -1,0 +1,76 @@
+# Build the AADP book with mdBook and publish to GitHub Pages
+# Site: https://<username>.github.io/<repo>/ — If you get 404, set repo Settings → Pages → Source = "GitHub Actions"
+name: Build and publish book
+
+on:
+  push:
+    branches: [main, master]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+
+      - name: Install mdBook
+        run: cargo install mdbook
+
+      - name: Install mdbook-mermaid (optional preprocessor)
+        run: cargo install mdbook-mermaid
+
+      - name: Prepare book source
+        run: bash scripts/prepare_mdbook.sh
+
+      - name: Require book source
+        run: |
+          echo "Contents of src/ after prepare:"
+          find src -type f -name "*.md" | head -50
+          test -f src/SUMMARY.md || { echo "::error::src/SUMMARY.md missing. Add SUMMARY.md to src/."; exit 1; }
+          test -f src/index.md || { echo "::error::src/index.md missing. Add index.md to src/ or ensure it exists at repo root (prepare copies it)."; exit 1; }
+          test -d src/chapters && test -n "$(find src/chapters -maxdepth 1 -name '*.md' 2>/dev/null)" || { echo "::error::No chapter files in src/chapters/. Add chapters to src/chapters/ or repo root chapters/."; exit 1; }
+          echo "Book source OK"
+
+      - name: Build book
+        run: mdbook build
+
+      - name: Verify full book built
+        run: |
+          touch book/.nojekyll
+          test -f book/index.html || { echo "::error::book/index.html not found — mdBook build failed."; exit 1; }
+          test -f book/title-page.html || test -f book/00-terminology-and-front-matter.html || { echo "::error::Book content missing (no title-page or chapter). Build incomplete."; exit 1; }
+          echo "Full book built: $(find book -name '*.html' | wc -l) HTML files"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./book
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Deployment URL
+        run: |
+          echo "Site deployed to ${{ steps.deployment.outputs.page_url }}"
+          echo "If you see 404 when visiting the URL, set **Settings → Pages → Build and deployment → Source** to **GitHub Actions** (not 'Deploy from a branch')."
