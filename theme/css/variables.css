@@ -1,96 +1,53 @@
-/* ==========================================================================
-   AADP Documentation — Stripe/Linear/Vercel-style theme variables
-   Comfortable long-form technical reading
-   ========================================================================== */
+/* AADP Documentation — Design tokens only. Keep simple. */
 
 :root,
 .light {
-  /* Page & surfaces */
-  --bg: #F5F6F8;
+  --page-bg: #F5F6F8;
   --sidebar-bg: #ECEFF3;
-  --content-card-bg: #FFFFFF;
-  --fg: #111827;
-  --fg-secondary: #4B5563;
-  --heading: #111827;
-  --links: #2563EB;
-  --borders: #E5E7EB;
-
-  /* Sidebar nav */
-  --sidebar-fg: #111827;
-  --sidebar-active-bg: #E6EBF5;
-  --sidebar-hover-bg: #F0F3F9;
-
-  /* Code & tables */
+  --card-bg: #FFFFFF;
+  --toc-bg: #F9FAFB;
+  --text: #111827;
+  --text-muted: #4B5563;
+  --link: #2563EB;
+  --border: #E5E7EB;
+  --sidebar-active: #E6EBF5;
+  --sidebar-hover: #F0F3F9;
   --code-bg: #F3F4F6;
-  --table-header-bg: #F1F3F7;
-  --table-border-color: #E5E7EB;
-  --table-alternate-bg: #F9FAFB;
-  --table-row-hover: #F9FAFB;
-
-  /* Rest */
-  --quote-bg: #F9FAFB;
-  --quote-border: #E5E7EB;
-  --theme-hover: #E5E7EB;
-  --theme-popup-border: #E5E7EB;
-  --footnote-highlight: #EEF2FF;
-  --blockquote-note-color: #2563EB;
-  --blockquote-tip-color: #059669;
-  --blockquote-important-color: #7C3AED;
-  --blockquote-warning-color: #D97706;
-  --blockquote-caution-color: #DC2626;
-  --warning-border: #F59E0B;
-
-  /* Typography */
-  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  --mono-font: "JetBrains Mono", "Consolas", "Monaco", "Courier New", monospace;
-  --font-size: 16px;
-  --code-font-size: 14px;
-  --line-height: 1.7;
-
-  /* Three-column layout */
-  --sidebar-width: 280px;
-  --content-max-width: 780px;
-  --toc-width: 220px;
-  --column-gap: 32px;
-  --card-padding: 40px;
+  --font: "Inter", -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", Consolas, monospace;
+  --text-size: 16px;
+  --line: 1.7;
+  --sidebar-w: 280px;
+  --card-max-w: 780px;
+  --toc-w: 220px;
+  --gap: 32px;
+  --card-pad: 40px;
   --card-radius: 10px;
-  --page-padding: 24px;
-  --menu-bar-height: 0px;
-
-  /* Layout structure — deterministic hierarchy */
-  --layout-header-height: 56px;
-  --layout-content-top: 0px;
-  --content-section-spacing: 2rem;
-  --sidebar-item-padding-y: 6px;
-  --sidebar-item-padding-x: 12px;
-  --sidebar-level-indent: 16px;
-  --sidebar-separator-width: 1px;
-  --nav-wrapper-margin-top: 48px;
-  --toc-sticky-top: 24px;
-
-  /* Spacing */
-  --space-1: 8px;
-  --space-2: 12px;
-  --space-3: 16px;
-  --space-4: 24px;
-  --space-5: 32px;
-  --space-6: 48px;
-  --space-7: 64px;
-
-  color-scheme: light;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --header-h: 56px;
 }
 
-.navy,
-.coal,
-.ayu,
-.rust {
-  --bg: #F5F6F8;
+/* mdBook chrome expects these names */
+:root, .light {
+  --bg: var(--page-bg);
+  --fg: var(--text);
+  --sidebar-fg: var(--text);
+  --content-max-width: var(--card-max-w);
+  --sidebar-width: var(--sidebar-w);
+  --page-padding: var(--space-lg);
+  --menu-bar-height: 0px;
+}
+
+.navy, .coal, .ayu, .rust {
+  --page-bg: #F5F6F8;
   --sidebar-bg: #ECEFF3;
-  --content-card-bg: #FFFFFF;
-  --fg: #111827;
-  --sidebar-fg: #111827;
-  --sidebar-active-bg: #E6EBF5;
-  --sidebar-hover-bg: #F0F3F9;
-  --code-bg: #F3F4F6;
-  color-scheme: light;
+  --card-bg: #FFFFFF;
+  --toc-bg: #F9FAFB;
+  --text: #111827;
+  --sidebar-active: #E6EBF5;
+  --sidebar-hover: #F0F3F9;
 }

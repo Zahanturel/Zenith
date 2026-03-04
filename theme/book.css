@@ -1,31 +1,36 @@
-/* ==========================================================================
-   AADP Documentation — Layout architecture, navigation, sections, responsive
-   Deterministic structure: sidebar | doc-layout (content + page-toc)
-   ========================================================================== */
+/* AADP Documentation — Three columns, sidebar, TOC, typography. */
 
-/* ---------- Doc layout: content + right TOC — balanced and centered ---------- */
+/* ---- Three-column layout ---- */
 .doc-layout {
   display: flex;
-  gap: var(--column-gap);
   align-items: flex-start;
   justify-content: center;
+  gap: 32px;
   width: 100%;
-  max-width: calc(var(--content-max-width) + var(--column-gap) + var(--toc-width));
+  max-width: 1032px;
   margin: 0 auto;
-  padding: var(--space-4) 0 var(--space-6);
-  flex: 1;
+  padding: 24px 16px 48px;
   min-width: 0;
 }
 
-/* Right-hand "On this page" TOC — stable position and spacing */
+/* ---- Content column (white card is styled in general.css) ---- */
+.doc-layout > #mdbook-content.content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* ---- Right column: On this page ---- */
 .page-toc {
-  width: var(--toc-width);
+  width: 220px;
   flex-shrink: 0;
   position: sticky;
-  top: var(--toc-sticky-top);
-  padding-top: var(--space-2);
+  top: 24px;
+  padding: 12px 0 0 20px;
   font-size: 13px;
-  color: var(--fg-secondary);
+  background: #F9FAFB;
+  border-left: 1px solid #E5E7EB;
+  border-radius: 0 8px 8px 0;
+  margin-left: -1px;
 }
 
 .page-toc-title {
@@ -33,109 +38,90 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--fg-secondary);
-  margin: 0 0 var(--space-2) 0;
+  color: #4B5563;
+  margin: 0 0 12px 0;
 }
 
 .page-toc ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  border-left: 2px solid var(--borders);
-  padding-left: var(--space-3);
+  padding-left: 12px;
+  border-left: 2px solid #E5E7EB;
+  margin-left: -12px;
 }
 
-.page-toc li {
-  margin-bottom: var(--space-1);
-  line-height: 1.4;
-}
-
-.page-toc li.toc-h3 {
-  padding-left: var(--space-2);
-  font-size: 12px;
-}
-
+.page-toc li { margin-bottom: 6px; line-height: 1.4; }
+.page-toc li.toc-h3 { padding-left: 12px; font-size: 12px; }
 .page-toc a {
-  color: var(--fg-secondary);
+  color: #4B5563;
   text-decoration: none;
   display: block;
   padding: 2px 0;
 }
+.page-toc a:hover { color: #2563EB; }
+.page-toc a.active { color: #2563EB; font-weight: 500; }
 
-.page-toc a:hover {
-  color: var(--links);
-}
-
-.page-toc a.active {
-  color: var(--links);
-  font-weight: 500;
-}
-
-/* ---------- Sidebar — clear hierarchy and separation ---------- */
+/* ---- Left sidebar ---- */
 .sidebar {
-  background-color: var(--sidebar-bg) !important;
-  color: var(--sidebar-fg);
-  border-right: var(--sidebar-separator-width) solid var(--borders);
+  background: #ECEFF3 !important;
+  color: #111827;
+  border-right: 1px solid #E5E7EB;
 }
 
 body.has-book-header .sidebar {
-  top: var(--layout-header-height);
-  height: calc(100vh - var(--layout-header-height));
+  top: 56px;
+  height: calc(100vh - 56px);
 }
 
 .sidebar .sidebar-scrollbox {
-  padding: var(--space-3) var(--space-2);
-  box-sizing: border-box;
+  padding: 16px 12px;
 }
 
 .chapter {
+  list-style: none;
+  padding-left: 0;
   line-height: 1.5;
 }
 
-.chapter > li {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.chapter > li + li {
-  margin-top: 2px;
-}
+.chapter > li { margin: 0; }
+.chapter > li + li { margin-top: 2px; }
 
 .sidebar .chapter a {
-  color: var(--sidebar-fg);
-  border-radius: 6px;
-  padding: var(--sidebar-item-padding-y) var(--sidebar-item-padding-x);
-  margin: 0 4px;
   display: block;
+  padding: 8px 12px;
+  margin: 0 6px;
+  color: #111827;
   text-decoration: none;
-  transition: background-color 0.12s ease, color 0.12s ease;
+  border-radius: 6px;
+  transition: background 0.15s ease;
 }
 
 .sidebar .chapter a:hover {
-  background: var(--sidebar-hover-bg);
+  background: #F0F3F9;
 }
 
 .sidebar .chapter li.active > a,
 .sidebar .chapter li a.active {
-  background: var(--sidebar-active-bg);
+  background: #E6EBF5;
   font-weight: 600;
-  color: var(--heading);
+  color: #111827;
 }
 
 .sidebar .chapter li.part-title {
-  padding: var(--sidebar-item-padding-y) var(--sidebar-item-padding-x);
-  margin: var(--space-2) 4px var(--space-1);
-  font-size: 0.75rem;
+  padding: 8px 12px;
+  margin: 16px 6px 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--fg-secondary);
+  letter-spacing: 0.05em;
+  color: #4B5563;
 }
 
 .sidebar .chapter .section,
 .sidebar .chapter li ol {
-  padding-inline-start: var(--sidebar-level-indent);
-  margin-top: 2px;
-  margin-bottom: 2px;
+  padding-left: 16px;
+  margin: 2px 0;
 }
 
 .sidebar .chapter .section li a,
@@ -143,159 +129,111 @@ body.has-book-header .sidebar {
   font-size: 0.9em;
 }
 
-/* ---------- Page nav (prev/next) — consistent separation from content ---------- */
+/* ---- Prev/next ---- */
 .nav-wrapper {
-  margin-top: var(--nav-wrapper-margin-top);
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--borders);
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid #E5E7EB;
   clear: both;
 }
 
-/* ---------- Typography and section spacing ---------- */
+/* ---- Typography inside card ---- */
 .content h1 {
   font-size: 36px;
   font-weight: 700;
-  color: var(--heading);
+  color: #111827;
   line-height: 1.7;
-  margin-top: 0;
-  margin-bottom: 0.75em;
+  margin: 0 0 0.75em 0;
 }
 
 .content h2 {
   font-size: 28px;
   font-weight: 700;
-  color: var(--heading);
+  color: #111827;
   line-height: 1.7;
-  margin-top: var(--content-section-spacing);
-  margin-bottom: 0.5em;
+  margin: 32px 0 0.5em 0;
   padding-bottom: 0.25em;
-  border-bottom: 1px solid var(--borders);
+  border-bottom: 1px solid #E5E7EB;
 }
 
-.content h2:first-of-type {
-  margin-top: 0;
-}
+.content h2:first-of-type { margin-top: 0; }
 
 .content h3 {
   font-size: 22px;
   font-weight: 600;
-  color: var(--heading);
+  color: #111827;
   line-height: 1.7;
-  margin-top: var(--content-section-spacing);
-  margin-bottom: 0.5em;
+  margin: 28px 0 0.5em 0;
 }
 
 .content h4 {
   font-size: 18px;
   font-weight: 600;
-  color: var(--heading);
+  color: #111827;
   line-height: 1.7;
-  margin-top: 1.25rem;
-  margin-bottom: 0.4em;
+  margin: 24px 0 0.4em 0;
 }
 
-.content h5,
-.content h6 {
+.content h5, .content h6 {
   font-size: 16px;
   font-weight: 600;
-  color: var(--fg-secondary);
+  color: #4B5563;
   line-height: 1.7;
-  margin-top: 1rem;
-  margin-bottom: 0.35em;
+  margin: 20px 0 0.35em 0;
 }
 
-.content h1 + h2,
-.content h2 + h3,
-.content h3 + h4,
-.content h4 + h5,
-.content h5 + h6 {
+.content h1 + h2, .content h2 + h3, .content h3 + h4, .content h4 + h5, .content h5 + h6 {
   margin-top: 0.5em;
 }
 
-/* ---------- Code blocks ---------- */
-.content pre {
-  margin: var(--space-4) 0;
-  overflow-x: auto;
-}
-
+/* ---- Code in content ---- */
+.content pre { margin: 24px 0; overflow-x: auto; }
 .content pre code {
-  display: block;
   padding: 16px;
   font-size: 14px;
   line-height: 1.6;
-  font-family: var(--mono-font);
+  font-family: var(--font-mono);
   background: #F3F4F6;
   border: 1px solid #E5E7EB;
   border-radius: 8px;
 }
-
 .content :not(pre) > code {
-  font-family: var(--mono-font);
+  font-family: var(--font-mono);
   font-size: 14px;
   padding: 2px 6px;
-  background: var(--code-bg);
-  border: 1px solid var(--borders);
+  background: #F3F4F6;
+  border: 1px solid #E5E7EB;
   border-radius: 4px;
 }
 
-/* ---------- Tables ---------- */
-.content table {
-  margin: var(--space-4) 0;
-  border-collapse: collapse;
-  width: 100%;
-  font-size: 15px;
-}
-
-.content table thead {
-  background: #F1F3F7;
-}
-
+/* ---- Tables in content ---- */
+.content table { margin: 24px 0; border-collapse: collapse; width: 100%; font-size: 15px; }
+.content table thead { background: #F1F3F7; }
 .content table th {
   padding: 12px 16px;
   text-align: left;
   font-weight: 600;
-  color: var(--heading);
+  color: #111827;
   border: 1px solid #E5E7EB;
 }
+.content table td { padding: 12px 16px; border: 1px solid #E5E7EB; }
+.content table tbody tr:hover { background: #F9FAFB; }
 
-.content table td {
-  padding: 12px 16px;
-  border: 1px solid #E5E7EB;
-}
-
-.content table tbody tr:hover {
-  background: #F9FAFB;
-}
-
-/* ---------- Figures and diagrams ---------- */
-.content figure,
-.content .figure,
-.content .mermaid {
-  margin-top: var(--content-section-spacing);
-  margin-bottom: var(--content-section-spacing);
+/* ---- Figures ---- */
+.content figure, .content .figure, .content .mermaid {
+  margin: 32px 0;
   text-align: center;
 }
-
-.content figure img,
-.content .figure img {
-  max-width: 100%;
-  height: auto;
-}
-
+.content figure img, .content .figure img { max-width: 100%; height: auto; }
 .content figcaption {
-  margin-top: var(--space-2);
+  margin-top: 12px;
   font-size: 14px;
-  color: var(--fg-secondary);
+  color: #4B5563;
   line-height: 1.5;
 }
+.content hr { margin: 32px 0; border: none; border-top: 1px solid #E5E7EB; }
 
-.content hr {
-  margin: var(--content-section-spacing) 0;
-  border: none;
-  border-top: 1px solid var(--borders);
-}
-
-/* ---------- Menu bar — align with page layout ---------- */
+/* ---- Menu bar alignment ---- */
 #mdbook-menu-bar {
   margin-left: calc(-1 * var(--page-padding));
   margin-right: calc(-1 * var(--page-padding));
@@ -303,109 +241,39 @@ body.has-book-header .sidebar {
   padding-right: var(--page-padding);
 }
 
-/* ---------- Responsive: single column, sidebar collapses via mdBook ---------- */
+/* ---- Responsive ---- */
 @media (max-width: 1024px) {
-  .page-toc {
-    display: none;
-  }
-
-  .doc-layout {
-    max-width: var(--content-max-width);
-    padding-left: var(--space-3);
-    padding-right: var(--space-3);
-  }
-
-  .content {
-    max-width: 100%;
-  }
+  .page-toc { display: none; }
+  .doc-layout { max-width: 780px; padding-left: 16px; padding-right: 16px; }
+  .doc-layout > #mdbook-content.content { max-width: 100%; }
 }
 
 @media (max-width: 768px) {
-  .doc-layout {
-    padding: var(--space-3) var(--space-2) var(--space-5);
-  }
-
-  .content {
-    padding: var(--space-4);
-  }
-
-  .content h1 {
-    font-size: 28px;
-  }
-
-  .content h2 {
-    font-size: 24px;
-  }
-
-  .content h3 {
-    font-size: 20px;
-  }
-
-  .nav-wrapper {
-    margin-top: var(--space-6);
-  }
+  .doc-layout { padding: 16px 12px 32px; }
+  #mdbook-content.content { padding: 24px !important; }
+  .content h1 { font-size: 28px; }
+  .content h2 { font-size: 24px; }
+  .content h3 { font-size: 20px; }
+  .nav-wrapper { margin-top: 32px; }
 }
 
-/* ---------- Print ---------- */
-@page {
-  margin: 1in;
-  size: A4;
-}
+/* ---- Print ---- */
+@page { margin: 1in; size: A4; }
 
 @media print {
-  .doc-layout {
-    display: block;
-    padding: 0;
+  .doc-layout { display: block; padding: 0; }
+  .page-toc { display: none; }
+  body, .page-wrapper { background: #fff; }
+  #mdbook-content.content {
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
   }
-
-  .page-toc {
-    display: none;
-  }
-
-  body {
-    font-size: 11pt;
-    background: #fff;
-  }
-
-  .page-wrapper {
-    background: #fff;
-  }
-
-  .content {
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-    max-width: 100%;
-  }
-
-  .content h1 {
-    page-break-before: always;
-    font-size: 28pt;
-  }
-
-  .content h1:first-of-type {
-    page-break-before: avoid;
-  }
-
-  .content h2,
-  .content h3 {
-    page-break-after: avoid;
-  }
-
-  .content pre,
-  .content figure,
-  .content table,
-  .content .mermaid {
-    page-break-inside: avoid;
-  }
-
-  .content pre code {
-    background: #f5f5f5;
-    border: 1px solid #ddd;
-  }
-
-  .mermaid svg {
-    max-width: 100%;
-    height: auto;
-  }
+  .content h1 { page-break-before: always; font-size: 28pt; }
+  .content h1:first-of-type { page-break-before: avoid; }
+  .content h2, .content h3 { page-break-after: avoid; }
+  .content pre, .content figure, .content table, .content .mermaid { page-break-inside: avoid; }
+  .content pre code { background: #f5f5f5; border: 1px solid #ddd; }
+  .mermaid svg { max-width: 100%; height: auto; }
 }
