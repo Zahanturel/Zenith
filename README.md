@@ -1,6 +1,6 @@
 # AI Autonomous Development Platform — System Design Specification (Book)
 
-This repository contains the **AI Autonomous Development Platform (AADP) System Design Specification** as a book manuscript with build tooling, diagram support, and CI for publishing.
+This repository contains the **AI Autonomous Development Platform (AADP) System Design Specification** as a book manuscript with a static documentation build and CI for publishing.
 
 **Version:** See [VERSION](VERSION) (v1.0)  
 **Authors:** Zahan Turel, Zenith  
@@ -13,27 +13,27 @@ This repository contains the **AI Autonomous Development Platform (AADP) System 
 
 ```
 aadp-book/
-├── book.toml              # MdBook configuration
-├── book.yml               # Legacy/book metadata (chapter list)
-├── theme/                 # Custom CSS and Pandoc header for PDF
 ├── VERSION                # Book version (e.g. v1.0)
 ├── README.md              # This file
 ├── LICENSE                # MIT
+├── requirements.txt       # Python deps for doc build (markdown)
 ├── CONTRIBUTING.md        # How to contribute (tooling/docs only)
 ├── CHANGELOG.md           # Tooling and repo changes
 │
-├── src/                   # MdBook source (standard layout)
-│   ├── SUMMARY.md         # Chapter order for mdBook
+├── src/                   # Documentation source
+│   ├── SUMMARY.md         # Navigation order (sidebar hierarchy)
+│   ├── README.md          # "How to read this book"
 │   ├── index.md           # Introduction and table of contents
 │   ├── full-specification.md
 │   ├── references.md
 │   ├── book-frontmatter/  # Title page, preface
-│   └── chapters/          # 31 chapter Markdown files (00–30)
+│   └── chapters/          # Chapter Markdown files (00–30)
 │
-├── diagrams/              # Mermaid and other diagram sources
-├── images/                # Images (screenshots, figures)
-├── docs/                  # Reserved for additional documentation
-└── scripts/               # Build and maintenance scripts
+├── templates/             # HTML template for static site
+├── static/                # CSS (layout, print)
+├── scripts/               # Build scripts (build_docs.py, etc.)
+├── site/                  # Built static site (generated; see .gitignore)
+└── .github/workflows/     # CI: build and deploy to GitHub Pages
 ```
 
 ---
@@ -42,9 +42,35 @@ aadp-book/
 
 - **Single file:** Open [full-specification.md](src/full-specification.md) for the complete spec in one Markdown file.
 - **By chapter:** Start with [index.md](src/index.md) for the table of contents and links to every chapter.
-- **Built book:** After building with mdBook (see below), open the generated HTML in `book/` or use `mdbook serve` for a local preview.
+- **Built site:** Run the build (see below) and open `site/index.html` in a browser, or use any static file server (e.g. `python -m http.server` in `site/`).
 
 The **Terminology Glossary** is in [src/chapters/00-terminology-and-front-matter.md](src/chapters/00-terminology-and-front-matter.md). Chapters 01–29 map to Sections 1–29 of the original specification; Chapter 30 is Appendix A.
+
+---
+
+## Building the documentation
+
+The documentation is built by a **static generator** (no mdBook or other framework). Output is plain HTML and CSS in **site/**.
+
+**Requirements:** Python 3 and the `markdown` package.
+
+```bash
+pip install -r requirements.txt
+python scripts/build_docs.py
+```
+
+Output is in **site/**. Open `site/index.html` in a browser or serve the folder with any static server:
+
+```bash
+cd site && python -m http.server 8000
+# Then open http://localhost:8000
+```
+
+**What the build does:**
+
+- Reads **src/SUMMARY.md** for navigation order and hierarchy (front matter, chapters, appendix, references).
+- Converts each linked Markdown file to HTML and wraps it in the layout template (header, sidebar, main content, optional “On this page” TOC).
+- Writes **site/** with `index.html` (redirect to first page), all chapter and front-matter pages, and **site/static/** (CSS). Internal `.md` links in content are rewritten to `.html`.
 
 ---
 
@@ -52,114 +78,61 @@ The **Terminology Glossary** is in [src/chapters/00-terminology-and-front-matter
 
 If you have the original specification as a single `.txt` file, you can regenerate `full-specification.md` and all files in `chapters/` using the split script.
 
-**Usage:**
-
 ```bash
-# Use default source: full-specification.txt in the repo root
 python scripts/split_to_chapters.py
-
-# Or pass a custom source file path
-python scripts/split_to_chapters.py path/to/source.txt
+# Or: python scripts/split_to_chapters.py path/to/source.txt
 ```
-
-The script writes:
-
-1. **full-specification.md** in the repo root (full content as Markdown).
-2. All chapter files in **chapters/** (00 through 30).
-
-If `full-specification.txt` is not present, place your source `.txt` in the repo root or pass its path as the first argument.
 
 ---
 
-## Building the book
+## Layout and structure
 
-**Website (HTML)**
+The static site uses a simple, stable layout:
 
-```bash
-mdbook build
-```
+- **Header:** Site title, link to home; on small screens, a toggle for the sidebar.
+- **Sidebar:** Persistent navigation generated from **src/SUMMARY.md** (sections: Front Matter, chapters, Full specification, References). Reflects the exact document hierarchy.
+- **Main content:** Rendered Markdown (tables, code blocks, headings). Headings get IDs for in-page links.
+- **On this page:** Optional right-hand TOC for H2/H3 on the current page (hidden on small screens).
 
-Output is in the **book/** directory. Open `book/index.html` in a browser or use `mdbook serve` for live preview.
-
-**PDF (printable book)**
-
-After building the website, generate a PDF with [mdbook-pandoc](https://github.com/max-heller/mdbook-pandoc):
-
-```bash
-mdbook build
-mdbook-pandoc book
-```
-
-The PDF is written to **book/pandoc/pdf/AI-Autonomous-Development-Platform.pdf** (or **book/** when only the pandoc renderer is used). You need [Pandoc](https://pandoc.org/) and a LaTeX engine (e.g. [TeX Live](https://www.tug.org/texlive/)) installed. Install the renderer with:
-
-```bash
-cargo install mdbook-pandoc
-```
-
-If you use the browser’s **Print → Save as PDF** on the built HTML instead, open the print dialog, go to **More settings**, and turn **off** “Headers and footers” so the browser does not add date, URL, or title in the margins.
-
----
-
-## Installation and build details
-
-The book is built with [mdBook](https://rust-lang.github.io/mdBook/). You need **Rust/Cargo** installed to run mdBook.
-
-**Install mdBook and optional tools:**
-
-```bash
-cargo install mdbook
-cargo install mdbook-mermaid   # optional, for Mermaid diagrams
-cargo install mdbook-pandoc   # optional, for PDF output
-```
-
-Book source lives in **src/** (SUMMARY.md, index.md, chapters/, etc.). Run `mdbook build` from the repo root.
-
----
-
-## Previewing locally
-
-To serve the book locally with live reload:
-
-```bash
-mdbook serve
-```
-
-Then open **http://localhost:3000** in your browser. Edits to files in **src/** will trigger a rebuild.
+Layout and print behavior are controlled only by **static/css/layout.css** and **static/css/print.css**. No JavaScript is required except a small script to toggle the sidebar on narrow viewports.
 
 ---
 
 ## CI and GitHub Pages
 
-The repository uses a GitHub Actions workflow that builds the book and deploys it to **GitHub Pages** on every push to `main` or `master`.
+A GitHub Actions workflow (**.github/workflows/build-book.yml**) builds the static site and deploys it to **GitHub Pages** on every push to `main` or `master`.
 
-### Enable the live site (required — fixes 404)
+### Enable the live site (fixes 404)
 
-If the workflow shows a green check but **https://&lt;username&gt;.github.io/&lt;repo&gt;/** returns **404**, the publishing source is wrong:
+If the workflow succeeds but **https://&lt;username&gt;.github.io/&lt;repo&gt;/** returns **404**:
 
-1. Open your repo on GitHub → **Settings** → **Pages**.
+1. Open the repo on GitHub → **Settings** → **Pages**.
 2. Under **Build and deployment**, set **Source** to **GitHub Actions** (not “Deploy from a branch”).
-3. Save. The next successful run of the workflow will publish the site.
-
-Until **Source** is **GitHub Actions**, GitHub may be serving the branch (e.g. repo root), which has no `index.html`, so you get 404 even though the workflow succeeded.
+3. Save. The next successful run will publish the site.
 
 ### What the workflow does
 
-- Runs on every push to `main` or `master`
-- Installs mdBook and mdbook-mermaid, runs `mdbook build`
-- Verifies `book/index.html` exists, then uploads the **book/** directory as the Pages artifact
-- Deploys via `actions/deploy-pages`
+- Runs on push to `main` or `master`
+- Installs Python and `pip install -r requirements.txt`
+- Runs `python scripts/build_docs.py` to produce **site/**
+- Uploads **site/** as the Pages artifact and deploys via `actions/deploy-pages`
 
-The site URL is **https://&lt;username&gt;.github.io/&lt;repo&gt;/** (e.g. `https://zahanturel.github.io/Zenith/`). After setting Source to GitHub Actions, the site will load on the next push.
+The site URL is **https://&lt;username&gt;.github.io/&lt;repo&gt;/**.
 
 ---
 
-## Book tooling summary
+## Adding or reordering content
 
-| Tool        | Purpose |
-|------------|---------|
-| **mdBook** | Build the book to HTML; use `mdbook build` and `mdbook serve`. |
-| **book.yml** | Chapter list for reference; compatible with GitBook/MkDocs if you switch later. |
-| **scripts/split_to_chapters.py** | Regenerate chapters and full-spec from a single `.txt` source. |
+1. **Add a new chapter:** Add a new `.md` file under **src/chapters/** (or another folder under **src/**) and add a link to it in **src/SUMMARY.md** in the desired position. Re-run the build.
+2. **Change order or sections:** Edit **src/SUMMARY.md**. Use `# Section title` for a section heading in the sidebar, `- [Title](path.md)` for items under a section, and `[Title](path.md)` for top-level links. Use `---` for a visual separator. Re-run the build.
+
+The sidebar and all internal links are driven by **SUMMARY.md**; no other config is needed for navigation.
+
+---
+
+## Print
+
+Use the browser’s **Print → Save as PDF** (or print) on any page. **static/css/print.css** hides the header toggle, sidebar, and “On this page” panel so the printed output is a clean, readable document.
 
 ---
 

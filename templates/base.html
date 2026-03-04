@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}} — AI Autonomous Development Platform</title>
+  <link rel="stylesheet" href="{{base}}static/css/layout.css">
+  <link rel="stylesheet" href="{{base}}static/css/print.css" media="print">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <button type="button" id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle navigation">☰</button>
+      <a href="{{base}}index.html" class="site-title">AI Autonomous Development Platform</a>
+    </div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      {{sidebar}}
+    </aside>
+    <main class="content">
+      <article class="content-inner">
+        {{content}}
+      </article>
+      <aside class="page-toc-wrap">
+        {{page_toc}}
+      </aside>
+    </main>
+  </div>
+  <script>
+    (function() {
+      var toggle = document.getElementById('sidebar-toggle');
+      var sidebar = document.querySelector('.sidebar');
+      if (toggle && sidebar) {
+        toggle.addEventListener('click', function() { sidebar.classList.toggle('open'); });
+      }
+    })();
+  </script>
+</body>
+</html>
