@@ -1,0 +1,42 @@
+# AI Autonomous Development Platform — System Design Specification
+# Book configuration (compatible with GitBook, MdBook, or similar)
+
+title: "AI Autonomous Development Platform — System Design Specification"
+author: "Zahan Turel"
+organization: "Zenith"
+version: "1.0"
+language: "en"
+
+# Chapter order (relative to chapters/)
+chapters:
+  - 00-terminology-and-front-matter.md
+  - 01-executive-overview.md
+  - 02-system-vision.md
+  - 03-core-architectural-principles.md
+  - 04-high-level-architecture.md
+  - 05-agent-architecture.md
+  - 06-model-management-system.md
+  - 07-orchestration-system.md
+  - 08-codebase-understanding-system.md
+  - 09-memory-and-knowledge-layer.md
+  - 10-safety-and-guardrail-system.md
+  - 11-planning-and-execution-cycles.md
+  - 12-task-management-system.md
+  - 13-autonomous-development-workflow.md
+  - 14-deployment-infrastructure.md
+  - 15-artifact-and-release-management.md
+  - 16-observability-and-monitoring.md
+  - 17-scalability-architecture.md
+  - 18-security-architecture.md
+  - 19-sandboxed-execution-environment.md
+  - 20-human-interaction-layer.md
+  - 21-self-improvement-and-evolution.md
+  - 22-economic-value-optimization-system.md
+  - 23-product-intelligence-and-ux.md
+  - 24-multi-project-execution-system.md
+  - 25-development-roadmap.md
+  - 26-implementation-plan.md
+  - 27-disaster-recovery-and-backup.md
+  - 28-cost-model-and-budget-control.md
+  - 29-future-extensions.md
+  - 30-appendix-a.md

@@ -1,0 +1,19 @@
+# AI Autonomous Development Platform — mdBook configuration
+# https://rust-lang.github.io/mdBook/
+
+[book]
+title = "AI Autonomous Development Platform"
+authors = ["Zahan Turel"]
+description = "System Design Specification"
+language = "en"
+src = "src"
+
+[build]
+build-dir = "book"
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+optional = true
+
+[output.html]
+additional-js = ["mermaid-init.js"]

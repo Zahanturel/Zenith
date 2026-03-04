@@ -1,0 +1,24 @@
+%% AADP High-Level Architecture — Mermaid source
+%% Used in chapters/04-high-level-architecture.md
+flowchart TB
+    Users["HUMAN USERS"]
+    HIL["HUMAN INTERACTION LAYER<br/>(Dashboards, Controls, Approval Systems)"]
+    GSL["GOVERNANCE & SAFETY LAYER<br/>(Policy Engine, Risk Evaluation, Compliance)"]
+    OL["ORCHESTRATION LAYER<br/>(Workflow Engine, Task Scheduler, Resource Manager)"]
+    AEL["AGENT EXECUTION LAYER<br/>(Product, Architect, Engineers, QA, DevOps, Research)"]
+    SKI["SHARED KNOWLEDGE INFRASTRUCTURE<br/>(Codebase Understanding + Memory & Knowledge)<br/>Code Index, Dependency Graph, Vector DB, Knowledge Graph"]
+    DI["DEVELOPMENT INFRASTRUCTURE<br/>(CI/CD, Build Systems, Sandboxed Execution)"]
+    DRS["DEPLOYMENT & RUNTIME SYSTEMS<br/>(Containers, Kubernetes, Production Apps)"]
+    OM["OBSERVABILITY & MONITORING<br/>(Metrics, Logs, Traces, Alerts, Incident Data)"]
+    FB["FEEDBACK INTO MEMORY"]
+
+    Users --> HIL
+    HIL --> GSL
+    GSL --> OL
+    OL --> AEL
+    OL --> SKI
+    AEL --> DI
+    SKI --> DI
+    DI --> DRS
+    DRS --> OM
+    OM --> FB
