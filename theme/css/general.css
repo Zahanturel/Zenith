@@ -73,17 +73,19 @@ dt:target::before {
   scroll-margin-top: calc(var(--menu-bar-height) + 0.5em);
 }
 
-/* ========== Page layout ========== */
+/* ========== Page layout — three-column (sidebar | content card | right TOC) ========== */
 
 .page {
   outline: 0;
-  padding: 0 var(--page-padding);
+  padding: var(--page-padding);
   margin-block-start: calc(0px - var(--menu-bar-height));
+  min-height: 100vh;
 }
 
 .page-wrapper {
   box-sizing: border-box;
   background-color: var(--bg);
+  min-height: 100vh;
 }
 
 html:not(.js) .page-wrapper,
@@ -96,15 +98,22 @@ html:not(.js) .page-wrapper,
   transition: margin-right 0.3s ease, transform 0.3s ease;
 }
 
+/* Content card: main article surface */
 .content {
   overflow-y: auto;
-  padding: 0 var(--space-3) var(--space-7) var(--space-3);
+  background: var(--content-card-bg);
+  border: 1px solid var(--borders);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  padding-bottom: var(--space-7);
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: var(--content-max-width);
 }
 
 .content main {
-  margin-inline-start: auto;
-  margin-inline-end: auto;
-  max-width: var(--content-max-width);
+  margin: 0;
+  max-width: none;
 }
 
 /* Paragraph spacing: 18px between paragraphs */

@@ -19,3 +19,68 @@
     }
 })();
 </script>
+
+<!-- Three-column layout: wrap content in .doc-layout and add right-hand "On this page" TOC -->
+<script>
+(function() {
+    function initDocLayout() {
+        var content = document.getElementById('mdbook-content');
+        if (!content) return;
+
+        var docLayout = document.createElement('div');
+        docLayout.className = 'doc-layout';
+
+        content.parentNode.insertBefore(docLayout, content);
+        docLayout.appendChild(content);
+
+        var main = content.querySelector('main');
+        var headings = main ? main.querySelectorAll('h2[id], h3[id]') : [];
+
+        if (headings.length > 0) {
+            var toc = document.createElement('nav');
+            toc.className = 'page-toc';
+            toc.setAttribute('aria-label', 'On this page');
+
+            var title = document.createElement('div');
+            title.className = 'page-toc-title';
+            title.textContent = 'On this page';
+            toc.appendChild(title);
+
+            var ul = document.createElement('ul');
+            headings.forEach(function(h) {
+                var li = document.createElement('li');
+                li.className = h.tagName.toLowerCase() === 'h3' ? 'toc-h3' : 'toc-h2';
+                var a = document.createElement('a');
+                a.href = '#' + h.id;
+                a.textContent = h.textContent.replace(/^#\s*/, '').trim();
+                li.appendChild(a);
+                ul.appendChild(li);
+            });
+            toc.appendChild(ul);
+            docLayout.appendChild(toc);
+
+            function setActiveToc() {
+                var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                var margin = 100;
+                var activeId = null;
+                headings.forEach(function(h) {
+                    var top = h.getBoundingClientRect().top + scrollTop;
+                    if (scrollTop >= top - margin) activeId = h.id;
+                });
+                toc.querySelectorAll('a').forEach(function(a) {
+                    var isActive = activeId && a.getAttribute('href') === '#' + activeId;
+                    a.classList.toggle('active', isActive);
+                });
+            }
+            window.addEventListener('scroll', setActiveToc);
+            window.addEventListener('load', setActiveToc);
+            setActiveToc();
+        }
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initDocLayout);
+    } else {
+        initDocLayout();
+    }
+})();
+</script>
