@@ -102,9 +102,6 @@ The specification is written to be precise enough for implementation while remai
 *Page numbers are omitted in this markdown source; they will be generated in PDF output.*
 
 \newpage
-\newpage
-
----
 
 <div align="center">
 
@@ -123,6 +120,7 @@ This section defines key terms used throughout the document. Terms are used cons
 ## Terminology Glossary
 
 Key terms used in this specification. Alphabetical order.
+
 
 **Table 1 — Terminology Glossary**
 
@@ -168,7 +166,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-# 1. Executive Overview
+# Chapter 1 — Executive Overview
 
 ### Detailed Explanation
 
@@ -325,6 +323,7 @@ These stages operate continuously, forming a closed-loop development lifecycle.
 
 
 ---
+
 
 **Figure 1 — High-Level Architecture**
 
@@ -550,6 +549,7 @@ Stores persistent knowledge used by agents. This is the single source of truth f
 
 ---
 
+
 **Figure 2 — Example Feature Request Workflow**
 
 
@@ -636,24 +636,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 2**
-
-# System Vision
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 2. System Vision
+# Chapter 2 — System Vision
 
 ### Detailed Explanation
 
@@ -716,6 +699,7 @@ This design creates a hierarchical agent ecosystem similar to a real engineering
 ## Persistent Autonomous Operation
 
 The platform is designed to operate continuously, rather than being triggered only by user prompts.
+
 
 **Figure 3 — Persistent Operation Loop**
 
@@ -815,6 +799,7 @@ The Research Agent and Self-Improvement Agent drive this evolution.
 
 
 ---
+
 
 **Figure 4 — System Vision Architecture**
 
@@ -935,6 +920,7 @@ Defines constraints that agents must obey. The canonical schema (action_type, en
 
 ---
 
+
 **Figure 5 — Autonomous Feature Development**
 
 
@@ -1017,31 +1003,16 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 3**
-
-# Core Architectural Principles
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 3. Core Architectural Principles
+# Chapter 3 — Core Architectural Principles
 
 This section defines the core architectural principles that govern the platform. These principles appear before the High-Level Architecture so that all subsequent design follows from them.
 
 
 ---
 
-Principle 1 — Deterministic Governance of Autonomous Agents
+
+## Principle 1 — Deterministic Governance of Autonomous Agents
+
 
 ### Purpose
 
@@ -1069,6 +1040,7 @@ The governance layer must enforce:
 
 
 ---
+
 
 **Figure 6 — Agent Decision Pipeline**
 
@@ -1155,7 +1127,9 @@ The policy engine should be implemented as:
 
 ---
 
-Principle 2 — Task-Oriented System Architecture
+
+## Principle 2 — Task-Oriented System Architecture
+
 
 ### Purpose
 
@@ -1168,6 +1142,7 @@ This ensures that:
 
 
 ---
+
 
 **Figure 7 — Task-Oriented Architecture**
 
@@ -1223,6 +1198,7 @@ TaskState enum: CREATED | QUEUED | ASSIGNED | RUNNING | VALIDATION | REVIEW | DE
 
 ---
 
+
 **Figure 8 — Task Lifecycle**
 
 
@@ -1262,7 +1238,9 @@ Recommended technologies:
 
 ---
 
-Principle 3 — Knowledge Persistence and Institutional Memory
+
+## Principle 3 — Knowledge Persistence and Institutional Memory
+
 
 ### Purpose
 
@@ -1274,6 +1252,7 @@ Without persistent knowledge, agents would:
 
 
 ---
+
 
 **Figure 9 — Knowledge Retrieval**
 
@@ -1357,7 +1336,9 @@ Knowledge systems must support:
 
 ---
 
-Principle 4 — Safety-First Autonomous Development
+
+## Principle 4 — Safety-First Autonomous Development
+
 
 ### Purpose
 
@@ -1371,6 +1352,7 @@ No change may reach production unless it passes through:
 
 
 ---
+
 
 **Figure 10 — Safety Validation Pipeline**
 
@@ -1431,7 +1413,9 @@ Testing infrastructure must scale horizontally to support parallel test executio
 
 ---
 
-Principle 5 — Observability and Explainability
+
+## Principle 5 — Observability and Explainability
+
 
 ### Purpose
 
@@ -1440,6 +1424,7 @@ Every decision made by an agent must be traceable.
 
 
 ---
+
 
 **Figure 11 — Observability Pipeline**
 
@@ -1503,7 +1488,9 @@ Recommended systems include:
 
 ---
 
-Principle 6 — Horizontal Scalability
+
+## Principle 6 — Horizontal Scalability
+
 
 ### Purpose
 
@@ -1514,6 +1501,7 @@ The platform must scale to support:
 
 
 ---
+
 
 **Figure 12 — Horizontal Scaling**
 
@@ -1561,6 +1549,7 @@ If an agent fails:
 
 ---
 
+
 **Figure 13 — Autonomous Bug Fix Workflow**
 
 
@@ -1600,24 +1589,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 4**
-
-# High Level Architecture
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 4. High Level Architecture
+# Chapter 4 — High Level Architecture
 
 ### Detailed Explanation
 
@@ -1867,6 +1839,7 @@ The orchestrator manages:
 ---
 
 ### Architecture Diagram
+
 
 **Figure 14 — Orchestration Layer**
 
@@ -2228,24 +2201,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 5**
-
-# Agent Architecture
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 5. Agent Architecture
+# Chapter 5 — Agent Architecture
 
 ### Detailed Explanation
 
@@ -2723,24 +2679,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 6**
-
-# Model Management System
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 6. Model Management System
+# Chapter 6 — Model Management System
 
 ### Detailed Explanation
 
@@ -2772,6 +2711,7 @@ Agents do not call the Model Router directly. All inference requests are mediate
                   AGENTS
                     │
                     ▼
+
 
 **Figure 15 — Model Management Architecture**
 
@@ -3058,24 +2998,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 7**
-
-# Orchestration System
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 7. Orchestration System
+# Chapter 7 — Orchestration System
 
 ### Detailed Explanation
 
@@ -3150,6 +3073,7 @@ All agent actions must pass through the orchestrator to ensure compliance with s
 ### High-Level Architecture
 
 The orchestration system is composed of several internal subsystems.
+
 
 **Figure 16 — Orchestrator High-Level Architecture**
 
@@ -3590,24 +3514,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 8**
-
-# Codebase Understanding System
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 8. Codebase Understanding System
+# Chapter 8 — Codebase Understanding System
 
 ### Detailed Explanation
 
@@ -4125,24 +4032,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 9**
-
-# Memory and Knowledge Layer
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 9. Memory and Knowledge Layer
+# Chapter 9 — Memory and Knowledge Layer
 
 ### Detailed Explanation
 
@@ -4629,24 +4519,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 10**
-
-# Safety and Guardrail System
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 10. Safety and Guardrail System
+# Chapter 10 — Safety and Guardrail System
 
 ### Detailed Explanation
 
@@ -5092,24 +4965,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 11**
-
-# Planning and Execution Cycles
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 11. Planning and Execution Cycles
+# Chapter 11 — Planning and Execution Cycles
 
 ### Detailed Explanation
 
@@ -5632,24 +5488,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 12**
-
-# Task Management System
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 12. Task Management System
+# Chapter 12 — Task Management System
 
 ### Detailed Explanation
 
@@ -6138,24 +5977,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 13**
-
-# Autonomous Development Workflow
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 13. Autonomous Development Workflow
+# Chapter 13 — Autonomous Development Workflow
 
 ### Detailed Explanation
 
@@ -6760,24 +6582,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 14**
-
-# Deployment Infrastructure
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 14. Deployment Infrastructure
+# Chapter 14 — Deployment Infrastructure
 
 ### Detailed Explanation
 
@@ -7298,24 +7103,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 15**
-
-# Artifact and Release Management
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 15. Artifact and Release Management
+# Chapter 15 — Artifact and Release Management
 
 ### Detailed Explanation
 
@@ -7620,24 +7408,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 16**
-
-# Observability and Monitoring
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 16. Observability and Monitoring
+# Chapter 16 — Observability and Monitoring
 
 ### Detailed Explanation
 
@@ -8092,24 +7863,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 17**
-
-# Scalability Architecture
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 17. Scalability Architecture
+# Chapter 17 — Scalability Architecture
 
 ### Detailed Explanation
 
@@ -8532,24 +8286,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 18**
-
-# Security Architecture
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 18. Security Architecture
+# Chapter 18 — Security Architecture
 
 ### Detailed Explanation
 
@@ -9010,24 +8747,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 19**
-
-# Sandboxed Execution Environment
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 19. Sandboxed Execution Environment
+# Chapter 19 — Sandboxed Execution Environment
 
 ### Detailed Explanation
 
@@ -9301,24 +9021,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 20**
-
-# Human Interaction Layer
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 20. Human Interaction Layer
+# Chapter 20 — Human Interaction Layer
 
 ### Detailed Explanation
 
@@ -9739,24 +9442,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 21**
-
-# Self-Improvement and Evolution Layer
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 21. Self-Improvement and Evolution Layer
+# Chapter 21 — Self-Improvement and Evolution Layer
 
 ### Detailed Explanation
 
@@ -10156,24 +9842,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 22**
-
-# Economic / Value Optimization System
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 22. Economic / Value Optimization System
+# Chapter 22 — Economic / Value Optimization System
 
 ### Detailed Explanation
 
@@ -10442,24 +10111,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 23**
-
-# Product Intelligence and UX Optimization System
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 23. Product Intelligence and UX Optimization System
+# Chapter 23 — Product Intelligence and UX Optimization System
 
 ### Detailed Explanation
 
@@ -10713,24 +10365,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 24**
-
-# Multi-Project Execution System
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 24. Multi-Project Execution System
+# Chapter 24 — Multi-Project Execution System
 
 ### Detailed Explanation
 
@@ -10762,6 +10397,7 @@ Through these integrations the system can coordinate large-scale autonomous deve
 ---
 
 Multi-Project Architecture
+
 
 **Figure 17 — Multi-Project Architecture**
 
@@ -11178,24 +10814,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 25**
-
-# Development Roadmap
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 25. Development Roadmap
+# Chapter 25 — Development Roadmap
 
 ### Detailed Explanation
 
@@ -11286,6 +10905,7 @@ Implement a CI/CD pipeline capable of deploying software changes.
 ---
 
 ### Architecture Diagram
+
 
 **Figure 18 — Phase 1 Architecture**
 
@@ -11467,6 +11087,7 @@ This phase introduces:
 
 ### Architecture Diagram
 
+
 **Figure 19 — Global Orchestrator Scaling**
 
 
@@ -11644,24 +11265,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 26**
-
-# Implementation Plan
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 26. Implementation Plan
+# Chapter 26 — Implementation Plan
 
 ### Detailed Explanation
 
@@ -11785,6 +11389,7 @@ Services communicate using:
 ---
 
 Service Interaction Diagram
+
 
 **Figure 20 — Service Interaction**
 
@@ -12128,24 +11733,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 27**
-
-# Disaster Recovery and Backup Strategy
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 27. Disaster Recovery and Backup Strategy
+# Chapter 27 — Disaster Recovery and Backup Strategy
 
 ### Detailed Explanation
 
@@ -12414,24 +12002,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 28**
-
-# Cost Model and Budget Control Architecture
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 28. Cost Model and Budget Control Architecture
+# Chapter 28 — Cost Model and Budget Control Architecture
 
 ### Detailed Explanation
 
@@ -12816,24 +12387,7 @@ Key definitions and architecture for this section.
 
 \newpage
 
-
-\newpage
-
----
-
-<div align="center">
-
-**Chapter 29**
-
-# Future Extensions
-
-Key definitions and architecture for this section.
-
-</div>
-
-\newpage
-
-# 29. Future Extensions
+# Chapter 29 — Future Extensions
 
 ### Detailed Explanation
 

@@ -1,15 +1,105 @@
-/* Professional book styling — print and screen */
+/* Professional book styling — print and screen
+   Typography: H1 = chapter, H2 = major section, H3 = subsystem, H4 = component, H5 = detail */
 
 @page {
   margin: 1in;
   size: A4;
 }
 
+/* Typography hierarchy */
+h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+  line-height: 1.3;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-top: 1.25em;
+  margin-bottom: 0.5em;
+}
+
+h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 1em;
+  margin-bottom: 0.4em;
+}
+
+h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 0.85em;
+  margin-bottom: 0.35em;
+}
+
+h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.75em;
+  margin-bottom: 0.3em;
+}
+
+/* Avoid heading immediately after heading without spacing */
+h1 + h2, h2 + h3, h3 + h4, h4 + h5 {
+  margin-top: 0.5em;
+}
+
+/* Body and layout */
+body {
+  font-family: "Inter", "Georgia", "DejaVu Serif", serif;
+  line-height: 1.55;
+  color: #1a1a1a;
+}
+
+/* Figures and tables: spacing and avoid break inside */
+figure, .figure, table {
+  margin: 1.25em 0;
+  page-break-inside: avoid;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table th {
+  font-weight: 700;
+  text-align: left;
+  padding: 0.4em 0.6em;
+  border-bottom: 2px solid #333;
+}
+
+table td {
+  padding: 0.35em 0.6em;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Code and data model blocks */
+pre, code {
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+}
+
+pre {
+  margin: 1em 0;
+  padding: 1em;
+  overflow-x: auto;
+  page-break-inside: avoid;
+}
+
+/* Horizontal rules for layer separation */
+hr {
+  margin: 1.5em 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
 @media print {
   body {
-    font-family: "Inter", "Georgia", serif;
     font-size: 11pt;
-    line-height: 1.5;
   }
 
   h1 {
@@ -32,7 +122,6 @@
     max-width: 100%;
   }
 
-  /* Keep Mermaid diagrams intact when printing to PDF */
   .mermaid,
   pre.mermaid,
   [class*="mermaid"] {
@@ -43,12 +132,5 @@
   .mermaid svg {
     max-width: 100%;
     height: auto;
-  }
-}
-
-/* Screen: ensure chapters start on new page when printing from browser */
-@media print {
-  .chapter h1 {
-    page-break-before: always;
   }
 }
