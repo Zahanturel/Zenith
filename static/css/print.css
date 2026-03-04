@@ -10,6 +10,19 @@
     display: none !important;
   }
 
+  /* Ensure full-book header and its contents are never shown when printing */
+  body.full-book header.full-book-header,
+  body.full-book .full-book-header,
+  body.full-book .full-book-header-inner {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+
   /* Two-column site layout becomes single column */
   .layout {
     display: block !important;
@@ -71,11 +84,13 @@
   .content-inner blockquote,
   .content-inner ul,
   .content-inner ol,
+  .content-inner .mermaid,
   .full-book-content pre,
   .full-book-content table,
   .full-book-content blockquote,
   .full-book-content ul,
-  .full-book-content ol {
+  .full-book-content ol,
+  .full-book-content .mermaid {
     page-break-inside: avoid;
   }
 

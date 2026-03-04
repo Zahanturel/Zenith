@@ -8,6 +8,7 @@ Requires: pip install markdown
 import os
 import re
 import sys
+import html as html_module
 from pathlib import Path
 
 try:
@@ -146,6 +147,8 @@ def markdown_to_html(md_path):
     raw = md_path.read_text(encoding="utf-8")
     # Preprocess: render markdown inside raw HTML blocks (e.g. <div># Heading</div>)
     raw = preprocess_markdown_in_html(raw)
+    # Preprocess: emit mermaid blocks as <pre class="mermaid"> so Mermaid.js can render them
+    raw = preprocess_mermaid_blocks(raw)
     html = markdown.markdown(
         raw,
         extensions=MD_EXTENSIONS,
@@ -171,6 +174,15 @@ def preprocess_markdown_in_html(raw):
         return f"<div{prefix}>\n{inner_html}\n</div>"
     # Match <div ...> ... </div> (non-greedy, so first closing div wins)
     return re.sub(r"<div([^>]*)>\s*([\s\S]*?)\s*</div>", replace_div, raw, count=0)
+
+
+def preprocess_mermaid_blocks(raw):
+    """Replace ```mermaid ... ``` with <pre class="mermaid">...</pre> so they render via Mermaid.js (not codehilite)."""
+    def repl(m):
+        content = m.group(1)
+        content = html_module.escape(content)
+        return "\n\n<pre class=\"mermaid\">\n" + content + "\n</pre>\n\n"
+    return re.sub(r"```mermaid\s*\n(.*?)```", repl, raw, flags=re.DOTALL)
 
 
 def build_page(entry_path, summary_entries, template, src_dir):
@@ -240,14 +252,17 @@ def build_full_book_html(src_dir, entries, pages_to_build, out_dir):
       <h1>AI Autonomous Development Platform</h1>
       <p>System Design Specification — Full document</p>
       <button type="button" id="print-book-btn" class="print-book-btn">Print Book</button>
-      <p class="full-book-instructions">Or use your browser's <strong>Print → Save as PDF</strong> to export the entire book.</p>
-      <p class="full-book-dl">Or <a href="AI-Autonomous-Development-Platform.pdf">download the pre-built PDF</a> if available.</p>
+      <p class="full-book-instructions">Use your browser's <strong>Print → Save as PDF</strong> to export the entire book.</p>
       <a href="index.html" class="full-book-back">← Back to documentation</a>
     </div>
   </header>
   <main class="full-book-content">
 {full_content}
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({{ startOnLoad: true }});
+  </script>
   <script>
     (function() {{
       var btn = document.getElementById('print-book-btn');
