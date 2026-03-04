@@ -1,4 +1,5 @@
 # Build the AADP book with mdBook and publish to GitHub Pages
+# Site: https://<username>.github.io/<repo>/ — If you get 404, set repo Settings → Pages → Source = "GitHub Actions"
 name: Build and publish book
 
 on:
@@ -32,11 +33,14 @@ jobs:
       - name: Install mdbook-mermaid (optional preprocessor)
         run: cargo install mdbook-mermaid
 
-      - name: Prepare book source
-        run: bash scripts/prepare_mdbook.sh
-
       - name: Build book
         run: mdbook build
+
+      - name: Verify site root
+        run: |
+          test -f book/index.html || { echo "::error::book/index.html not found — mdBook build failed to produce site root"; exit 1; }
+          touch book/.nojekyll
+          echo "Site root verified: book/index.html exists"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -53,3 +57,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Deployment URL
+        run: |
+          echo "Site deployed to ${{ steps.deployment.outputs.page_url }}"
+          echo "If you see 404 when visiting the URL, set **Settings → Pages → Build and deployment → Source** to **GitHub Actions** (not 'Deploy from a branch')."
