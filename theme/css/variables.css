@@ -17,7 +17,7 @@
   --font-mono: "JetBrains Mono", Consolas, monospace;
   --text-size: 16px;
   --line: 1.7;
-  --sidebar-w: 280px;
+  --sidebar-w: 300px;
   --card-max-w: 780px;
   --toc-w: 220px;
   --gap: 32px;
@@ -39,7 +39,7 @@
   --content-max-width: var(--card-max-w);
   --sidebar-width: var(--sidebar-w);
   --page-padding: var(--space-lg);
-  --menu-bar-height: 0px;
+  --menu-bar-height: 50px;
 }
 
 .navy, .coal, .ayu, .rust {

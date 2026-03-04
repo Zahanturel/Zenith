@@ -9,7 +9,7 @@
     function injectHeader() {
         var header = document.createElement('header');
         header.className = 'book-header';
-        header.innerHTML = '<div class="brand">AADP — System Design Specification</div><div class="repo-link"><a href="https://github.com/Zahanturel/Zenith">GitHub</a></div>';
+        header.innerHTML = '<div class="book-header-inner"><span class="brand">AADP — System Design Specification</span><span class="repo-link"><a href="https://github.com/Zahanturel/Zenith">GitHub</a></span></div>';
         document.body.insertBefore(header, document.body.firstChild);
         document.body.classList.add('has-book-header');
     }

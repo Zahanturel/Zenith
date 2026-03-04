@@ -44,7 +44,7 @@ h1:target::before, h2:target::before, h3:target::before, h4:target::before, h5:t
   width: 30px;
 }
 
-:target { scroll-margin-top: 1.5rem; }
+:target { scroll-margin-top: calc(var(--header-h) + var(--menu-bar-height) + 8px); }
 
 /* Page wrapper: full grey background */
 .page-wrapper {
@@ -58,6 +58,7 @@ h1:target::before, h2:target::before, h3:target::before, h4:target::before, h5:t
 .page {
   outline: 0;
   padding: 0 var(--page-padding);
+  margin-block-start: 0;
   min-height: 100vh;
 }
 
@@ -199,28 +200,50 @@ dd > p { margin-top: 0; }
 .blockquote-tag-warning .blockquote-tag-title { color: #D97706; }
 .blockquote-tag-caution .blockquote-tag-title { color: #DC2626; }
 
-/* Book header */
-.book-header, .zenith-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--space-md);
+/* Book header: occupies real layout space, no overlay */
+.book-header,
+.zenith-header {
+  flex-shrink: 0;
   min-height: var(--header-h);
-  padding: var(--space-md) var(--space-xl);
+  padding: 0;
   background: #ECEFF3;
   color: var(--text);
   border-bottom: 1px solid #E5E7EB;
   font-size: 0.95rem;
 }
-.book-header .brand, .zenith-header .brand { font-weight: 600; color: var(--text); }
-.book-header .repo-link a, .zenith-header .repo-link a {
+
+/* Header inner: aligned to same grid as sidebar + content + TOC */
+.book-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-h);
+  padding: 0 var(--page-padding);
+  margin: 0 auto;
+  max-width: 1032px;
+}
+
+@media (min-width: 1080px) {
+  .book-header-inner {
+    margin-left: var(--sidebar-w);
+    margin-right: auto;
+    max-width: 1032px;
+    padding-left: var(--page-padding);
+    padding-right: var(--page-padding);
+  }
+}
+
+.book-header .brand,
+.zenith-header .brand { font-weight: 600; color: var(--text); }
+.book-header .repo-link a,
+.zenith-header .repo-link a {
   color: var(--link);
   text-decoration: none;
   padding: 4px 8px;
   border-radius: 4px;
 }
-.book-header .repo-link a:hover, .zenith-header .repo-link a:hover {
+.book-header .repo-link a:hover,
+.zenith-header .repo-link a:hover {
   text-decoration: underline;
   background: var(--sidebar-hover);
 }
