@@ -1,10 +1,12 @@
 # Summary
 
+[How to Read This Book](README.md)
+
 # Front Matter
 
 - [Title Page](book-frontmatter/title-page.md)
 - [Preface](book-frontmatter/preface.md)
-- [How to Read This Book](index.md)
+- [Detailed index](index.md)
 
 ---
 
