@@ -1,0 +1,2 @@
+# Ensure shell scripts use LF so CI (Linux) runs them correctly
+*.sh text eol=lf
