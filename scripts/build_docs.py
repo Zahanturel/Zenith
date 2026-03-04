@@ -144,6 +144,8 @@ def add_ids_to_headings(html_content):
 def markdown_to_html(md_path):
     """Convert a single markdown file to HTML body content."""
     raw = md_path.read_text(encoding="utf-8")
+    # Preprocess: render markdown inside raw HTML blocks (e.g. <div># Heading</div>)
+    raw = preprocess_markdown_in_html(raw)
     html = markdown.markdown(
         raw,
         extensions=MD_EXTENSIONS,
@@ -153,6 +155,22 @@ def markdown_to_html(md_path):
     # Rewrite internal .md links to .html (leave external URLs unchanged)
     html = re.sub(r'href="(?!https?://)([^"]+?)\.md(#[^"]*)?"', r'href="\1.html\2"', html)
     return html
+
+
+def preprocess_markdown_in_html(raw):
+    """Run markdown on content inside block-level HTML (e.g. <div>...# ...</div>) so it renders."""
+    def replace_div(m):
+        prefix, inner = m.group(1), m.group(2)
+        if not inner.strip() or "#" not in inner and "**" not in inner:
+            return m.group(0)
+        inner_html = markdown.markdown(
+            inner,
+            extensions=MD_EXTENSIONS,
+            extension_config=MD_EXTENSION_CONFIG,
+        )
+        return f"<div{prefix}>\n{inner_html}\n</div>"
+    # Match <div ...> ... </div> (non-greedy, so first closing div wins)
+    return re.sub(r"<div([^>]*)>\s*([\s\S]*?)\s*</div>", replace_div, raw, count=0)
 
 
 def build_page(entry_path, summary_entries, template, src_dir):
@@ -179,15 +197,33 @@ def build_page(entry_path, summary_entries, template, src_dir):
 
 
 def build_full_book_html(src_dir, entries, pages_to_build, out_dir):
-    """Build a single full-book.html with all content in SUMMARY order for Print → Save as PDF."""
+    """Build a single full-book.html with all content in SUMMARY order for Print → Save as PDF.
+    Excludes full-specification.md so the book is not duplicated (we use chapterized pages only).
+    """
+    # Exclude the monolithic full-specification.md to avoid duplicating the entire book
+    book_pages = [(t, p) for t, p in pages_to_build if p.strip().lower() != "full-specification.md"]
+    # Build section id from path for in-page anchors (e.g. chapters/02-x.md -> ch-chapters-02-x)
+    def path_to_section_id(path):
+        s = path.strip().replace("\\", "/").replace(".md", "").replace("/", "-")
+        return "ch-" + s if s else "ch-index"
+    section_ids = {path_to_html(p): path_to_section_id(p) for _, p in book_pages}
     parts = []
-    for title, path in pages_to_build:
+    for title, path in book_pages:
         src_path = src_dir / path
         if not src_path.exists():
             continue
         content_html = markdown_to_html(src_path)
-        parts.append(f'<section class="book-chapter">\n{content_html}\n</section>')
+        section_id = path_to_section_id(path)
+        parts.append(f'<section id="{section_id}" class="book-chapter">\n{content_html}\n</section>')
     full_content = "\n\n".join(parts)
+    # Rewrite internal links to other chapter pages -> anchors within this document
+    for href, sid in section_ids.items():
+        # Match href="chapters/02-x.html" or href="book-frontmatter/preface.html" etc.
+        full_content = re.sub(
+            r'href="' + re.escape(href) + r'(#[^"]*)?"',
+            r'href="#' + sid + r'\1"',
+            full_content
+        )
     html = f"""<!DOCTYPE html>
 <html lang="en" class="full-book">
 <head>
@@ -203,7 +239,8 @@ def build_full_book_html(src_dir, entries, pages_to_build, out_dir):
     <div class="full-book-header-inner">
       <h1>AI Autonomous Development Platform</h1>
       <p>System Design Specification — Full document</p>
-      <p class="full-book-instructions">Use your browser's <strong>Print → Save as PDF</strong> to export the entire book as one PDF.</p>
+      <button type="button" id="print-book-btn" class="print-book-btn">Print Book</button>
+      <p class="full-book-instructions">Or use your browser's <strong>Print → Save as PDF</strong> to export the entire book.</p>
       <p class="full-book-dl">Or <a href="AI-Autonomous-Development-Platform.pdf">download the pre-built PDF</a> if available.</p>
       <a href="index.html" class="full-book-back">← Back to documentation</a>
     </div>
@@ -211,6 +248,12 @@ def build_full_book_html(src_dir, entries, pages_to_build, out_dir):
   <main class="full-book-content">
 {full_content}
   </main>
+  <script>
+    (function() {{
+      var btn = document.getElementById('print-book-btn');
+      if (btn) btn.addEventListener('click', function() {{ window.print(); }});
+    }})();
+  </script>
 </body>
 </html>"""
     (out_dir / "full-book.html").write_text(html, encoding="utf-8")
@@ -321,9 +364,6 @@ def main():
 
     # GitHub Pages: disable Jekyll
     (out_dir / ".nojekyll").write_text("", encoding="utf-8")
-
-    # Full book: single HTML with all content in order for PDF export
-    build_full_book_html(src_dir, entries, pages_to_build, out_dir)
 
     # Full book: single HTML with all content in order for PDF export
     build_full_book_html(src_dir, entries, pages_to_build, out_dir)

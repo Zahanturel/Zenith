@@ -73,7 +73,9 @@
   .content-inner ol,
   .full-book-content pre,
   .full-book-content table,
-  .full-book-content blockquote {
+  .full-book-content blockquote,
+  .full-book-content ul,
+  .full-book-content ol {
     page-break-inside: avoid;
   }
 
