@@ -16,6 +16,7 @@ command = "mdbook-mermaid"
 optional = true
 
 [output.html]
+site-url = "/Zenith/"
 additional-js = ["mermaid-init.js"]
 additional-css = ["theme/book.css"]
 
