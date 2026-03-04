@@ -6,7 +6,7 @@ This document references the following internal and external sources. Use this p
 
 ## Internal References
 
-- **Terminology Glossary** — [00-terminology-and-front-matter.md](00-terminology-and-front-matter.md)
+- **Terminology Glossary** — [00-terminology-and-front-matter.md](chapters/00-terminology-and-front-matter.md)
 - **Canonical Data Models** — Defined in [01-executive-overview.md](01-executive-overview.md); referenced throughout Sections 2–29.
 - **Section cross-references** — The specification uses in-document section numbers (e.g. Section 4, Section 10). When reading a chapter, refer to the [index](index.md) for the mapping from section number to chapter file.
 
