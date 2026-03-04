@@ -1,132 +1,237 @@
-/* Professional book styling — print and screen
-   Typography: H1 = chapter, H2 = major section, H3 = subsystem, H4 = component, H5 = detail */
+/* ==========================================================================
+   AADP Documentation — Typography, code blocks, tables, figures, print
+   Soft-light theme — professional technical documentation
+   ========================================================================== */
+
+/* ---------- Sidebar navigation ---------- */
+.sidebar {
+  background-color: var(--sidebar-bg) !important;
+  color: var(--sidebar-fg);
+}
+
+.sidebar .sidebar-scrollbox {
+  padding: var(--space-3) var(--space-2);
+}
+
+.sidebar .chapter a {
+  color: var(--sidebar-fg);
+  border-radius: 4px;
+  padding: 6px 12px;
+  margin: 2px 4px;
+}
+
+.sidebar .chapter a:hover {
+  background: var(--sidebar-hover-bg);
+  text-decoration: none;
+}
+
+.sidebar .chapter li.active > a {
+  background: var(--sidebar-active-bg);
+  font-weight: 600;
+  color: var(--heading);
+}
+
+/* ---------- Typography scale ---------- */
+/* H1 — 40px | H2 — 30px | H3 — 24px | H4 — 20px | H5 — 18px | Body — 16px | Code — 14px */
+/* Line height: 1.65 | Paragraph spacing: 18px */
+
+.content h1 {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--heading);
+  line-height: 1.65;
+  margin-top: 0;
+  margin-bottom: 0.75em;
+}
+
+.content h2 {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--heading);
+  line-height: 1.65;
+  margin-top: 48px;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid var(--borders);
+}
+
+.content h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--heading);
+  line-height: 1.65;
+  margin-top: 32px;
+  margin-bottom: 0.5em;
+}
+
+.content h4 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--heading);
+  line-height: 1.65;
+  margin-top: 24px;
+  margin-bottom: 0.4em;
+}
+
+.content h5 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--heading);
+  line-height: 1.65;
+  margin-top: 24px;
+  margin-bottom: 0.35em;
+}
+
+.content h6 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--fg-secondary);
+  line-height: 1.65;
+  margin-top: 18px;
+  margin-bottom: 0.3em;
+}
+
+/* Adjacent headings: reduce top margin */
+.content h1 + h2,
+.content h2 + h3,
+.content h3 + h4,
+.content h4 + h5,
+.content h5 + h6 {
+  margin-top: 0.5em;
+}
+
+/* ---------- Code blocks ---------- */
+/* background: #F3F4F6 | border: 1px solid #E5E7EB | padding: 16px | border-radius: 8px | JetBrains Mono */
+
+.content pre {
+  margin: 24px 0;
+  overflow-x: auto;
+}
+
+.content pre code {
+  display: block;
+  padding: 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  font-family: var(--mono-font);
+  background: #F3F4F6;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+}
+
+.content :not(pre) > code {
+  font-family: var(--mono-font);
+  font-size: 14px;
+  padding: 2px 6px;
+  background: var(--code-bg);
+  border: 1px solid var(--borders);
+  border-radius: 4px;
+}
+
+/* ---------- Tables ---------- */
+/* Header: #F1F3F7 | Borders: #E5E7EB | Row hover: #F9FAFB */
+
+.content table {
+  margin: 24px 0;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 15px;
+}
+
+.content table thead {
+  background: #F1F3F7;
+}
+
+.content table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--heading);
+  border: 1px solid #E5E7EB;
+}
+
+.content table td {
+  padding: 12px 16px;
+  border: 1px solid #E5E7EB;
+}
+
+.content table tbody tr:hover {
+  background: #F9FAFB;
+}
+
+/* ---------- Figures and diagrams ---------- */
+/* margin-top: 32px | margin-bottom: 32px | center */
+
+.content figure,
+.content .figure,
+.content .mermaid {
+  margin-top: 32px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.content figure img,
+.content .figure img {
+  max-width: 100%;
+  height: auto;
+}
+
+.content figcaption {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--fg-secondary);
+  line-height: 1.5;
+}
+
+/* ---------- Horizontal rules ---------- */
+
+.content hr {
+  margin: 32px 0;
+  border: none;
+  border-top: 1px solid var(--borders);
+}
+
+/* ---------- Print ---------- */
 
 @page {
   margin: 1in;
   size: A4;
 }
 
-/* Typography hierarchy */
-h1 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin-top: 1.5em;
-  margin-bottom: 0.75em;
-  line-height: 1.3;
-}
-
-h2 {
-  font-size: 1.35rem;
-  font-weight: 700;
-  margin-top: 1.25em;
-  margin-bottom: 0.5em;
-}
-
-h3 {
-  font-size: 1.15rem;
-  font-weight: 600;
-  margin-top: 1em;
-  margin-bottom: 0.4em;
-}
-
-h4 {
-  font-size: 1.05rem;
-  font-weight: 600;
-  margin-top: 0.85em;
-  margin-bottom: 0.35em;
-}
-
-h5 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-top: 0.75em;
-  margin-bottom: 0.3em;
-}
-
-/* Avoid heading immediately after heading without spacing */
-h1 + h2, h2 + h3, h3 + h4, h4 + h5 {
-  margin-top: 0.5em;
-}
-
-/* Body and layout */
-body {
-  font-family: "Inter", "Georgia", "DejaVu Serif", serif;
-  line-height: 1.55;
-  color: #1a1a1a;
-}
-
-/* Figures and tables: spacing and avoid break inside */
-figure, .figure, table {
-  margin: 1.25em 0;
-  page-break-inside: avoid;
-}
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-table th {
-  font-weight: 700;
-  text-align: left;
-  padding: 0.4em 0.6em;
-  border-bottom: 2px solid #333;
-}
-
-table td {
-  padding: 0.35em 0.6em;
-  border-bottom: 1px solid #ddd;
-}
-
-/* Code and data model blocks */
-pre, code {
-  font-family: "Consolas", "Monaco", "Courier New", monospace;
-}
-
-pre {
-  margin: 1em 0;
-  padding: 1em;
-  overflow-x: auto;
-  page-break-inside: avoid;
-}
-
-/* Horizontal rules for layer separation */
-hr {
-  margin: 1.5em 0;
-  border: none;
-  border-top: 1px solid #ccc;
-}
-
 @media print {
   body {
     font-size: 11pt;
-  }
-
-  h1 {
-    page-break-before: always;
-  }
-
-  h1:first-of-type {
-    page-break-before: avoid;
-  }
-
-  h2, h3 {
-    page-break-after: avoid;
-  }
-
-  pre, figure, table {
-    page-break-inside: avoid;
+    background: #fff;
   }
 
   .content main {
     max-width: 100%;
   }
 
-  .mermaid,
-  pre.mermaid,
-  [class*="mermaid"] {
+  .content h1 {
+    page-break-before: always;
+    font-size: 28pt;
+  }
+
+  .content h1:first-of-type {
+    page-break-before: avoid;
+  }
+
+  .content h2,
+  .content h3 {
+    page-break-after: avoid;
+  }
+
+  .content pre,
+  .content figure,
+  .content table,
+  .content .mermaid {
     page-break-inside: avoid;
-    max-width: 100%;
+  }
+
+  .content pre code {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
   }
 
   .mermaid svg {

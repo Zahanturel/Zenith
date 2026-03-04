@@ -17,6 +17,7 @@ optional = true
 
 [output.html]
 site-url = "/Zenith/"
+default-theme = "light"
 additional-js = ["mermaid-init.js"]
 additional-css = ["theme/book.css"]
 
