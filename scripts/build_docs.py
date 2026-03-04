@@ -123,28 +123,6 @@ def render_sidebar(entries, current_html_path):
     return "\n".join(out)
 
 
-def extract_page_toc(html_content):
-    """Extract h2/h3 from content and build page TOC."""
-    h2h3 = re.findall(r'<h([23])[^>]*id="([^"]*)"[^>]*>([^<]*)</h[23]>', html_content)
-    if not h2h3:
-        h2h3 = re.findall(r'<h([23])[^>]*>([^<]*)</h[23]>', html_content)
-        if not h2h3:
-            return ""
-        out = ['<nav class="page-toc" aria-label="On this page">', '<p class="page-toc-title">On this page</p>', "<ul>"]
-        for level, text in h2h3:
-            slug = re.sub(r"[^a-z0-9]+", "-", text.strip().lower()).strip("-")
-            cls = "toc-h3" if level == "3" else "toc-h2"
-            out.append(f'<li class="{cls}"><a href="#{slug}">{text}</a></li>')
-        out.append("</ul></nav>")
-        return "\n".join(out)
-    out = ['<nav class="page-toc" aria-label="On this page">', '<p class="page-toc-title">On this page</p>', "<ul>"]
-    for level, id_val, text in h2h3:
-        cls = "toc-h3" if level == "3" else "toc-h2"
-        out.append(f'<li class="{cls}"><a href="#{id_val}">{text}</a></li>')
-    out.append("</ul></nav>")
-    return "\n".join(out)
-
-
 def add_ids_to_headings(html_content):
     """Ensure h2/h3 have id attributes for TOC linking."""
     def repl(m):
@@ -187,7 +165,6 @@ def build_page(entry_path, summary_entries, template, src_dir):
     # Base path for links to site root (e.g. "" or "../" or "../../")
     depth = len(Path(out_html_path).parts) - 1
     base = "../" * depth if depth else ""
-    page_toc_html = extract_page_toc(content_html)
     sidebar_html = render_sidebar(summary_entries, out_html_path)
     title = Path(entry_path).stem
     if "chapter" in entry_path.lower() or "appendix" in entry_path.lower():
@@ -196,10 +173,92 @@ def build_page(entry_path, summary_entries, template, src_dir):
         title = Path(entry_path).stem.replace("-", " ").title()
     html = template.replace("{{content}}", content_html)
     html = html.replace("{{sidebar}}", sidebar_html)
-    html = html.replace("{{page_toc}}", page_toc_html)
     html = html.replace("{{title}}", title)
     html = html.replace("{{base}}", base)
     return out_html_path, html
+
+
+def build_full_book_html(src_dir, entries, pages_to_build, out_dir):
+    """Build a single full-book.html with all content in SUMMARY order for Print → Save as PDF."""
+    parts = []
+    for title, path in pages_to_build:
+        src_path = src_dir / path
+        if not src_path.exists():
+            continue
+        content_html = markdown_to_html(src_path)
+        parts.append(f'<section class="book-chapter">\n{content_html}\n</section>')
+    full_content = "\n\n".join(parts)
+    html = f"""<!DOCTYPE html>
+<html lang="en" class="full-book">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Autonomous Development Platform — Full Book</title>
+  <link rel="stylesheet" href="static/css/layout.css">
+  <link rel="stylesheet" href="static/css/print.css" media="print">
+  <link rel="stylesheet" href="static/css/full-book.css">
+</head>
+<body>
+  <header class="full-book-header no-print">
+    <div class="full-book-header-inner">
+      <h1>AI Autonomous Development Platform</h1>
+      <p>System Design Specification — Full document</p>
+      <p class="full-book-instructions">Use your browser's <strong>Print → Save as PDF</strong> to export the entire book as one PDF.</p>
+      <p class="full-book-dl">Or <a href="AI-Autonomous-Development-Platform.pdf">download the pre-built PDF</a> if available.</p>
+      <a href="index.html" class="full-book-back">← Back to documentation</a>
+    </div>
+  </header>
+  <main class="full-book-content">
+{full_content}
+  </main>
+</body>
+</html>"""
+    (out_dir / "full-book.html").write_text(html, encoding="utf-8")
+
+
+def build_pdf(src_dir, entries, out_dir):
+    """Build a single PDF from all chapters using pandoc (optional). Returns True if successful."""
+    import subprocess
+    import tempfile
+    pages_to_build = []
+    for typ, data in entries:
+        if typ == "link":
+            _, path = data
+            path = path.strip()
+            if path.endswith(".md") and path not in [p for _, p in pages_to_build]:
+                pages_to_build.append((data[0], path))
+    if not pages_to_build:
+        return False
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False, encoding="utf-8") as f:
+        for title, path in pages_to_build:
+            src_path = src_dir / path
+            if not src_path.exists():
+                continue
+            f.write(src_path.read_text(encoding="utf-8"))
+            f.write("\n\n\\newpage\n\n")
+        combined_md = f.name
+    out_pdf = out_dir / "AI-Autonomous-Development-Platform.pdf"
+    try:
+        subprocess.run(
+            [
+                "pandoc", combined_md,
+                "-o", str(out_pdf),
+                "--toc", "--toc-depth=2",
+                "-V", "papersize=a4", "-V", "geometry:margin=1in",
+                "-V", "documentclass=book", "-V", "fontsize=11pt",
+                "--number-sections",
+            ],
+            check=True,
+            capture_output=True,
+        )
+        return True
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return False
+    finally:
+        try:
+            os.unlink(combined_md)
+        except OSError:
+            pass
 
 
 def main():
@@ -263,6 +322,19 @@ def main():
     # GitHub Pages: disable Jekyll
     (out_dir / ".nojekyll").write_text("", encoding="utf-8")
 
+    # Full book: single HTML with all content in order for PDF export
+    build_full_book_html(src_dir, entries, pages_to_build, out_dir)
+
+    # Full book: single HTML with all content in order for PDF export
+    build_full_book_html(src_dir, entries, pages_to_build, out_dir)
+
+    # Optional: generate PDF with pandoc if requested and available
+    if "--pdf" in sys.argv:
+        if build_pdf(src_dir, entries, out_dir):
+            print("PDF written to site/AI-Autonomous-Development-Platform.pdf")
+        else:
+            print("PDF not built (install pandoc to generate PDF)", file=sys.stderr)
+
     # Copy static assets
     if STATIC_DIR.exists():
         import shutil
@@ -271,7 +343,7 @@ def main():
             shutil.rmtree(dest_static)
         shutil.copytree(STATIC_DIR, dest_static)
 
-    print(f"Built {built} pages + index.html -> {out_dir}")
+    print(f"Built {built} pages + index.html + full-book.html -> {out_dir}")
 
 
 if __name__ == "__main__":

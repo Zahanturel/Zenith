@@ -20,9 +20,9 @@ python scripts/reformat_spec.py
 
 Output is written to `src/full-specification-reformatted.md`.
 
-## Typography and print (theme/book.css)
+## Typography and print
 
-The theme enforces:
+The print stylesheet enforces:
 
 - **H1** — Chapter title; large spacing above; page break before each chapter in print.
 - **H2** — Major section; medium spacing.

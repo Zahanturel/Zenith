@@ -17,8 +17,11 @@ Thumbs.db
 *.swo
 *~
 
-# Build / output (if you add a book builder later)
+# Build / output
 _book/
 book/
 site/
 output/
+
+# Generated doc (reformat script output)
+src/full-specification-reformatted.md

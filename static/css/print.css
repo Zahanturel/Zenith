@@ -1,13 +1,16 @@
-/* Print: hide nav, single column, readable document */
+/* Print: book-style layout — no nav, continuous document, page-break control */
 
 @media print {
+  /* Hide all navigation and UI */
   .site-header .sidebar-toggle,
   .sidebar,
-  .page-toc-wrap,
-  .page-toc {
+  .header-print-link,
+  .full-book-header,
+  .no-print {
     display: none !important;
   }
 
+  /* Two-column site layout becomes single column */
   .layout {
     display: block !important;
     max-width: none !important;
@@ -22,31 +25,79 @@
     max-width: none !important;
   }
 
+  /* Full-book page: continuous content only */
+  .full-book .full-book-content {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  .full-book .book-chapter {
+    margin-bottom: 1.5em !important;
+  }
+
+  /* Base typography for print */
   body {
     font-size: 11pt;
     line-height: 1.5;
+    color: #1a1a1a;
   }
 
-  .content-inner h1 {
+  /* Chapter/section starts on new page (except first) */
+  .content-inner h1,
+  .full-book-content .book-chapter {
     page-break-before: always;
-    font-size: 24pt;
   }
 
-  .content-inner h1:first-of-type {
+  .content-inner h1:first-of-type,
+  .full-book-content .book-chapter:first-of-type {
     page-break-before: avoid;
   }
 
+  /* Keep headings with following content */
+  .content-inner h1,
   .content-inner h2,
-  .content-inner h3 {
+  .content-inner h3,
+  .content-inner h4,
+  .full-book-content h1,
+  .full-book-content h2,
+  .full-book-content h3,
+  .full-book-content h4 {
     page-break-after: avoid;
   }
 
+  /* Avoid breaking inside blocks */
   .content-inner pre,
   .content-inner table,
-  .content-inner blockquote {
+  .content-inner blockquote,
+  .content-inner ul,
+  .content-inner ol,
+  .full-book-content pre,
+  .full-book-content table,
+  .full-book-content blockquote {
     page-break-inside: avoid;
   }
 
+  /* Headings and spacing */
+  .content-inner h1,
+  .full-book-content .book-chapter > h1 {
+    font-size: 18pt;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .content-inner h2,
+  .full-book-content h2 {
+    font-size: 14pt;
+    margin-top: 1.25em;
+  }
+
+  .content-inner h3,
+  .full-book-content h3 {
+    font-size: 12pt;
+    margin-top: 1em;
+  }
+
+  /* Links: show URL for external, no decoration for internal */
   a[href^="#"]::after {
     content: "";
   }
@@ -54,9 +105,10 @@
   a[href^="http"]::after {
     content: " (" attr(href) ")";
     font-size: 0.85em;
-    color: #666;
+    color: #555;
   }
 
+  /* Site header when printing a single page (keep title) */
   .site-header {
     border-bottom: 1px solid #ccc;
     padding-bottom: 8px;
@@ -64,5 +116,29 @@
 
   .site-title {
     font-size: 14pt;
+  }
+
+  /* Code and tables: readable in print */
+  pre, code {
+    font-size: 9pt;
+  }
+
+  pre {
+    background: #f5f5f5 !important;
+    border: 1px solid #ddd !important;
+    padding: 10pt !important;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  th, td {
+    border: 1px solid #ccc;
+    padding: 6pt 8pt;
+  }
+
+  th {
+    background: #f0f0f0 !important;
   }
 }

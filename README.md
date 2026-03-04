@@ -69,8 +69,9 @@ cd site && python -m http.server 8000
 **What the build does:**
 
 - Reads **src/SUMMARY.md** for navigation order and hierarchy (front matter, chapters, appendix, references).
-- Converts each linked Markdown file to HTML and wraps it in the layout template (header, sidebar, main content, optional “On this page” TOC).
-- Writes **site/** with `index.html` (redirect to first page), all chapter and front-matter pages, and **site/static/** (CSS). Internal `.md` links in content are rewritten to `.html`.
+- Converts each linked Markdown file to HTML and wraps it in the layout template (header, sidebar, main content).
+- Writes **site/** with `index.html` (redirect to first page), all chapter and front-matter pages, **site/full-book.html** (single-page version for PDF export), and **site/static/** (CSS). Internal `.md` links in content are rewritten to `.html`.
+- Optional: run `python scripts/build_docs.py --pdf` to generate **site/AI-Autonomous-Development-Platform.pdf** (requires [Pandoc](https://pandoc.org/) installed).
 
 ---
 
@@ -87,14 +88,27 @@ python scripts/split_to_chapters.py
 
 ## Layout and structure
 
-The static site uses a simple, stable layout:
+The static site uses a two-column layout:
 
-- **Header:** Site title, link to home; on small screens, a toggle for the sidebar.
-- **Sidebar:** Persistent navigation generated from **src/SUMMARY.md** (sections: Front Matter, chapters, Full specification, References). Reflects the exact document hierarchy.
+- **Header:** Site title, link to home, and **Export as PDF** (links to the full-book page). On small screens, a toggle for the sidebar.
+- **Sidebar:** Persistent navigation generated from **src/SUMMARY.md** (front matter, chapters, full specification, references). Reflects the full document hierarchy including sections and subsections.
 - **Main content:** Rendered Markdown (tables, code blocks, headings). Headings get IDs for in-page links.
-- **On this page:** Optional right-hand TOC for H2/H3 on the current page (hidden on small screens).
 
-Layout and print behavior are controlled only by **static/css/layout.css** and **static/css/print.css**. No JavaScript is required except a small script to toggle the sidebar on narrow viewports.
+Layout and print behavior are controlled by **static/css/layout.css**, **static/css/print.css**, and **static/css/full-book.css**. A small script toggles the sidebar on narrow viewports.
+
+---
+
+## Exporting the full book as PDF
+
+You can obtain the entire documentation as a single PDF in two ways:
+
+1. **Print to PDF (no extra tools):** Open **site/full-book.html** in your browser (or use the **Export as PDF** link in the header). Use **Print → Save as PDF** (or Print → Microsoft Print to PDF on Windows). The print stylesheet hides the header and produces a continuous, book-style document with proper page breaks.
+
+2. **Pre-built PDF (optional):** If [Pandoc](https://pandoc.org/) is installed, run:
+   ```bash
+   python scripts/build_docs.py --pdf
+   ```
+   This generates **site/AI-Autonomous-Development-Platform.pdf** with all chapters in order, a table of contents, and numbered sections. The full-book page will then offer a "download the pre-built PDF" link when the file exists.
 
 ---
 
@@ -132,7 +146,7 @@ The sidebar and all internal links are driven by **SUMMARY.md**; no other config
 
 ## Print
 
-Use the browser’s **Print → Save as PDF** (or print) on any page. **static/css/print.css** hides the header toggle, sidebar, and “On this page” panel so the printed output is a clean, readable document.
+Use the browser’s **Print → Save as PDF** on any page. **static/css/print.css** hides the sidebar and header controls so the printed output is a clean, readable document. For the full book in one PDF, open **full-book.html** and use Print → Save as PDF.
 
 ---
 
