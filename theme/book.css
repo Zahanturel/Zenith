@@ -1,23 +1,6 @@
 /* AADP Documentation — Three columns, sidebar, TOC, typography. */
 
-/* ---- Sticky menu bar: stick below book header so it never covers content ---- */
-body.has-book-header #mdbook-menu-bar.sticky,
-body.has-book-header #mdbook-menu-bar-hover-placeholder:hover + #mdbook-menu-bar,
-body.has-book-header #mdbook-menu-bar:hover,
-body.has-book-header html.sidebar-visible #mdbook-menu-bar {
-  top: var(--header-h) !important;
-}
-
-body.has-book-header #mdbook-menu-bar-hover-placeholder {
-  top: var(--header-h) !important;
-}
-
-/* Theme popup: below header + menu bar when header present */
-body.has-book-header .theme-popup {
-  top: calc(var(--header-h) + var(--menu-bar-height)) !important;
-}
-
-/* ---- Nav arrows: align with layout grid instead of viewport edges ---- */
+/* ---- Nav arrows: align with layout grid ---- */
 @media (min-width: 1080px) {
   .nav-chapters.previous {
     left: calc(var(--sidebar-w) + var(--page-padding)) !important;
@@ -89,122 +72,66 @@ body.has-book-header .theme-popup {
 .page-toc a:hover { color: #2563EB; }
 .page-toc a.active { color: #2563EB; font-weight: 500; }
 
-/* ---- Left sidebar: clear hierarchy and scroll context ---- */
+/* ---- Left sidebar (reverted to previous implementation) ---- */
 .sidebar {
   background: #ECEFF3 !important;
   color: #111827;
   border-right: 1px solid #E5E7EB;
-  width: var(--sidebar-w);
-}
-
-body.has-book-header .sidebar {
-  top: 56px;
-  height: calc(100vh - 56px);
 }
 
 .sidebar .sidebar-scrollbox {
-  padding: 12px 10px 24px 14px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  padding: 16px 12px;
 }
 
-/* Indentation scale: L1 = 0, L2 = 16px, L3 = 32px */
 .chapter {
   list-style: none;
   padding-left: 0;
-  margin: 0;
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
-.chapter > li {
-  margin: 0;
-}
+.chapter > li { margin: 0; }
+.chapter > li + li { margin-top: 2px; }
 
-/* ---- Level 1: Section / group label (not a link) ---- */
-.sidebar .chapter li.part-title {
+.sidebar .chapter a {
   display: block;
-  padding: 20px 12px 8px 12px;
-  margin: 0 6px 4px 6px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #6B7280;
-  border: none;
-  cursor: default;
-  line-height: 1.3;
-}
-
-.sidebar .chapter > li.part-title:first-child {
-  padding-top: 8px;
-}
-
-/* ---- Spacer: visible section divider ---- */
-.sidebar .chapter .spacer {
-  height: 1px;
-  margin: 12px 12px 8px 12px;
-  padding: 0;
-  background: #E5E7EB;
-  list-style: none;
-}
-
-/* ---- Level 2: Page link (top-level) ---- */
-.sidebar .chapter > li.chapter-item > .chapter-link-wrapper > a,
-.sidebar .chapter > li.chapter-item > a {
-  display: block;
-  padding: 8px 12px 8px 12px;
+  padding: 8px 12px;
   margin: 0 6px;
   color: #111827;
   text-decoration: none;
   border-radius: 6px;
-  border-left: 3px solid transparent;
-  font-size: 14px;
-  line-height: 1.4;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition: background 0.15s ease;
 }
 
-.sidebar .chapter > li.chapter-item > .chapter-link-wrapper > a:hover,
-.sidebar .chapter > li.chapter-item > a:hover {
+.sidebar .chapter a:hover {
   background: #F0F3F9;
 }
 
-.sidebar .chapter > li.chapter-item.active > .chapter-link-wrapper > a,
-.sidebar .chapter > li.chapter-item > .chapter-link-wrapper > a.active,
-.sidebar .chapter > li.chapter-item.active > a,
-.sidebar .chapter > li.chapter-item > a.active {
+.sidebar .chapter li.active > a,
+.sidebar .chapter li a.active {
   background: #E6EBF5;
-  border-left-color: #2563EB;
   font-weight: 600;
   color: #111827;
 }
 
-/* ---- Level 3: Nested (subsection) — 16px indent ---- */
+.sidebar .chapter li.part-title {
+  padding: 8px 12px;
+  margin: 16px 6px 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #4B5563;
+}
+
 .sidebar .chapter .section,
 .sidebar .chapter li ol {
-  list-style: none;
   padding-left: 16px;
-  margin: 2px 0 6px 0;
-  border-left: 1px solid #E5E7EB;
-  margin-left: 8px;
+  margin: 2px 0;
 }
 
 .sidebar .chapter .section li a,
 .sidebar .chapter li ol li a {
-  font-size: 13px;
-  padding: 6px 12px 6px 10px;
-  margin: 0 6px 0 0;
-}
-
-/* ---- Level 4 if ever used — 32px indent ---- */
-.sidebar .chapter .section .section,
-.sidebar .chapter li ol ol {
-  padding-left: 16px;
-  margin-left: 0;
-}
-
-.sidebar .chapter .section .section li a,
-.sidebar .chapter li ol ol li a {
-  font-size: 12px;
+  font-size: 0.9em;
 }
 
 /* ---- Prev/next ---- */

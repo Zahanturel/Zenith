@@ -3,24 +3,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-<!-- Book header: inject at top of body -->
-<script>
-(function() {
-    function injectHeader() {
-        var header = document.createElement('header');
-        header.className = 'book-header';
-        header.innerHTML = '<div class="book-header-inner"><span class="brand">AADP — System Design Specification</span><span class="repo-link"><a href="https://github.com/Zahanturel/Zenith">GitHub</a></span></div>';
-        document.body.insertBefore(header, document.body.firstChild);
-        document.body.classList.add('has-book-header');
-    }
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', injectHeader);
-    } else {
-        injectHeader();
-    }
-})();
-</script>
-
 <!-- Three-column layout: wrap content in .doc-layout and add right-hand "On this page" TOC -->
 <script>
 (function() {
