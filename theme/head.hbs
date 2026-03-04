@@ -1,0 +1,21 @@
+<!-- Inter font for typography -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Book header: inject at top of body -->
+<script>
+(function() {
+    function injectHeader() {
+        var header = document.createElement('header');
+        header.className = 'book-header';
+        header.innerHTML = '<div class="brand">AADP — System Design Specification</div><div class="repo-link"><a href="https://github.com/Zahanturel/Zenith">GitHub</a></div>';
+        document.body.insertBefore(header, document.body.firstChild);
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', injectHeader);
+    } else {
+        injectHeader();
+    }
+})();
+</script>

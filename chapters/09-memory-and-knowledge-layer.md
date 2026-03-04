@@ -1,5 +1,5 @@
 
-# 9. Memory and Knowledge Layer
+# Chapter 9 — Memory and Knowledge Layer
 
 Detailed Explanation
 The Memory and Knowledge Layer (MKL) provides the persistent institutional memory of the AI Autonomous Development Platform (AADP). It stores, organizes, retrieves, and evolves knowledge that agents rely on for reasoning, planning, and decision making.
@@ -82,27 +82,23 @@ This ensures traceability and reliability.
 
 ---
 
-Memory System Architecture
-The Memory and Knowledge Layer combines multiple storage technologies to represent different types of knowledge.
-                KNOWLEDGE GENERATION
-                        │
-                        ▼
-                MEMORY INGESTION API
-                        │
-                        ▼
-          ┌─────────────┼──────────────┐
-          ▼             ▼              ▼
-      VECTOR STORE   DOCUMENT DB   GRAPH DB
-          │             │              │
-          ▼             ▼              ▼
-    Semantic Memory   Knowledge     Relationship
-                      Repository       Graph
-                        │
-                        ▼
-                  RETRIEVAL API
-                        │
-                        ▼
-                       AGENTS
+**Figure 9.1 — Memory System Architecture**
+
+```mermaid
+flowchart TB
+    KG[Knowledge Generation]
+    KG --> MIA[Memory Ingestion API]
+    MIA --> VS[Vector Store]
+    MIA --> DD[Document DB]
+    MIA --> GDB[Graph DB]
+    VS --> SM[Semantic Memory]
+    DD --> KR[Knowledge Repository]
+    GDB --> RG[Relationship Graph]
+    SM --> RA[Retrieval API]
+    KR --> RA
+    RG --> RA
+    RA --> AG[Agents]
+```
 
 ---
 
@@ -130,17 +126,15 @@ Examples of knowledge inputs include:
 
 ---
 
-Example Ingestion Workflow
-Agent completes task
-       │
-       ▼
-Knowledge summary generated
-       │
-       ▼
-Memory ingestion service
-       │
-       ▼
-Knowledge stored in memory system
+**Figure 9.2 — Ingestion Workflow**
+
+```mermaid
+flowchart TB
+    ACT[Agent completes task]
+    ACT --> KSG[Knowledge summary generated]
+    KSG --> MIS[Memory ingestion service]
+    MIS --> KSS[Knowledge stored in memory system]
+```
 
 ---
 
@@ -223,16 +217,14 @@ Examples include:
 
 ---
 
-Graph Representation
-        SERVICE RELATIONSHIP GRAPH
+**Figure 9.3 — Service Relationship Graph**
 
-    Payment Service
-          │
-          ▼
-    Transaction Processor
-          │
-          ▼
-    Banking API
+```mermaid
+flowchart TB
+    PS[Payment Service]
+    PS --> TP[Transaction Processor]
+    TP --> BA[Banking API]
+```
 
 ---
 
@@ -270,23 +262,17 @@ Agents retrieve knowledge through a unified retrieval interface.
 
 ---
 
-Retrieval Pipeline
-Agent Query
-      │
-      ▼
-Query Interpreter
-      │
-      ▼
-Vector Search
-      │
-      ▼
-Graph Query
-      │
-      ▼
-Document Retrieval
-      │
-      ▼
-Context Assembly
+**Figure 9.4 — Retrieval Pipeline**
+
+```mermaid
+flowchart TB
+    AQ[Agent Query]
+    AQ --> QI[Query Interpreter]
+    QI --> VSS[Vector Search]
+    VSS --> GQ[Graph Query]
+    GQ --> DR[Document Retrieval]
+    DR --> CA[Context Assembly]
+```
 
 ---
 
@@ -316,23 +302,17 @@ Knowledge entries pass through several lifecycle stages.
 
 ---
 
-Knowledge Lifecycle Diagram
-Knowledge Created
-       │
-       ▼
-Knowledge Indexed
-       │
-       ▼
-Knowledge Retrieved
-       │
-       ▼
-Knowledge Referenced
-       │
-       ▼
-Knowledge Updated
-       │
-       ▼
-Knowledge Archived
+**Figure 9.5 — Knowledge Lifecycle**
+
+```mermaid
+flowchart TB
+    KC[Knowledge Created]
+    KC --> KI[Knowledge Indexed]
+    KI --> KRet[Knowledge Retrieved]
+    KRet --> KRef[Knowledge Referenced]
+    KRef --> KU[Knowledge Updated]
+    KU --> KA[Knowledge Archived]
+```
 
 ---
 
@@ -382,21 +362,16 @@ Older knowledge is moved to lower-cost storage.
 
 ---
 
-Example Workflow
-Example: Incident Learning
-Production failure occurs
-       │
-       ▼
-Incident report generated
-       │
-       ▼
-Memory ingestion service stores report
-       │
-       ▼
-Embedding generated
-       │
-       ▼
-Future agents retrieve incident knowledge
+**Figure 9.6 — Incident Learning Workflow**
+
+```mermaid
+flowchart TB
+    PFO[Production failure occurs]
+    PFO --> IRG[Incident report generated]
+    IRG --> MIS[Memory ingestion service stores report]
+    MIS --> EG[Embedding generated]
+    EG --> FARK[Future agents retrieve incident knowledge]
+```
 
 ---
 

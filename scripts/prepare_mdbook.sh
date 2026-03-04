@@ -26,6 +26,17 @@ if [[ -f "${BOOK_ROOT}/full-specification.md" ]]; then
   echo "Wrote ${SRC_DIR}/full-specification.md"
 fi
 
+# Copy book front matter (title page, preface)
+FRONTMATTER_DIR="${BOOK_ROOT}/book-frontmatter"
+if [[ -d "${FRONTMATTER_DIR}" ]]; then
+  for f in "${FRONTMATTER_DIR}"/*.md; do
+    if [[ -f "$f" ]]; then
+      cp "$f" "${SRC_DIR}/"
+      echo "Wrote ${SRC_DIR}/$(basename "$f")"
+    fi
+  done
+fi
+
 # Copy all chapter markdown files
 for f in "${CHAPTERS_DIR}"/*.md; do
   if [[ -f "$f" ]]; then

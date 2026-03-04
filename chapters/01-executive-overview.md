@@ -1,5 +1,5 @@
 
-# 1. Executive Overview
+# Chapter 1 — Executive Overview
 
 Detailed Explanation
 The AI Autonomous Development Platform (AADP) is a distributed, multi-agent software engineering system designed to autonomously design, develop, test, deploy, and continuously improve software products with minimal human intervention.
@@ -145,41 +145,24 @@ These stages operate continuously, forming a closed-loop development lifecycle.
 
 ---
 
-Architecture Diagram
-The following diagram illustrates the high-level structure of the platform. Governance & Safety is a cross-cutting layer: all agent actions are evaluated by it before execution (situated logically between Orchestration and Agent Execution).
-                     HUMAN INTERFACE
-                          │
-                          ▼
-                HUMAN INTERACTION LAYER
-         (Dashboard, Feedback, Approvals, Control)
-                          │
-                          ▼
-             GOVERNANCE & SAFETY LAYER (cross-cutting)
-      (Policy Engine, Approval System, Risk Evaluation — validates before execution)
-                          │
-                          ▼
-                   ORCHESTRATION LAYER
-           (Task Scheduler, Workflow Engine,
-            Policy Gateway, Cost Controller)
-                          │
-       ┌──────────────────┼──────────────────┐
-       ▼                  ▼                  ▼
- AGENT EXECUTION    MEMORY & KNOWLEDGE    CODEBASE SYSTEM
-     LAYER              LAYER            (Agents + Codebase
- (via Orchestrator   (Vector DB +        under governance)
-  inference API)     Knowledge Graph)
-                          │
-         ┌───────────────┴───────────────┐
-         ▼                               ▼
- DEVELOPMENT INFRASTRUCTURE    OBSERVABILITY & MONITORING
- (CI/CD, Sandbox, Build)      (Metrics, Logs, Traces)
-                          │
-                          ▼
-                DEPLOYMENT & RUNTIME LAYER
-        (Cloud Compute, Kubernetes, Production)
-                          │
-                          ▼
-                    DEPLOYED SYSTEMS
+**Figure 1.1 — High-Level Architecture**
+
+```mermaid
+flowchart TB
+    HI[Human Interface]
+    HI --> HIL[Human Interaction Layer]
+    HIL --> GSL[Governance and Safety Layer]
+    GSL --> OL[Orchestration Layer]
+    OL --> AEL[Agent Execution Layer]
+    OL --> MKL[Memory and Knowledge Layer]
+    OL --> CUS[Codebase System]
+    AEL --> DI[Development Infrastructure]
+    MKL --> DI
+    CUS --> OM[Observability and Monitoring]
+    DI --> DRL[Deployment and Runtime Layer]
+    OM --> DRL
+    DRL --> DS[Deployed Systems]
+```
 
 ---
 
@@ -360,33 +343,20 @@ MemoryEntry
 
 ---
 
-Example Workflow
-Below is a simplified example of how the system processes a new feature request.
-User submits feature request
-        │
-        ▼
-Product Manager Agent analyzes request
-        │
-        ▼
-Architect Agent designs system changes
-        │
-        ▼
-Tasks created for engineering agents
-        │
-        ▼
-Backend and Frontend Agents implement code
-        │
-        ▼
-QA Agent runs automated tests
-        │
-        ▼
-Security Agent scans changes
-        │
-        ▼
-DevOps Agent deploys system
-        │
-        ▼
-Monitoring Agents observe production behavior
+**Figure 1.2 — Example Feature Request Workflow**
+
+```mermaid
+flowchart TB
+    USR[User submits feature request]
+    USR --> PM[Product Manager Agent analyzes request]
+    PM --> AA[Architect Agent designs system changes]
+    AA --> TC[Tasks created for engineering agents]
+    TC --> BE[Backend and Frontend Agents implement code]
+    BE --> QA[QA Agent runs automated tests]
+    QA --> SA[Security Agent scans changes]
+    SA --> DO[DevOps Agent deploys system]
+    DO --> MA[Monitoring Agents observe production behavior]
+```
 
 ---
 

@@ -1,5 +1,5 @@
 
-# 4. High Level Architecture
+# Chapter 4 — High Level Architecture
 
 Detailed Explanation
 The High Level Architecture defines the structural composition of the AI Autonomous Development Platform (AADP) and explains how the system’s primary subsystems interact to support large-scale autonomous software engineering.
@@ -40,6 +40,8 @@ The platform supports multi-project execution and multiple teams or clients. Mul
 
 System Architecture Overview
 The following diagram illustrates the full architecture.
+
+**Figure 4.1 — High Level Architecture**
 
 ```mermaid
 flowchart TB
@@ -197,15 +199,18 @@ The orchestrator manages:
 
 ---
 
-Architecture Diagram
-                    ORCHESTRATOR
-                         │
-       ┌─────────────────┼─────────────────┐
-       ▼                 ▼                 ▼
-   Workflow Engine   Task Scheduler   Resource Manager
-       │                 │                 │
-       ▼                 ▼                 ▼
-   Task Creation    Task Assignment    Compute Allocation
+**Figure 4.2 — Orchestration Layer**
+
+```mermaid
+flowchart TB
+    O[Orchestrator]
+    O --> W[Workflow Engine]
+    O --> T[Task Scheduler]
+    O --> R[Resource Manager]
+    W --> TC[Task Creation]
+    T --> TA[Task Assignment]
+    R --> CA[Compute Allocation]
+```
 
 ---
 
@@ -272,23 +277,17 @@ Responsible for improving system processes.
 
 ---
 
-Agent Architecture Diagram
-                AGENT WORKER
-                     │
-                     ▼
-               Task Retrieval
-                     │
-                     ▼
-               Context Retrieval
-                     │
-                     ▼
-               Reasoning Engine
-                     │
-                     ▼
-               Result Generation
-                     │
-                     ▼
-               Task Completion
+**Figure 4.3 — Agent Worker Pipeline**
+
+```mermaid
+flowchart TB
+    A[Agent Worker]
+    A --> TR[Task Retrieval]
+    TR --> CR[Context Retrieval]
+    CR --> RE[Reasoning Engine]
+    RE --> RG[Result Generation]
+    RG --> TC[Task Completion]
+```
 
 ---
 
@@ -407,33 +406,20 @@ The deployed applications themselves.
 
 ---
 
-Example System Workflow
-Feature Development Workflow
-Feature Request
-      │
-      ▼
-Product Manager Agent
-      │
-      ▼
-Architect Agent
-      │
-      ▼
-Task Breakdown
-      │
-      ▼
-Engineering Agents
-      │
-      ▼
-Testing Pipeline
-      │
-      ▼
-Security Validation
-      │
-      ▼
-Deployment
-      │
-      ▼
-Monitoring
+**Figure 4.4 — Feature Development Workflow**
+
+```mermaid
+flowchart TB
+    FR[Feature Request]
+    FR --> PM[Product Manager Agent]
+    PM --> AA[Architect Agent]
+    AA --> TB[Task Breakdown]
+    TB --> EG[Engineering Agents]
+    EG --> TP[Testing Pipeline]
+    TP --> SV[Security Validation]
+    SV --> DEP[Deployment]
+    DEP --> MON[Monitoring]
+```
 
 ---
 

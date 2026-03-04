@@ -1,5 +1,5 @@
 
-# 17. Scalability Architecture
+# Chapter 17 — Scalability Architecture
 
 Detailed Explanation
 The Scalability Architecture defines how the AI Autonomous Development Platform (AADP) scales to support large-scale autonomous software development across multiple projects, repositories, and agent pools.
@@ -62,27 +62,24 @@ Process large volumes of monitoring data.
 
 ---
 
-High-Level Scaling Architecture
-                  GLOBAL LOAD BALANCER
-                         │
-                         ▼
-                  ORCHESTRATOR CLUSTER
-        ┌─────────────────┼─────────────────┐
-        ▼                 ▼                 ▼
-    TASK QUEUES       AGENT POOLS      POLICY SERVICES
-        │                 │                 │
-        ▼                 ▼                 ▼
-   TASK DATABASE      AGENT RUNTIME      SAFETY ENGINE
-        │
-        ▼
-  KNOWLEDGE INFRASTRUCTURE
- (Vector DB, Graph DB, Document DB)
-        │
-        ▼
-   DEPLOYMENT PIPELINES
-        │
-        ▼
-   OBSERVABILITY SYSTEM
+**Figure 17.1 — High-Level Scaling Architecture**
+
+```mermaid
+flowchart TB
+    GLB[Global Load Balancer]
+    GLB --> OC[Orchestrator Cluster]
+    OC --> TQ[Task Queues]
+    OC --> AP[Agent Pools]
+    OC --> PS[Policy Services]
+    TQ --> TDB[Task Database]
+    AP --> AR[Agent Runtime]
+    PS --> SE[Safety Engine]
+    TDB --> KI[Knowledge Infrastructure]
+    AR --> KI
+    SE --> KI
+    KI --> DPP[Deployment Pipelines]
+    DPP --> OBS[Observability System]
+```
 
 ---
 
@@ -130,14 +127,18 @@ Examples include:
 
 Agent Scaling Architecture
 Agents are deployed as worker pools that process tasks from distributed queues.
-           TASK QUEUE
-               │
-    ┌──────────┼──────────┐
-    ▼          ▼          ▼
-Agent Worker Agent Worker Agent Worker
-    │          │          │
-    ▼          ▼          ▼
-Task Result  Task Result  Task Result
+**Figure 17.2 — Task Queue Distribution**
+
+```mermaid
+flowchart TB
+    TQ[Task Queue]
+    TQ --> AW1[Agent Worker]
+    TQ --> AW2[Agent Worker]
+    TQ --> AW3[Agent Worker]
+    AW1 --> TR1[Task Result]
+    AW2 --> TR2[Task Result]
+    AW3 --> TR3[Task Result]
+```
 
 ---
 
@@ -330,19 +331,16 @@ Strategies include:
 
 Example Workflow
 Example: Handling Task Surge
-Large number of tasks generated
-        │
-        ▼
-Queue length increases
-        │
-        ▼
-Auto-scaling triggers
-        │
-        ▼
-Additional agent workers launched
-        │
-        ▼
-Task processing capacity increases
+**Figure 17.3 — Auto-Scaling Workflow**
+
+```mermaid
+flowchart TB
+    LNT[Large number of tasks generated]
+    LNT --> QLI[Queue length increases]
+    QLI --> AST[Auto-scaling triggers]
+    AST --> AAL[Additional agent workers launched]
+    AAL --> TPCI[Task processing capacity increases]
+```
 
 ---
 

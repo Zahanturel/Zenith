@@ -1,5 +1,5 @@
 
-# 27. Disaster Recovery and Backup Strategy
+# Chapter 27 — Disaster Recovery and Backup Strategy
 
 Detailed Explanation
 The Disaster Recovery and Backup Strategy (DRBS) defines how the AI Autonomous Development Platform (AADP) maintains system availability and protects critical data in the event of infrastructure failures, service outages, or catastrophic incidents.
@@ -24,22 +24,22 @@ The strategy combines multiple mechanisms including:
 
 ---
 
-Disaster Recovery Architecture
-                PRIMARY REGION
-                      │
-        ┌─────────────┼─────────────┐
-        ▼             ▼             ▼
-   METADATA DB   VECTOR DB      GRAPH DB
-        │             │             │
-        └─────── REPLICATION ───────┘
-                      │
-                      ▼
-                BACKUP REGION
-                      │
-          ┌───────────┼───────────┐
-          ▼           ▼           ▼
-      DB SNAPSHOTS  ARTIFACTS   QUEUE STATE
-The backup region can assume operations if the primary region fails.
+**Figure 27.1 — Disaster Recovery Architecture**
+
+```mermaid
+flowchart TB
+    PR[Primary Region]
+    PR --> MD[Metadata DB]
+    PR --> VD[Vector DB]
+    PR --> GD[Graph DB]
+    MD --> REP[Replication]
+    VD --> REP
+    GD --> REP
+    REP --> BR[Backup Region]
+    BR --> DBS[DB Snapshots]
+    BR --> ART[Artifacts]
+    BR --> QS[Queue State]
+```
 
 ---
 
@@ -109,14 +109,14 @@ The artifact registry stores:
 • compiled binaries
 • build artifacts
 Artifacts are replicated across multiple storage regions.
-Artifact Build
-      │
-      ▼
-Primary Artifact Registry
-      │
-      ▼
-Replicated Artifact Storage
-Replication ensures that deployments can continue even if a region fails.
+**Figure 27.2 — Artifact Replication**
+
+```mermaid
+flowchart TB
+    AB[Artifact Build]
+    AB --> PAR[Primary Artifact Registry]
+    PAR --> RAS[Replicated Artifact Storage]
+```
 
 ---
 
@@ -142,35 +142,35 @@ This prevents permanent loss of learned engineering knowledge.
 
 Multi-Region Deployment
 Critical platform services are deployed across multiple geographic regions.
-Example deployment:
-Region A (Primary)
-    │
-    ├─ Agent Runtime
-    ├─ Orchestrator
-    └─ Databases
+**Figure 27.3 — Multi-Region Deployment**
 
-Region B (Backup)
-    │
-    ├─ Standby Agent Runtime
-    ├─ Standby Orchestrator
-    └─ Replicated Databases
-If Region A fails, Region B becomes active.
+```mermaid
+flowchart TB
+    subgraph RA[Region A Primary]
+        AR[Agent Runtime]
+        OR[Orchestrator]
+        DB[Databases]
+    end
+    subgraph RB[Region B Backup]
+        SAR[Standby Agent Runtime]
+        SOR[Standby Orchestrator]
+        RDB[Replicated Databases]
+    end
+```
 
 ---
 
 Failover Workflow
 The failover system automatically detects infrastructure failures.
-Infrastructure failure detected
-        │
-        ▼
-Failover system activated
-        │
-        ▼
-Traffic redirected to backup region
-        │
-        ▼
-Services restored
-This minimizes downtime.
+**Figure 27.4 — Failover Workflow**
+
+```mermaid
+flowchart TB
+    IFD[Infrastructure failure detected]
+    IFD --> FSA[Failover system activated]
+    FSA --> TRB[Traffic redirected to backup region]
+    TRB --> SR[Services restored]
+```
 
 ---
 
@@ -211,18 +211,15 @@ while system_running:
 
 ---
 
-Example Failure Scenario
-Example: Database Failure
-Primary database failure detected
-        │
-        ▼
-Failover database promoted
-        │
-        ▼
-Traffic redirected
-        │
-        ▼
-System resumes operation
+**Figure 27.5 — Database Failure Recovery**
+
+```mermaid
+flowchart TB
+    PDFD[Primary database failure detected]
+    PDFD --> FDP[Failover database promoted]
+    FDP --> TR[Traffic redirected]
+    TR --> SRO[System resumes operation]
+```
 
 ---
 

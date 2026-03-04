@@ -1,11 +1,10 @@
-# Terminology and Front Matter
+# Chapter 0 — Terminology and Front Matter
 
 **Document:** AI Autonomous Development Platform — System Design Specification  
 **Version:** 1.0  
 **Last Updated:** 4th March 2026  
 **Status:** Final  
 **Author:** Zahan Turel  
-**Organization:** Zenith  
 **Confidentiality:** Internal / Restricted  
 
 Reviewed; all critical and structural issues addressed. Ready for implementation.

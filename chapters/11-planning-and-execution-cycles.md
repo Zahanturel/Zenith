@@ -1,5 +1,5 @@
 
-# 11. Planning and Execution Cycles
+# Chapter 11 — Planning and Execution Cycles
 
 Detailed Explanation
 The Planning and Execution Cycles (PEC) define the operational loop through which the AI Autonomous Development Platform (AADP) performs continuous software development.
@@ -30,33 +30,20 @@ These stages together form a closed-loop autonomous development system.
 
 ---
 
-Autonomous Development Cycle Overview
-The following diagram illustrates the complete development cycle.
-            SYSTEM OBSERVATION
-                   │
-                   ▼
-        OPPORTUNITY IDENTIFICATION
-                   │
-                   ▼
-         PLANNING & TASK CREATION
-                   │
-                   ▼
-              TASK EXECUTION
-                   │
-                   ▼
-           VALIDATION & TESTING
-                   │
-                   ▼
-               DEPLOYMENT
-                   │
-                   ▼
-           MONITORING & FEEDBACK
-                   │
-                   ▼
-            KNOWLEDGE INTEGRATION
-                   │
-                   ▼
-             NEXT DEVELOPMENT CYCLE
+**Figure 11.1 — Autonomous Development Cycle**
+
+```mermaid
+flowchart TB
+    SO[System Observation]
+    SO --> OI[Opportunity Identification]
+    OI --> PT[Planning and Task Creation]
+    PT --> TE[Task Execution]
+    TE --> VT[Validation and Testing]
+    VT --> DEP[Deployment]
+    DEP --> MF[Monitoring and Feedback]
+    MF --> KI[Knowledge Integration]
+    KI --> NDC[Next Development Cycle]
+```
 
 ---
 
@@ -85,14 +72,14 @@ Observation is performed by:
 
 ---
 
-Example Observation Workflow
-Monitoring system detects high latency
-        │
-        ▼
-Observation agents collect metrics
-        │
-        ▼
-Incident analysis report generated
+**Figure 11.2 — Observation Workflow**
+
+```mermaid
+flowchart TB
+    MSD[Monitoring system detects high latency]
+    MSD --> OAC[Observation agents collect metrics]
+    OAC --> IAR[Incident analysis report generated]
+```
 
 ---
 
@@ -120,12 +107,13 @@ Sources include:
 
 ---
 
-Example Opportunity
-High API latency detected
-        │
-        ▼
-Opportunity identified:
-Optimize database queries
+**Figure 11.3 — Opportunity Identification**
+
+```mermaid
+flowchart TB
+    HAL[High API latency detected]
+    HAL --> OI[Opportunity: Optimize database queries]
+```
 
 ---
 
@@ -150,17 +138,15 @@ Responsible Agents
 
 ---
 
-Planning Workflow
-Opportunity identified
-       │
-       ▼
-Architect agent analyzes system
-       │
-       ▼
-Implementation plan created
-       │
-       ▼
-Tasks generated
+**Figure 11.4 — Planning Workflow**
+
+```mermaid
+flowchart TB
+    OI[Opportunity identified]
+    OI --> AAA[Architect agent analyzes system]
+    AAA --> IPC[Implementation plan created]
+    IPC --> TG[Tasks generated]
+```
 
 ---
 
@@ -190,17 +176,15 @@ Execution tasks are handled by:
 
 ---
 
-Execution Workflow
-Task assigned to agent
-        │
-        ▼
-Agent retrieves context
-        │
-        ▼
-Agent generates implementation
-        │
-        ▼
-Code committed to repository
+**Figure 11.5 — Execution Workflow**
+
+```mermaid
+flowchart TB
+    TAA[Task assigned to agent]
+    TAA --> ARC[Agent retrieves context]
+    ARC --> AGI[Agent generates implementation]
+    AGI --> CCR[Code committed to repository]
+```
 
 ---
 
@@ -224,17 +208,15 @@ Responsible Agents
 
 ---
 
-Validation Workflow
-Code committed
-      │
-      ▼
-Automated tests run
-      │
-      ▼
-Security scans executed
-      │
-      ▼
-Validation report generated
+**Figure 11.6 — Validation Workflow**
+
+```mermaid
+flowchart TB
+    CC[Code committed]
+    CC --> ATR[Automated tests run]
+    ATR --> SSE[Security scans executed]
+    SSE --> VRG[Validation report generated]
+```
 
 ---
 
@@ -258,20 +240,16 @@ Deployment tasks are handled by:
 
 ---
 
-Deployment Workflow
-Validated build
-      │
-      ▼
-Deployment pipeline triggered
-      │
-      ▼
-Canary deployment
-      │
-      ▼
-System health verified
-      │
-      ▼
-Full deployment
+**Figure 11.7 — Deployment Workflow**
+
+```mermaid
+flowchart TB
+    VB[Validated build]
+    VB --> DPT[Deployment pipeline triggered]
+    DPT --> CD[Canary deployment]
+    CD --> SHV[System health verified]
+    SHV --> FD[Full deployment]
+```
 
 ---
 
@@ -296,14 +274,14 @@ Responsible Systems
 
 ---
 
-Feedback Workflow
-Deployment completed
-       │
-       ▼
-Monitoring agents observe metrics
-       │
-       ▼
-Performance data collected
+**Figure 11.8 — Feedback Workflow**
+
+```mermaid
+flowchart TB
+    DC[Deployment completed]
+    DC --> MAO[Monitoring agents observe metrics]
+    MAO --> PDC[Performance data collected]
+```
 
 ---
 
@@ -406,27 +384,18 @@ Planning cycles focus only on new opportunities.
 
 ---
 
-Example Workflow
-Example: Performance Optimization Cycle
-Latency increase detected
-       │
-       ▼
-Opportunity identified
-       │
-       ▼
-Architect designs caching strategy
-       │
-       ▼
-Backend agent implements caching
-       │
-       ▼
-QA tests performance
-       │
-       ▼
-DevOps deploys change
-       │
-       ▼
-Monitoring confirms improvement
+**Figure 11.9 — Performance Optimization Cycle**
+
+```mermaid
+flowchart TB
+    LID[Latency increase detected]
+    LID --> OI[Opportunity identified]
+    OI --> ADS[Architect designs caching strategy]
+    ADS --> BAI[Backend agent implements caching]
+    BAI --> QTP[QA tests performance]
+    QTP --> DOC[DevOps deploys change]
+    DOC --> MCI[Monitoring confirms improvement]
+```
 
 ---
 

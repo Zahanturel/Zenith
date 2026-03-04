@@ -1,5 +1,5 @@
 
-# 10. Safety and Guardrail System
+# Chapter 10 — Safety and Guardrail System
 
 Detailed Explanation
 The Safety and Guardrail System (SGS) is the governance and protection framework of the AI Autonomous Development Platform (AADP). It ensures that autonomous agents operate within strictly defined operational, security, and regulatory boundaries.
@@ -46,24 +46,21 @@ Explicit architecture: CI Pipeline → Policy Engine → Deployment Approval
 
 ---
 
-                     AGENT ACTION
-                          │
-                          ▼
-                  SAFETY VALIDATION
-                          │
-        ┌─────────────────┼─────────────────┐
-        ▼                 ▼                 ▼
-   POLICY ENGINE     RISK ANALYZER    SECURITY SCANNER
-        │                 │                 │
-        └───────────┬─────┴─────┬───────────┘
-                    ▼           ▼
-            APPROVAL WORKFLOW   AUTOMATED TESTS
-                    │
-                    ▼
-             DEPLOYMENT GUARDRAILS
-                    │
-                    ▼
-                ACTION EXECUTION
+**Figure 10.1 — Safety Validation Pipeline**
+
+```mermaid
+flowchart TB
+    AA[Agent Action]
+    AA --> SV[Safety Validation]
+    SV --> PE[Policy Engine]
+    SV --> RA[Risk Analyzer]
+    SV --> SS[Security Scanner]
+    PE --> AW[Approval Workflow]
+    RA --> AW
+    SS --> AT[Automated Tests]
+    AW --> DG[Deployment Guardrails]
+    DG --> AE[Action Execution]
+```
 
 ---
 
@@ -119,15 +116,15 @@ Responsibilities
 
 ---
 
-Policy Evaluation Workflow
-Agent requests action
-        │
-        ▼
-Policy engine evaluates request
-        │
-        ├── Allowed → continue
-        │
-        └── Blocked → raise violation
+**Figure 10.2 — Policy Evaluation Workflow**
+
+```mermaid
+flowchart TB
+    AR[Agent requests action]
+    AR --> PE[Policy engine evaluates request]
+    PE -->|Allowed| CONT[Continue]
+    PE -->|Blocked| VI[Raise violation]
+```
 
 ---
 
@@ -186,20 +183,16 @@ The system performs:
 
 ---
 
-Vulnerability Detection Workflow
-Code generated
-       │
-       ▼
-Static analysis
-       │
-       ▼
-Dependency scan
-       │
-       ▼
-Secret detection
-       │
-       ▼
-Security report generated
+**Figure 10.3 — Vulnerability Detection Workflow**
+
+```mermaid
+flowchart TB
+    CG[Code generated]
+    CG --> SA[Static analysis]
+    SA --> DS[Dependency scan]
+    DS --> SD[Secret detection]
+    SD --> SR[Security report generated]
+```
 
 ---
 
@@ -229,18 +222,16 @@ Examples of Approval-Requiring Actions
 
 ---
 
-Approval Workflow Diagram
-High Risk Action
-      │
-      ▼
-Approval Request
-      │
-      ▼
-Human Reviewer
-      │
-      ├── Approve → continue
-      │
-      └── Reject → cancel action
+**Figure 10.4 — Approval Workflow**
+
+```mermaid
+flowchart TB
+    HRA[High Risk Action]
+    HRA --> AReq[Approval Request]
+    AReq --> HR[Human Reviewer]
+    HR -->|Approve| CONT[Continue]
+    HR -->|Reject| CA[Cancel action]
+```
 
 ---
 
@@ -271,20 +262,16 @@ Examples include:
 
 ---
 
-Deployment Flow
-Deployment request
-       │
-       ▼
-Safety validation
-       │
-       ▼
-Canary deployment
-       │
-       ▼
-Health monitoring
-       │
-       ▼
-Full rollout
+**Figure 10.5 — Deployment Flow**
+
+```mermaid
+flowchart TB
+    DR[Deployment request]
+    DR --> SV[Safety validation]
+    SV --> CD[Canary deployment]
+    CD --> HM[Health monitoring]
+    HM --> FR[Full rollout]
+```
 
 ---
 
@@ -340,27 +327,18 @@ Approval requests are managed through queue-based systems.
 
 ---
 
-Example Workflow
-Example: Production Deployment
-DevOps agent requests deployment
-       │
-       ▼
-Policy validation
-       │
-       ▼
-Risk analysis
-       │
-       ▼
-Security validation
-       │
-       ▼
-Human approval required
-       │
-       ▼
-Deployment guardrails activated
-       │
-       ▼
-Service deployed safely
+**Figure 10.6 — Production Deployment Workflow**
+
+```mermaid
+flowchart TB
+    DAR[DevOps agent requests deployment]
+    DAR --> PV[Policy validation]
+    PV --> RAN[Risk analysis]
+    RAN --> SVA[Security validation]
+    SVA --> HAR[Human approval required]
+    HAR --> DGA[Deployment guardrails activated]
+    DGA --> SDS[Service deployed safely]
+```
 
 ---
 

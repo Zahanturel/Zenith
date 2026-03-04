@@ -1,5 +1,5 @@
 
-# 28. Cost Model and Budget Control Architecture
+# Chapter 28 — Cost Model and Budget Control Architecture
 
 Detailed Explanation
 The Cost Model and Budget Control Architecture defines how the AI Autonomous Development Platform (AADP) estimates, monitors, and controls the operational costs associated with running the system in production environments.
@@ -26,21 +26,20 @@ Enforcing strict limits on resource usage to prevent runaway workloads.
 
 ---
 
-Cost Architecture Overview
-                PLATFORM OPERATIONS
-                       │
-                       ▼
-            COMPUTE INFRASTRUCTURE
-                       │
-        ┌──────────────┼──────────────┐
-        ▼              ▼              ▼
-    AGENT RUNTIME   STORAGE SYSTEM   DEPLOYMENT
-        │              │              │
-        ▼              ▼              ▼
-   AI MODEL COSTS   DATA STORAGE    CI/CD COSTS
-        │
-        ▼
-   OBSERVABILITY COSTS
+**Figure 28.1 — Cost Architecture Overview**
+
+```mermaid
+flowchart TB
+    PO[Platform Operations]
+    PO --> CINF[Compute Infrastructure]
+    CINF --> AR[Agent Runtime]
+    CINF --> SS[Storage System]
+    CINF --> DEP[Deployment]
+    AR --> AMC[AI Model Costs]
+    SS --> DS[Data Storage]
+    DEP --> CICD[CI/CD Costs]
+    AMC --> OC[Observability Costs]
+```
 
 ---
 
@@ -134,11 +133,15 @@ Storage systems store:
 ---
 
 Storage Architecture
-           STORAGE LAYER
-                │
-     ┌──────────┼──────────┐
-     ▼          ▼          ▼
-Object Storage Vector DB  Relational DB
+**Figure 28.2 — Storage Layer**
+
+```mermaid
+flowchart TB
+    SL[Storage Layer]
+    SL --> OS[Object Storage]
+    SL --> VDB[Vector DB]
+    SL --> RDB[Relational DB]
+```
 
 ---
 
@@ -276,17 +279,15 @@ Triggers include:
 
 ---
 
-Circuit Breaker Workflow
-Cost spike detected
-       │
-       ▼
-Agent execution paused
-       │
-       ▼
-Alert sent to operators
-       │
-       ▼
-System investigation
+**Figure 28.3 — Circuit Breaker Workflow**
+
+```mermaid
+flowchart TB
+    CSD[Cost spike detected]
+    CSD --> AEP[Agent execution paused]
+    AEP --> ASO[Alert sent to operators]
+    ASO --> SI[System investigation]
+```
 
 ---
 

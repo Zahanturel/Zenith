@@ -1,5 +1,5 @@
 
-# 21. Self-Improvement and Evolution Layer
+# Chapter 21 — Self-Improvement and Evolution Layer
 
 Detailed Explanation
 The Self-Improvement and Evolution Layer (SIEL) enables the AI Autonomous Development Platform (AADP) to improve its own capabilities over time.
@@ -28,29 +28,19 @@ to analyze system behavior and implement improvements.
 
 ---
 
-Evolution Architecture
-                 SYSTEM OPERATIONS
-                        │
-                        ▼
-                 PERFORMANCE DATA
-                        │
-                        ▼
-                ANALYSIS ENGINE
-                        │
-                        ▼
-            IMPROVEMENT OPPORTUNITIES
-                        │
-                        ▼
-             EXPERIMENTATION SYSTEM
-                        │
-                        ▼
-              VALIDATION & TESTING
-                        │
-                        ▼
-                APPROVED IMPROVEMENTS
-                        │
-                        ▼
-                SYSTEM UPDATE
+**Figure 21.1 — Evolution Architecture**
+
+```mermaid
+flowchart TB
+    SO[System Operations]
+    SO --> PD[Performance Data]
+    PD --> AE[Analysis Engine]
+    AE --> IO[Improvement Opportunities]
+    IO --> ES[Experimentation System]
+    ES --> VT[Validation and Testing]
+    VT --> AI[Approved Improvements]
+    AI --> SU[System Update]
+```
 
 ---
 
@@ -101,17 +91,15 @@ The analysis engine consumes data from:
 
 ---
 
-Analysis Workflow
-Collect operational metrics
-        │
-        ▼
-Analyze performance trends
-        │
-        ▼
-Identify inefficiencies
-        │
-        ▼
-Generate improvement opportunities
+**Figure 21.2 — Analysis Workflow**
+
+```mermaid
+flowchart TB
+    COM[Collect operational metrics]
+    COM --> APT[Analyze performance trends]
+    APT --> II[Identify inefficiencies]
+    II --> GIO[Generate improvement opportunities]
+```
 
 ---
 
@@ -167,17 +155,15 @@ Experiments may include:
 
 ---
 
-Experiment Architecture
-Improvement proposal
-        │
-        ▼
-Experimental environment
-        │
-        ▼
-Controlled execution
-        │
-        ▼
-Performance comparison
+**Figure 21.3 — Experiment Architecture**
+
+```mermaid
+flowchart TB
+    IP[Improvement proposal]
+    IP --> EE[Experimental environment]
+    EE --> CE[Controlled execution]
+    CE --> PC[Performance comparison]
+```
 
 ---
 
@@ -208,14 +194,14 @@ Evaluation metrics include:
 
 ---
 
-Validation Workflow
-Experiment completed
-       │
-       ▼
-Results analyzed
-       │
-       ▼
-Improvement accepted or rejected
+**Figure 21.4 — Validation Workflow**
+
+```mermaid
+flowchart TB
+    EC[Experiment completed]
+    EC --> RA[Results analyzed]
+    RA --> AAOR[Improvement accepted or rejected]
+```
 
 ---
 
@@ -233,14 +219,14 @@ Examples include:
 
 ---
 
-Update Workflow
-Improvement validated
-       │
-       ▼
-System configuration updated
-       │
-       ▼
-New behavior activated
+**Figure 21.5 — Update Workflow**
+
+```mermaid
+flowchart TB
+    IV[Improvement validated]
+    IV --> SCU[System configuration updated]
+    SCU --> NBA[New behavior activated]
+```
 
 ---
 
@@ -305,21 +291,16 @@ Experiments execute in isolated environments.
 
 ---
 
-Example Workflow
-Example: Optimizing Task Scheduling
-Performance analysis detects slow scheduling
-        │
-        ▼
-Improvement opportunity generated
-        │
-        ▼
-New scheduling algorithm tested
-        │
-        ▼
-Experiment shows improvement
-        │
-        ▼
-New algorithm deployed
+**Figure 21.6 — Optimizing Task Scheduling Example**
+
+```mermaid
+flowchart TB
+    PAD[Performance analysis detects slow scheduling]
+    PAD --> IOG[Improvement opportunity generated]
+    IOG --> NSA[New scheduling algorithm tested]
+    NSA --> ESI[Experiment shows improvement]
+    ESI --> NAD[New algorithm deployed]
+```
 
 ---
 

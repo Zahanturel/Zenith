@@ -29,6 +29,15 @@ if (Test-Path $fullSpecPath) {
   Write-Host "Wrote $SrcDir\full-specification.md"
 }
 
+# Copy book front matter (title page, preface)
+$frontmatterDir = Join-Path $BookRoot "book-frontmatter"
+if (Test-Path $frontmatterDir) {
+  Get-ChildItem -Path $frontmatterDir -Filter "*.md" | ForEach-Object {
+    Copy-Item $_.FullName (Join-Path $SrcDir $_.Name) -Force
+    Write-Host "Wrote $SrcDir\$($_.Name)"
+  }
+}
+
 # Copy all chapter markdown files
 Get-ChildItem -Path $ChaptersDir -Filter "*.md" | ForEach-Object {
   Copy-Item $_.FullName (Join-Path $SrcDir $_.Name) -Force

@@ -1,4 +1,4 @@
-Appendix A — Architectural Review Notes
+# Appendix A — Architectural Review Notes
 
 ---
 

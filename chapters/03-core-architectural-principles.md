@@ -1,5 +1,5 @@
 
-# 3. Core Architectural Principles
+# Chapter 3 — Core Architectural Principles
 
 This section defines the core architectural principles that govern the platform. These principles appear before the High-Level Architecture so that all subsequent design follows from them.
 
@@ -29,19 +29,16 @@ The governance layer must enforce:
 
 ---
 
-Architecture Diagram
-             AGENT DECISION
-                  │
-                  ▼
-           POLICY EVALUATION
-                  │
-        ┌─────────┴─────────┐
-        ▼                   ▼
-   Allowed Action       Blocked Action
-        │                   │
-        ▼                   ▼
-   Execute Task         Raise Alert
-                        Notify Human
+**Figure 3.1 — Agent Decision Pipeline**
+
+```mermaid
+flowchart TB
+    AD[Agent Decision]
+    AD --> PE[Policy Evaluation]
+    PE -->|Allowed| EA[Execute Task]
+    PE -->|Blocked| RA[Raise Alert]
+    RA --> NH[Notify Human]
+```
 
 ---
 
@@ -114,20 +111,20 @@ This ensures that:
 
 ---
 
-Architecture Diagram
-         SYSTEM GOAL
-              │
-              ▼
-         WORKFLOW ENGINE
-              │
-              ▼
-         TASK GENERATION
-      ┌───────┼────────┐
-      ▼       ▼        ▼
-   Task A   Task B   Task C
-      │       │        │
-      ▼       ▼        ▼
-   Agent 1  Agent 2  Agent 3
+**Figure 3.2 — Task-Oriented Architecture**
+
+```mermaid
+flowchart TB
+    SG[System Goal]
+    SG --> WE[Workflow Engine]
+    WE --> TG[Task Generation]
+    TG --> TA[Task A]
+    TG --> TB[Task B]
+    TG --> TC[Task C]
+    TA --> A1[Agent 1]
+    TB --> A2[Agent 2]
+    TC --> A3[Agent 3]
+```
 
 ---
 
@@ -160,27 +157,19 @@ TaskState enum: CREATED | QUEUED | ASSIGNED | RUNNING | VALIDATION | REVIEW | DE
 
 ---
 
-Runtime Behavior
-Tasks follow a lifecycle:
-Task Created (CREATED)
-     │
-     ▼
-Queued (QUEUED)
-     │
-     ▼
-Assigned to Agent (ASSIGNED)
-     │
-     ▼
-Execution (RUNNING)
-     │
-     ▼
-Validation (VALIDATION)
-     │
-     ▼
-Review (REVIEW) → Deployment (DEPLOYMENT)
-     │
-     ▼
-Completion (COMPLETED) or Failure (FAILED/BLOCKED/RETRYING)
+**Figure 3.3 — Task Lifecycle**
+
+```mermaid
+flowchart TB
+    TC[Task Created]
+    TC --> QU[Queued]
+    QU --> AS[Assigned to Agent]
+    AS --> EX[Execution]
+    EX --> VA[Validation]
+    VA --> RE[Review]
+    RE --> DEP[Deployment]
+    DEP --> CO[Completion or Failure]
+```
 
 ---
 
@@ -211,23 +200,18 @@ Without persistent knowledge, agents would:
 
 ---
 
-Architecture Diagram
-              AGENT
-                │
-                ▼
-         KNOWLEDGE QUERY
-                │
-                ▼
-      ┌────────────────────┐
-      │ MEMORY RETRIEVAL   │
-      └────────────────────┘
-                │
-        ┌───────┴─────────┐
-        ▼                 ▼
-   Vector Search      Knowledge Graph
-        │                 │
-        ▼                 ▼
-   Relevant Memory   Architecture Data
+**Figure 3.4 — Knowledge Retrieval**
+
+```mermaid
+flowchart TB
+    AG[Agent]
+    AG --> KQ[Knowledge Query]
+    KQ --> MR[Memory Retrieval]
+    MR --> VS[Vector Search]
+    MR --> KG[Knowledge Graph]
+    VS --> RM[Relevant Memory]
+    KG --> AD[Architecture Data]
+```
 
 ---
 
@@ -296,23 +280,17 @@ No change may reach production unless it passes through:
 
 ---
 
-Architecture Diagram
-      CODE CHANGE
-           │
-           ▼
-      STATIC ANALYSIS
-           │
-           ▼
-      SECURITY SCAN
-           │
-           ▼
-      AUTOMATED TESTS
-           │
-           ▼
-      POLICY CHECK
-           │
-           ▼
-      DEPLOYMENT APPROVAL
+**Figure 3.5 — Safety Validation Pipeline**
+
+```mermaid
+flowchart TB
+    CC[Code Change]
+    CC --> SA[Static Analysis]
+    SA --> SS[Security Scan]
+    SS --> AT[Automated Tests]
+    AT --> PC[Policy Check]
+    PC --> DA[Deployment Approval]
+```
 
 ---
 
@@ -356,17 +334,15 @@ Every decision made by an agent must be traceable.
 
 ---
 
-Architecture Diagram
-       AGENT ACTION
-            │
-            ▼
-       EVENT LOGGER
-            │
-            ▼
-     TRACE + METRICS
-            │
-            ▼
-      OBSERVABILITY SYSTEM
+**Figure 3.6 — Observability Pipeline**
+
+```mermaid
+flowchart TB
+    AA[Agent Action]
+    AA --> EL[Event Logger]
+    EL --> TM[Trace and Metrics]
+    TM --> OS[Observability System]
+```
 
 ---
 
@@ -417,15 +393,18 @@ The platform must scale to support:
 
 ---
 
-Architecture Diagram
-        TASK QUEUE
-            │
-   ┌────────┼────────┐
-   ▼        ▼        ▼
-Agent Pool Agent Pool Agent Pool
-   │        │        │
-   ▼        ▼        ▼
-Result   Result   Result
+**Figure 3.7 — Horizontal Scaling**
+
+```mermaid
+flowchart TB
+    TQ[Task Queue]
+    TQ --> AP1[Agent Pool]
+    TQ --> AP2[Agent Pool]
+    TQ --> AP3[Agent Pool]
+    AP1 --> R1[Result]
+    AP2 --> R2[Result]
+    AP3 --> R3[Result]
+```
 
 ---
 
@@ -452,27 +431,18 @@ If an agent fails:
 
 ---
 
-Example Workflow
-Example: Autonomous Bug Fix
-Bug detected
-      │
-      ▼
-Bug task created
-      │
-      ▼
-Backend Agent analyzes issue
-      │
-      ▼
-Code fix implemented
-      │
-      ▼
-QA Agent runs regression tests
-      │
-      ▼
-Security Agent scans patch
-      │
-      ▼
-DevOps Agent deploys fix
+**Figure 3.8 — Autonomous Bug Fix Workflow**
+
+```mermaid
+flowchart TB
+    BD[Bug detected]
+    BD --> BTC[Bug task created]
+    BTC --> BAI[Backend Agent analyzes issue]
+    BAI --> CFI[Code fix implemented]
+    CFI --> QAR[QA Agent runs regression tests]
+    QAR --> SAS[Security Agent scans patch]
+    SAS --> DAD[DevOps Agent deploys fix]
+```
 
 ---
 

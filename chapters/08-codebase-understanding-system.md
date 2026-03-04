@@ -1,5 +1,5 @@
 
-# 8. Codebase Understanding System
+# Chapter 8 — Codebase Understanding System
 
 Detailed Explanation
 The Codebase Understanding System (CUS) is a critical subsystem of the AI Autonomous Development Platform (AADP) responsible for building and maintaining a continuously updated, machine-readable representation of all software repositories managed by the platform.
@@ -85,24 +85,19 @@ This ensures the AST index, Semantic Index, and Dependency Graph stay aligned wi
 
 ---
 
-                 CODE REPOSITORIES (commit_sha tracked)
-                       │
-                       ▼
-                REPOSITORY INGESTION
-                       │
-                       ▼
-                CODE PARSING ENGINE → AST INDEX (CODE DB)
-                       │
-                       ▼
-          ┌────────────┼─────────────┐
-          ▼            ▼             ▼
-    SEMANTIC INDEX   AST INDEX   DEPENDENCY GRAPH
-    (Vector DB)     (CODE DB)      (GRAPH DB)
-          │            │             │
-          └────────────┴─────────────┘
-                       │
-                       ▼
-     AGENT QUERY INTERFACE
+**Figure 8.1 — Codebase Understanding System Pipeline**
+
+```mermaid
+flowchart TB
+    CR[Code Repositories]
+    CR --> RI[Repository Ingestion]
+    RI --> CPE[Code Parsing Engine]
+    CPE --> AST[AST Index]
+    AST --> SI[Semantic Index]
+    AST --> DG[Dependency Graph]
+    SI --> AQI[Agent Query Interface]
+    DG --> AQI
+```
 
 ---
 
@@ -134,14 +129,14 @@ Outputs
 
 ---
 
-Example Workflow
-Git Commit Detected
-        │
-        ▼
-Repository Ingestion Service
-        │
-        ▼
-Trigger Code Parsing Pipeline
+**Figure 8.2 — Git Commit Workflow**
+
+```mermaid
+flowchart TB
+    GC[Git Commit Detected]
+    GC --> RIS[Repository Ingestion Service]
+    RIS --> TCP[Trigger Code Parsing Pipeline]
+```
 
 ---
 
@@ -227,20 +222,17 @@ Responsibilities
 
 ---
 
-Architecture Diagram
-         SERVICE GRAPH
+**Figure 8.3 — Service Graph**
 
-   Frontend App
-        │
-        ▼
-   API Gateway
-        │
- ┌──────┴──────┐
- ▼             ▼
-User Service   Order Service
-     │               │
-     ▼               ▼
-User DB          Order DB
+```mermaid
+flowchart TB
+    FA[Frontend App]
+    FA --> AG[API Gateway]
+    AG --> US[User Service]
+    AG --> OS[Order Service]
+    US --> UDB[User DB]
+    OS --> ODB[Order DB]
+```
 
 ---
 
@@ -400,21 +392,16 @@ Dependency graphs are stored in scalable graph databases.
 
 ---
 
-Example Workflow
-Example: Implementing a New Feature
-Agent receives task
-      │
-      ▼
-Query codebase knowledge
-      │
-      ▼
-Identify relevant modules
-      │
-      ▼
-Analyze dependencies
-      │
-      ▼
-Generate implementation plan
+**Figure 8.4 — Feature Implementation Workflow**
+
+```mermaid
+flowchart TB
+    ART[Agent receives task]
+    ART --> QC[Query codebase knowledge]
+    QC --> IRM[Identify relevant modules]
+    IRM --> AD[Analyze dependencies]
+    AD --> GIP[Generate implementation plan]
+```
 
 ---
 

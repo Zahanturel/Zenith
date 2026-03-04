@@ -1,5 +1,5 @@
 
-# 20. Human Interaction Layer
+# Chapter 20 — Human Interaction Layer
 
 Detailed Explanation
 The Human Interaction Layer (HIL) provides the interfaces and mechanisms through which humans interact with the AI Autonomous Development Platform (AADP).
@@ -27,22 +27,20 @@ Through these integrations, humans can inspect and influence system behavior at 
 
 ---
 
-Human Interaction Architecture
-The following diagram illustrates the structure of the Human Interaction Layer.
-                     HUMAN USERS
-                          │
-                          ▼
-                    WEB INTERFACE
-                          │
-        ┌─────────────────┼─────────────────┐
-        ▼                 ▼                 ▼
-   PROJECT CONTROL    APPROVAL SYSTEM   OBSERVABILITY UI
-        │                 │                 │
-        ▼                 ▼                 ▼
-    ORCHESTRATOR      SAFETY SYSTEM     MONITORING DATA
-        │
-        ▼
-      AGENTS
+**Figure 20.1 — Human Interaction Architecture**
+
+```mermaid
+flowchart TB
+    HU[Human Users]
+    HU --> WI[Web Interface]
+    WI --> PC[Project Control]
+    WI --> AS[Approval System]
+    WI --> OUI[Observability UI]
+    PC --> ORCH[Orchestrator]
+    AS --> SS[Safety System]
+    OUI --> MD[Monitoring Data]
+    ORCH --> AG[Agents]
+```
 
 ---
 
@@ -93,17 +91,15 @@ The dashboard provides access to:
 
 ---
 
-Dashboard Architecture
-User Browser
-      │
-      ▼
-Web Frontend
-      │
-      ▼
-Backend API
-      │
-      ▼
-Platform Services
+**Figure 20.2 — Dashboard Architecture**
+
+```mermaid
+flowchart TB
+    UB[User Browser]
+    UB --> WF[Web Frontend]
+    WF --> BA[Backend API]
+    BA --> PFS[Platform Services]
+```
 
 ---
 
@@ -172,17 +168,15 @@ Actions requiring approval may include:
 
 ---
 
-Approval Workflow
-Agent requests action
-        │
-        ▼
-Approval request created
-        │
-        ▼
-Human reviewer notified
-        │
-        ▼
-Approve or reject
+**Figure 20.3 — Approval Workflow**
+
+```mermaid
+flowchart TB
+    ARA[Agent requests action]
+    ARA --> ARC[Approval request created]
+    ARC --> HRN[Human reviewer notified]
+    HRN --> AO[Approve or reject]
+```
 
 ---
 
@@ -317,18 +311,15 @@ Workflow updates are delivered via event streams.
 
 ---
 
-Example Workflow
-Example: Human Approval of Deployment
-Deployment request created
-        │
-        ▼
-Approval request sent to dashboard
-        │
-        ▼
-Human reviewer evaluates request
-        │
-        ▼
-Deployment approved
+**Figure 20.4 — Human Approval of Deployment**
+
+```mermaid
+flowchart TB
+    DRC[Deployment request created]
+    DRC --> ARS[Approval request sent to dashboard]
+    ARS --> HRE[Human reviewer evaluates request]
+    HRE --> DA[Deployment approved]
+```
 
 ---
 

@@ -1,5 +1,5 @@
 
-# 18. Security Architecture
+# Chapter 18 — Security Architecture
 
 Detailed Explanation
 The Security Architecture defines the mechanisms used by the AI Autonomous Development Platform (AADP) to protect platform infrastructure, software repositories, knowledge systems, agent execution environments, and production deployments.
@@ -39,31 +39,23 @@ Each layer protects a different attack surface.
 
 ---
 
-Security Architecture Overview
-                    USERS / AGENTS
-                          │
-                          ▼
-                IDENTITY MANAGEMENT
-                          │
-                          ▼
-               AUTHENTICATION LAYER
-                          │
-                          ▼
-                 AUTHORIZATION LAYER
-                          │
-                          ▼
-                   PLATFORM SERVICES
-                          │
-        ┌─────────────────┼─────────────────┐
-        ▼                 ▼                 ▼
-  CODE SECURITY      DATA SECURITY    INFRA SECURITY
-        │                 │                 │
-        └──────────────┬──┴──┬──────────────┘
-                       ▼     ▼
-              SECURITY MONITORING
-                       │
-                       ▼
-                INCIDENT RESPONSE
+**Figure 18.1 — Security Architecture Overview**
+
+```mermaid
+flowchart TB
+    UA[Users or Agents]
+    UA --> IM[Identity Management]
+    IM --> AL[Authentication Layer]
+    AL --> AUL[Authorization Layer]
+    AUL --> PFS[Platform Services]
+    PFS --> CS[Code Security]
+    PFS --> DS[Data Security]
+    PFS --> IS[Infra Security]
+    CS --> SM[Security Monitoring]
+    DS --> SM
+    IS --> SM
+    SM --> IR[Incident Response]
+```
 
 ---
 
@@ -169,15 +161,14 @@ Examples of secrets include:
 ---
 
 Secret Storage Architecture
-Application Service
-        │
-        ▼
-Secret Manager API
-        │
-        ▼
-Encrypted Secret Store
-Secrets are encrypted using a centralized key management system.
-Agents access secrets through short-lived tokens.
+**Figure 18.2 — Secret Management Flow**
+
+```mermaid
+flowchart TB
+    AS[Application Service]
+    AS --> SMA[Secret Manager API]
+    SMA --> ESS[Encrypted Secret Store]
+```
 
 ---
 
@@ -203,17 +194,15 @@ Infrastructure protections include:
 ---
 
 Infrastructure Security Workflow
-Agent requests infrastructure action
-       │
-       ▼
-Access validation
-       │
-       ▼
-Policy evaluation
-       │
-       ▼
-Infrastructure action executed
-All infrastructure changes require policy validation.
+**Figure 18.3 — Infrastructure Action Flow**
+
+```mermaid
+flowchart TB
+    ARIA[Agent requests infrastructure action]
+    ARIA --> AV[Access validation]
+    AV --> PE[Policy evaluation]
+    PE --> IAE[Infrastructure action executed]
+```
 
 ---
 
@@ -238,16 +227,15 @@ Security checks include:
 ---
 
 Code Security Workflow
-Code generated
-       │
-       ▼
-Static analysis
-       │
-       ▼
-Dependency scanning
-       │
-       ▼
-Security report generated
+**Figure 18.4 — Code Security Scan Flow**
+
+```mermaid
+flowchart TB
+    CG[Code generated]
+    CG --> SA[Static analysis]
+    SA --> DS[Dependency scanning]
+    DS --> SR[Security report generated]
+```
 
 ---
 
@@ -273,14 +261,14 @@ Data protection mechanisms include:
 ---
 
 Encryption Workflow
-Data written to database
-       │
-       ▼
-Data encrypted
-       │
-       ▼
-Stored securely
-All communications between services use TLS encryption.
+**Figure 18.5 — Data Protection Flow**
+
+```mermaid
+flowchart TB
+    DWD[Data written to database]
+    DWD --> DE[Data encrypted]
+    DE --> SS[Stored securely]
+```
 
 ---
 
@@ -311,19 +299,16 @@ The incident response system manages security incidents detected by monitoring s
 ---
 
 Incident Response Workflow
-Security incident detected
-        │
-        ▼
-Alert generated
-        │
-        ▼
-Component isolated
-        │
-        ▼
-Root cause investigation
-        │
-        ▼
-Security remediation
+**Figure 18.6 — Security Incident Response**
+
+```mermaid
+flowchart TB
+    SID[Security incident detected]
+    SID --> AG[Alert generated]
+    AG --> CI[Component isolated]
+    CI --> RCI[Root cause investigation]
+    RCI --> SR[Security remediation]
+```
 
 ---
 
@@ -374,19 +359,16 @@ Security monitoring agents run across multiple collectors.
 
 Example Workflow
 Example: Secure Deployment
-Deployment request initiated
-       │
-       ▼
-Identity verification
-       │
-       ▼
-Permission validation
-       │
-       ▼
-Security scan executed
-       │
-       ▼
-Deployment approved
+**Figure 18.7 — Deployment Security Flow**
+
+```mermaid
+flowchart TB
+    DRI[Deployment request initiated]
+    DRI --> IV[Identity verification]
+    IV --> PV[Permission validation]
+    PV --> SSE[Security scan executed]
+    SSE --> DA[Deployment approved]
+```
 
 ---
 

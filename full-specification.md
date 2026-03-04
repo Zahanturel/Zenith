@@ -9,9 +9,6 @@ Reviewed; all critical and structural issues addressed. Ready for implementation
 Authors:
 Zahan Turel
 
-Organization:
-Zenith
-
 Confidentiality: Internal / Restricted
 
 
@@ -192,41 +189,24 @@ These stages operate continuously, forming a closed-loop development lifecycle.
 
 ---
 
-Architecture Diagram
-The following diagram illustrates the high-level structure of the platform. Governance & Safety is a cross-cutting layer: all agent actions are evaluated by it before execution (situated logically between Orchestration and Agent Execution).
-                     HUMAN INTERFACE
-                          │
-                          ▼
-                HUMAN INTERACTION LAYER
-         (Dashboard, Feedback, Approvals, Control)
-                          │
-                          ▼
-             GOVERNANCE & SAFETY LAYER (cross-cutting)
-      (Policy Engine, Approval System, Risk Evaluation — validates before execution)
-                          │
-                          ▼
-                   ORCHESTRATION LAYER
-           (Task Scheduler, Workflow Engine,
-            Policy Gateway, Cost Controller)
-                          │
-       ┌──────────────────┼──────────────────┐
-       ▼                  ▼                  ▼
- AGENT EXECUTION    MEMORY & KNOWLEDGE    CODEBASE SYSTEM
-     LAYER              LAYER            (Agents + Codebase
- (via Orchestrator   (Vector DB +        under governance)
-  inference API)     Knowledge Graph)
-                          │
-         ┌───────────────┴───────────────┐
-         ▼                               ▼
- DEVELOPMENT INFRASTRUCTURE    OBSERVABILITY & MONITORING
- (CI/CD, Sandbox, Build)      (Metrics, Logs, Traces)
-                          │
-                          ▼
-                DEPLOYMENT & RUNTIME LAYER
-        (Cloud Compute, Kubernetes, Production)
-                          │
-                          ▼
-                    DEPLOYED SYSTEMS
+**Figure — High-Level Architecture**
+
+```mermaid
+flowchart TB
+    HI[Human Interface]
+    HI --> HIL[Human Interaction Layer]
+    HIL --> GSL[Governance and Safety Layer]
+    GSL --> OL[Orchestration Layer]
+    OL --> AEL[Agent Execution Layer]
+    OL --> MKL[Memory and Knowledge Layer]
+    OL --> CUS[Codebase System]
+    AEL --> DI[Development Infrastructure]
+    MKL --> DI
+    CUS --> OM[Observability and Monitoring]
+    DI --> DRL[Deployment and Runtime Layer]
+    OM --> DRL
+    DRL --> DS[Deployed Systems]
+```
 
 ---
 
@@ -407,33 +387,20 @@ MemoryEntry
 
 ---
 
-Example Workflow
-Below is a simplified example of how the system processes a new feature request.
-User submits feature request
-        │
-        ▼
-Product Manager Agent analyzes request
-        │
-        ▼
-Architect Agent designs system changes
-        │
-        ▼
-Tasks created for engineering agents
-        │
-        ▼
-Backend and Frontend Agents implement code
-        │
-        ▼
-QA Agent runs automated tests
-        │
-        ▼
-Security Agent scans changes
-        │
-        ▼
-DevOps Agent deploys system
-        │
-        ▼
-Monitoring Agents observe production behavior
+**Figure — Example Feature Request Workflow**
+
+```mermaid
+flowchart TB
+    USR[User submits feature request]
+    USR --> PM[Product Manager Agent analyzes request]
+    PM --> AA[Architect Agent designs system changes]
+    AA --> TC[Tasks created for engineering agents]
+    TC --> BE[Backend and Frontend Agents implement code]
+    BE --> QA[QA Agent runs automated tests]
+    QA --> SA[Security Agent scans changes]
+    SA --> DO[DevOps Agent deploys system]
+    DO --> MA[Monitoring Agents observe production behavior]
+```
 
 ---
 
@@ -533,29 +500,20 @@ This design creates a hierarchical agent ecosystem similar to a real engineering
 # 2. Persistent Autonomous Operation
 
 The platform is designed to operate continuously, rather than being triggered only by user prompts.
-The system runs a permanent operational loop:
-Analyze System State
-        │
-        ▼
-Identify Opportunities or Problems
-        │
-        ▼
-Plan Improvements
-        │
-        ▼
-Execute Tasks
-        │
-        ▼
-Validate Results
-        │
-        ▼
-Deploy Changes
-        │
-        ▼
-Observe Outcomes
-        │
-        ▼
-Learn and Improve
+**Figure — Persistent Operation Loop**
+
+```mermaid
+flowchart TB
+    ASS[Analyze System State]
+    ASS --> IOP[Identify Opportunities or Problems]
+    IOP --> PI[Plan Improvements]
+    PI --> ET[Execute Tasks]
+    ET --> VR[Validate Results]
+    VR --> DC[Deploy Changes]
+    DC --> OO[Observe Outcomes]
+    OO --> LI[Learn and Improve]
+```
+
 This continuous loop allows the system to maintain and improve software systems over time.
 
 ---
@@ -632,41 +590,24 @@ The Research Agent and Self-Improvement Agent drive this evolution.
 
 ---
 
-System Vision Architecture
-The following diagram illustrates the conceptual vision of the system.
-                   HUMAN STRATEGIC CONTROL
-                           │
-                           ▼
-                    GOVERNANCE LAYER
-         (Policy, Compliance, Human Approval)
-                           │
-                           ▼
-                    ORCHESTRATION CORE
-         (Task Scheduling, Workflow Control,
-           Resource Allocation, Cost Control)
-                           │
-    ┌──────────────────────┼──────────────────────┐
-   ▼              			  ▼  			               ▼
-AGENT ORGANIZATION     KNOWLEDGE SYSTEM      SAFETY SYSTEM
-(Product, Architect,   (Memory + Codebase    (Policies,
- Engineers, QA,         Understanding)       Security,
- DevOps, Research)                           Risk Controls)
-                           │
-                           ▼
-                SOFTWARE DEVELOPMENT FACTORY
-        (Design → Build → Test → Deploy → Monitor)
-                           │
-                           ▼
-                    RUNNING SOFTWARE
-                           │
-                           ▼
-                    PRODUCTION DATA
-                           │
-                           ▼
-                       FEEDBACK LOOP
-                           │
-                           ▼
-                 SYSTEM LEARNING & IMPROVEMENT
+**Figure — System Vision Architecture**
+
+```mermaid
+flowchart TB
+    HSC[Human Strategic Control]
+    HSC --> GL[Governance Layer]
+    GL --> OC[Orchestration Core]
+    OC --> AO[Agent Organization]
+    OC --> KS[Knowledge System]
+    OC --> SS[Safety System]
+    AO --> SDF[Software Development Factory]
+    KS --> SDF
+    SS --> SDF
+    SDF --> RS[Running Software]
+    RS --> PD[Production Data]
+    PD --> FL[Feedback Loop]
+    FL --> SLI[System Learning and Improvement]
+```
 
 ---
 
@@ -748,36 +689,21 @@ PolicyRule (high-level view; see Section 10 for canonical)
 
 ---
 
-Example Workflow
-Example: Autonomous Feature Development
-New Feature Idea
-       │
-       ▼
-Product Manager Agent
-       │
-       ▼
-Architect Agent
-       │
-       ▼
-Task Breakdown
-       │
-       ▼
-Engineering Agents
-       │
-       ▼
-QA Testing
-       │
-       ▼
-Security Validation
-       │
-       ▼
-DevOps Deployment
-       │
-       ▼
-Production Monitoring
-       │
-       ▼
-Self-Improvement Analysis
+**Figure — Autonomous Feature Development**
+
+```mermaid
+flowchart TB
+    NFI[New Feature Idea]
+    NFI --> PM[Product Manager Agent]
+    PM --> AA[Architect Agent]
+    AA --> TB[Task Breakdown]
+    TB --> EA[Engineering Agents]
+    EA --> QAT[QA Testing]
+    QAT --> SV[Security Validation]
+    SV --> DD[DevOps Deployment]
+    DD --> PMON[Production Monitoring]
+    PMON --> SIA[Self-Improvement Analysis]
+```
 
 ---
 
@@ -846,19 +772,16 @@ The governance layer must enforce:
 
 ---
 
-Architecture Diagram
-             AGENT DECISION
-                  │
-                  ▼
-           POLICY EVALUATION
-                  │
-        ┌─────────┴─────────┐
-        ▼                   ▼
-   Allowed Action       Blocked Action
-        │                   │
-        ▼                   ▼
-   Execute Task         Raise Alert
-                        Notify Human
+**Figure — Agent Decision Pipeline**
+
+```mermaid
+flowchart TB
+    AD[Agent Decision]
+    AD --> PE[Policy Evaluation]
+    PE -->|Allowed| EA[Execute Task]
+    PE -->|Blocked| RA[Raise Alert]
+    RA --> NH[Notify Human]
+```
 
 ---
 
@@ -931,20 +854,20 @@ This ensures that:
 
 ---
 
-Architecture Diagram
-         SYSTEM GOAL
-              │
-              ▼
-         WORKFLOW ENGINE
-              │
-              ▼
-         TASK GENERATION
-      ┌───────┼────────┐
-      ▼       ▼        ▼
-   Task A   Task B   Task C
-      │       │        │
-      ▼       ▼        ▼
-   Agent 1  Agent 2  Agent 3
+**Figure — Task-Oriented Architecture**
+
+```mermaid
+flowchart TB
+    SG[System Goal]
+    SG --> WE[Workflow Engine]
+    WE --> TG[Task Generation]
+    TG --> TA[Task A]
+    TG --> TB[Task B]
+    TG --> TC[Task C]
+    TA --> A1[Agent 1]
+    TB --> A2[Agent 2]
+    TC --> A3[Agent 3]
+```
 
 ---
 
@@ -977,27 +900,19 @@ TaskState enum: CREATED | QUEUED | ASSIGNED | RUNNING | VALIDATION | REVIEW | DE
 
 ---
 
-Runtime Behavior
-Tasks follow a lifecycle:
-Task Created (CREATED)
-     │
-     ▼
-Queued (QUEUED)
-     │
-     ▼
-Assigned to Agent (ASSIGNED)
-     │
-     ▼
-Execution (RUNNING)
-     │
-     ▼
-Validation (VALIDATION)
-     │
-     ▼
-Review (REVIEW) → Deployment (DEPLOYMENT)
-     │
-     ▼
-Completion (COMPLETED) or Failure (FAILED/BLOCKED/RETRYING)
+**Figure — Task Lifecycle**
+
+```mermaid
+flowchart TB
+    TC[Task Created]
+    TC --> QU[Queued]
+    QU --> AS[Assigned to Agent]
+    AS --> EX[Execution]
+    EX --> VA[Validation]
+    VA --> RE[Review]
+    RE --> DEP[Deployment]
+    DEP --> CO[Completion or Failure]
+```
 
 ---
 
@@ -1028,23 +943,18 @@ Without persistent knowledge, agents would:
 
 ---
 
-Architecture Diagram
-              AGENT
-                │
-                ▼
-         KNOWLEDGE QUERY
-                │
-                ▼
-      ┌────────────────────┐
-      │ MEMORY RETRIEVAL   │
-      └────────────────────┘
-                │
-        ┌───────┴─────────┐
-        ▼                 ▼
-   Vector Search      Knowledge Graph
-        │                 │
-        ▼                 ▼
-   Relevant Memory   Architecture Data
+**Figure — Knowledge Retrieval**
+
+```mermaid
+flowchart TB
+    AG[Agent]
+    AG --> KQ[Knowledge Query]
+    KQ --> MR[Memory Retrieval]
+    MR --> VS[Vector Search]
+    MR --> KG[Knowledge Graph]
+    VS --> RM[Relevant Memory]
+    KG --> AD[Architecture Data]
+```
 
 ---
 
@@ -1113,23 +1023,17 @@ No change may reach production unless it passes through:
 
 ---
 
-Architecture Diagram
-      CODE CHANGE
-           │
-           ▼
-      STATIC ANALYSIS
-           │
-           ▼
-      SECURITY SCAN
-           │
-           ▼
-      AUTOMATED TESTS
-           │
-           ▼
-      POLICY CHECK
-           │
-           ▼
-      DEPLOYMENT APPROVAL
+**Figure — Safety Validation Pipeline**
+
+```mermaid
+flowchart TB
+    CC[Code Change]
+    CC --> SA[Static Analysis]
+    SA --> SS[Security Scan]
+    SS --> AT[Automated Tests]
+    AT --> PC[Policy Check]
+    PC --> DA[Deployment Approval]
+```
 
 ---
 
@@ -1173,17 +1077,15 @@ Every decision made by an agent must be traceable.
 
 ---
 
-Architecture Diagram
-       AGENT ACTION
-            │
-            ▼
-       EVENT LOGGER
-            │
-            ▼
-     TRACE + METRICS
-            │
-            ▼
-      OBSERVABILITY SYSTEM
+**Figure — Observability Pipeline**
+
+```mermaid
+flowchart TB
+    AA[Agent Action]
+    AA --> EL[Event Logger]
+    EL --> TM[Trace and Metrics]
+    TM --> OS[Observability System]
+```
 
 ---
 
@@ -1234,15 +1136,18 @@ The platform must scale to support:
 
 ---
 
-Architecture Diagram
-        TASK QUEUE
-            │
-   ┌────────┼────────┐
-   ▼        ▼        ▼
-Agent Pool Agent Pool Agent Pool
-   │        │        │
-   ▼        ▼        ▼
-Result   Result   Result
+**Figure — Horizontal Scaling**
+
+```mermaid
+flowchart TB
+    TQ[Task Queue]
+    TQ --> AP1[Agent Pool]
+    TQ --> AP2[Agent Pool]
+    TQ --> AP3[Agent Pool]
+    AP1 --> R1[Result]
+    AP2 --> R2[Result]
+    AP3 --> R3[Result]
+```
 
 ---
 
@@ -1269,27 +1174,18 @@ If an agent fails:
 
 ---
 
-Example Workflow
-Example: Autonomous Bug Fix
-Bug detected
-      │
-      ▼
-Bug task created
-      │
-      ▼
-Backend Agent analyzes issue
-      │
-      ▼
-Code fix implemented
-      │
-      ▼
-QA Agent runs regression tests
-      │
-      ▼
-Security Agent scans patch
-      │
-      ▼
-DevOps Agent deploys fix
+**Figure — Autonomous Bug Fix Workflow**
+
+```mermaid
+flowchart TB
+    BD[Bug detected]
+    BD --> BTC[Bug task created]
+    BTC --> BAI[Backend Agent analyzes issue]
+    BAI --> CFI[Code fix implemented]
+    CFI --> QAR[QA Agent runs regression tests]
+    QAR --> SAS[Security Agent scans patch]
+    SAS --> DAD[DevOps Agent deploys fix]
+```
 
 ---
 
@@ -1505,14 +1401,18 @@ The orchestrator manages:
 ---
 
 Architecture Diagram
-                    ORCHESTRATOR
-                         │
-       ┌─────────────────┼─────────────────┐
-       ▼                 ▼                 ▼
-   Workflow Engine   Task Scheduler   Resource Manager
-       │                 │                 │
-       ▼                 ▼                 ▼
-   Task Creation    Task Assignment    Compute Allocation
+**Figure — Orchestration Layer**
+
+```mermaid
+flowchart TB
+    O[Orchestrator]
+    O --> W[Workflow Engine]
+    O --> T[Task Scheduler]
+    O --> R[Resource Manager]
+    W --> TC[Task Creation]
+    T --> TA[Task Assignment]
+    R --> CA[Compute Allocation]
+```
 
 ---
 
@@ -2198,18 +2098,21 @@ Agents do not call the Model Router directly. All inference requests are mediate
                   AGENTS
                     │
                     ▼
-              ORCHESTRATOR
-         (policy hooks, quotas, budget checks)
-                    │
-                    ▼
-             MODEL ROUTER
-                    │
-       ┌────────────┼────────────┐
-       ▼            ▼            ▼
-   MODEL A      MODEL B      MODEL C
-       │            │            │
-       ▼            ▼            ▼
-  PROVIDER 1    PROVIDER 2    PROVIDER 3
+**Figure — Model Management Architecture**
+
+```mermaid
+flowchart TB
+    AG[Agents]
+    AG --> O[Orchestrator]
+    O --> MR[Model Router]
+    MR --> M1[Model A]
+    MR --> M2[Model B]
+    MR --> M3[Model C]
+    M1 --> P1[Provider 1]
+    M2 --> P2[Provider 2]
+    M3 --> P3[Provider 3]
+```
+
 Agents never call models directly. All model requests pass through the Orchestrator to the Model Router.
 
 ---
@@ -2495,21 +2398,24 @@ All agent actions must pass through the orchestrator to ensure compliance with s
 
 High-Level Architecture
 The orchestration system is composed of several internal subsystems.
-                         ORCHESTRATOR
-                               │
-         ┌─────────────────────┼─────────────────────┐
-         ▼                     ▼                     ▼
-   Workflow Engine       Task Scheduler        Policy Gateway
-         │                     │                     │
-         ▼                     ▼                     ▼
-   Dependency Manager      Agent Router        Risk Evaluator
-         │                     │                     │
-         ▼                     ▼                     ▼
-    Task State Store       Agent Registry       Budget Manager
-         │                     │                     │
-         ▼                     ▼                     ▼
-    (State replication)   Cost Monitor         Quota Enforcer
-The Task State Store persists workflow and task state; "(State replication)" denotes that this store is replicated for orchestrator HA (see Distributed Consensus and Leader Election below).
+**Figure — Orchestrator High-Level Architecture**
+
+```mermaid
+flowchart TB
+    O[Orchestrator]
+    O --> WE[Workflow Engine]
+    O --> TS[Task Scheduler]
+    O --> PG[Policy Gateway]
+    WE --> DM[Dependency Manager]
+    TS --> AR[Agent Router]
+    PG --> RE[Risk Evaluator]
+    DM --> TSS[Task State Store]
+    AR --> AReg[Agent Registry]
+    RE --> BM[Budget Manager]
+    TSS --> SR["State replication"]
+    AReg --> CM[Cost Monitor]
+    BM --> QE[Quota Enforcer]
+```
 
 ---
 
@@ -8566,24 +8472,21 @@ Through these integrations the system can coordinate large-scale autonomous deve
 ---
 
 Multi-Project Architecture
-                     ORCHESTRATOR
-                          │
-            ┌─────────────┼─────────────┐
-            ▼             ▼             ▼
-        PROJECT A      PROJECT B      PROJECT C
-            │             │             │
-            ▼             ▼             ▼
-        TASK QUEUE     TASK QUEUE     TASK QUEUE
-            │             │             │
-            ▼             ▼             ▼
-        AGENT POOL      AGENT POOL     AGENT POOL
-            │             │             │
-            ▼             ▼             ▼
-        REPOSITORIES   REPOSITORIES   REPOSITORIES
-            │             │             │
-            ▼             ▼             ▼
-        DEPLOYMENT      DEPLOYMENT     DEPLOYMENT
-Each project runs inside an isolated project namespace.
+**Figure — Multi-Project Architecture**
+
+```mermaid
+flowchart TB
+    O[Orchestrator]
+    O --> PA[Project A]
+    O --> PB[Project B]
+    O --> PC[Project C]
+    PA --> TQA[Task Queue]
+    PB --> TQB[Task Queue]
+    PC --> TQC[Task Queue]
+    TQA --> APA[Agent Pool]
+    TQB --> APB[Agent Pool]
+    TQC --> APC[Agent Pool]
+```
 
 ---
 
@@ -8987,19 +8890,16 @@ Implement a CI/CD pipeline capable of deploying software changes.
 ---
 
 Architecture Diagram
-          TASK SYSTEM
-               │
-               ▼
-          ORCHESTRATOR
-               │
-               ▼
-          AGENT RUNTIME
-               │
-               ▼
-        REPOSITORY ACCESS
-               │
-               ▼
-        DEPLOYMENT PIPELINE
+**Figure — Phase 1 Architecture**
+
+```mermaid
+flowchart TB
+    TS[Task System]
+    TS --> O[Orchestrator]
+    O --> AR[Agent Runtime]
+    AR --> RA[Repository Access]
+    RA --> DP[Deployment Pipeline]
+```
 
 ---
 
@@ -9149,14 +9049,18 @@ This phase introduces:
 ---
 
 Architecture Diagram
-         GLOBAL ORCHESTRATOR
-                │
-      ┌─────────┼─────────┐
-      ▼         ▼         ▼
- AGENT CLUSTER AGENT CLUSTER AGENT CLUSTER
-      │         │         │
-      ▼         ▼         ▼
-TASK QUEUE  TASK QUEUE  TASK QUEUE
+**Figure — Global Orchestrator Scaling**
+
+```mermaid
+flowchart TB
+    GO[Global Orchestrator]
+    GO --> AC1[Agent Cluster]
+    GO --> AC2[Agent Cluster]
+    GO --> AC3[Agent Cluster]
+    AC1 --> TQ1[Task Queue]
+    AC2 --> TQ2[Task Queue]
+    AC3 --> TQ3[Task Queue]
+```
 
 ---
 
@@ -9400,13 +9304,14 @@ Services communicate using:
 ---
 
 Service Interaction Diagram
-       ORCHESTRATOR
-           │
-           ▼
-      TASK SERVICE
-           │
-           ▼
-      AGENT RUNTIME
+**Figure — Service Interaction**
+
+```mermaid
+flowchart TB
+    O[Orchestrator]
+    O --> TS[Task Service]
+    TS --> AR[Agent Runtime]
+```
 
 ---
 

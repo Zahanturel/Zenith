@@ -17,3 +17,27 @@ optional = true
 
 [output.html]
 additional-js = ["mermaid-init.js"]
+additional-css = ["theme/book.css"]
+
+# PDF generation via mdbook-pandoc (run: mdbook build, then mdbook-pandoc book)
+[output.pandoc]
+optional = true
+number-internal-headings = true
+list-internal-headings = true
+
+[output.pandoc.profile.pdf]
+output-file = "AI-Autonomous-Development-Platform.pdf"
+to = "latex"
+pdf-engine = "pdflatex"
+table-of-contents = true
+number-sections = true
+standalone = true
+file-scope = true
+include-in-header = "theme/pandoc-header.tex"
+
+# A4, margins
+[output.pandoc.profile.pdf.variables]
+papersize = "a4"
+documentclass = "book"
+geometry = "margin=1in"
+fontsize = "11pt"

@@ -1,5 +1,5 @@
 
-# 29. Future Extensions
+# Chapter 29 — Future Extensions
 
 Detailed Explanation
 The Future Extensions section defines potential capabilities that can be added to the AI Autonomous Development Platform (AADP) in future versions beyond Version 1.0.
@@ -24,17 +24,19 @@ Each of these areas introduces significant additional capabilities.
 ---
 
 Future Architecture Overview
-              CURRENT PLATFORM (v1.0)
-                      │
-                      ▼
-          ADVANCED AUTONOMOUS CAPABILITIES
-                      │
-        ┌─────────────┼─────────────┐
-        ▼             ▼             ▼
-   RESEARCH AGENTS  SELF-HEALING  GLOBAL KNOWLEDGE
-        │             │             │
-        ▼             ▼             ▼
- AUTONOMOUS R&D   INFRASTRUCTURE  CROSS-PROJECT AI
+**Figure 29.1 — Future Platform Evolution**
+
+```mermaid
+flowchart TB
+    CP[Current Platform v1.0]
+    CP --> AAC[Advanced Autonomous Capabilities]
+    AAC --> RA[Research Agents]
+    AAC --> SH[Self-Healing]
+    AAC --> GK[Global Knowledge]
+    RA --> ARD[Autonomous R&D]
+    SH --> INF[Infrastructure]
+    GK --> CPA[Cross-Project AI]
+```
 
 ---
 
@@ -55,10 +57,15 @@ Examples include:
 
 Multi-Model Architecture
                AGENT RUNTIME
-                    │
-        ┌───────────┼───────────┐
-        ▼           ▼           ▼
-   CODE MODEL   REASONING MODEL  PLANNING MODEL
+**Figure 29.2 — Specialized Model Types**
+
+```mermaid
+flowchart TB
+    CENT[Central Router]
+    CENT --> CM[Code Model]
+    CENT --> RM[Reasoning Model]
+    CENT --> PM[Planning Model]
+```
 
 ---
 
@@ -85,16 +92,15 @@ Research agents may perform tasks such as:
 ---
 
 Research Workflow
-Research question generated
-        │
-        ▼
-Literature and code analysis
-        │
-        ▼
-Experiment execution
-        │
-        ▼
-Results documented
+**Figure 29.3 — Research Agent Workflow**
+
+```mermaid
+flowchart TB
+    RQG[Research question generated]
+    RQG --> LCA[Literature and code analysis]
+    LCA --> EE[Experiment execution]
+    EE --> RD[Results documented]
+```
 
 ---
 
@@ -121,13 +127,14 @@ Examples include:
 ---
 
 Collaboration Architecture
- Organization A
-      │
-      ▼
-Shared Knowledge Layer
-      │
-      ▼
- Organization B
+**Figure 29.4 — Cross-Organization Collaboration**
+
+```mermaid
+flowchart TB
+    OA[Organization A]
+    OA --> SKL[Shared Knowledge Layer]
+    SKL --> OB[Organization B]
+```
 
 ---
 
@@ -146,13 +153,14 @@ Examples include:
 ---
 
 Self-Healing Workflow
-Infrastructure anomaly detected
-        │
-        ▼
-Root cause analysis
-        │
-        ▼
-Automated repair action
+**Figure 29.5 — Self-Healing Flow**
+
+```mermaid
+flowchart TB
+    IAD[Infrastructure anomaly detected]
+    IAD --> RCA[Root cause analysis]
+    RCA --> ARA[Automated repair action]
+```
 
 ---
 
@@ -171,13 +179,14 @@ Advanced systems may support:
 ---
 
 Knowledge Graph Expansion
-Project Knowledge
-       │
-       ▼
-Global Knowledge Graph
-       │
-       ▼
-Cross-System Insights
+**Figure 29.6 — Advanced Knowledge Flow**
+
+```mermaid
+flowchart TB
+    PK[Project Knowledge]
+    PK --> GKG[Global Knowledge Graph]
+    GKG --> CSI[Cross-System Insights]
+```
 
 ---
 
@@ -196,13 +205,14 @@ Product agents may perform tasks such as:
 ---
 
 Product Strategy Workflow
-User feedback analysis
-        │
-        ▼
-Feature opportunity identification
-        │
-        ▼
-Product roadmap generation
+**Figure 29.7 — Product Management Flow**
+
+```mermaid
+flowchart TB
+    UFA[User feedback analysis]
+    UFA --> FOI[Feature opportunity identification]
+    FOI --> PRG[Product roadmap generation]
+```
 
 ---
 
@@ -221,16 +231,15 @@ Examples include:
 ---
 
 Security Automation Workflow
-Security vulnerability detected
-        │
-        ▼
-Patch generated
-        │
-        ▼
-Patch validated
-        │
-        ▼
-Deployment
+**Figure 29.8 — Security Patch Flow**
+
+```mermaid
+flowchart TB
+    SVD[Security vulnerability detected]
+    SVD --> PG[Patch generated]
+    PG --> PV[Patch validated]
+    PV --> DEP[Deployment]
+```
 
 ---
 
@@ -249,13 +258,14 @@ Examples include:
 ---
 
 Optimization Workflow
-Infrastructure metrics analyzed
-        │
-        ▼
-Optimization opportunities identified
-        │
-        ▼
-Infrastructure configuration updated
+**Figure 29.9 — Infrastructure Optimization Flow**
+
+```mermaid
+flowchart TB
+    IMA[Infrastructure metrics analyzed]
+    IMA --> OOI[Optimization opportunities identified]
+    OOI --> ICU[Infrastructure configuration updated]
+```
 
 ---
 
@@ -279,18 +289,15 @@ v3.0	Autonomous research and innovation platform
 
 Example Future Workflow
 Example: Autonomous Feature Innovation
-User behavior analyzed
-        │
-        ▼
-Feature opportunity detected
-        │
-        ▼
-Architecture designed
-        │
-        ▼
-Implementation executed
-        │
-        ▼
-Deployment completed
+**Figure 29.10 — Evolution Path**
+
+```mermaid
+flowchart TB
+    UBA[User behavior analyzed]
+    UBA --> FOD[Feature opportunity detected]
+    FOD --> AD[Architecture designed]
+    AD --> IE[Implementation executed]
+    IE --> DC[Deployment completed]
+```
 
 ---

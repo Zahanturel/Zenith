@@ -1,5 +1,5 @@
 
-# 13. Autonomous Development Workflow
+# Chapter 13 — Autonomous Development Workflow
 
 Detailed Explanation
 The Autonomous Development Workflow (ADW) defines the end-to-end lifecycle through which the AI Autonomous Development Platform (AADP) converts ideas, system signals, or human requests into production-ready software changes.
@@ -38,35 +38,21 @@ These stages ensure that development remains safe, traceable, and repeatable.
 
 ---
 
-Workflow Architecture Diagram
-            REQUIREMENT / SIGNAL
-                   │
-                   ▼
-             PRODUCT ANALYSIS
-                   │
-                   ▼
-          ARCHITECTURE DESIGN
-                   │
-                   ▼
-           TASK DECOMPOSITION
-                   │
-                   ▼
-             IMPLEMENTATION
-                   │
-                   ▼
-           TESTING & VALIDATION
-                   │
-                   ▼
-             SECURITY REVIEW
-                   │
-                   ▼
-               DEPLOYMENT
-                   │
-                   ▼
-        POST-DEPLOYMENT MONITORING
-                   │
-                   ▼
-           KNOWLEDGE INTEGRATION
+**Figure 13.1 — Workflow Architecture**
+
+```mermaid
+flowchart TB
+    RS[Requirement or Signal]
+    RS --> PA[Product Analysis]
+    PA --> AD[Architecture Design]
+    AD --> TD[Task Decomposition]
+    TD --> IMP[Implementation]
+    IMP --> TV[Testing and Validation]
+    TV --> SR[Security Review]
+    SR --> DEP[Deployment]
+    DEP --> PDM[Post-Deployment Monitoring]
+    PDM --> KI[Knowledge Integration]
+```
 
 ---
 
@@ -93,14 +79,14 @@ Responsible Components
 
 ---
 
-Example Detection Workflow
-Monitoring system detects increased error rate
-        │
-        ▼
-Incident analysis agent generates report
-        │
-        ▼
-Opportunity created: investigate API failure
+**Figure 13.2 — Detection Workflow**
+
+```mermaid
+flowchart TB
+    MSD[Monitoring system detects increased error rate]
+    MSD --> IAR[Incident analysis agent generates report]
+    IAR --> OC[Opportunity created: investigate API failure]
+```
 
 ---
 
@@ -233,17 +219,15 @@ Responsible Agents
 
 ---
 
-Implementation Workflow
-Task assigned to backend agent
-        │
-        ▼
-Agent queries codebase understanding system
-        │
-        ▼
-Code implementation generated
-        │
-        ▼
-Pull request created
+**Figure 13.3 — Implementation Workflow**
+
+```mermaid
+flowchart TB
+    TAB[Task assigned to backend agent]
+    TAB --> AQ[Agent queries codebase understanding system]
+    AQ --> CIG[Code implementation generated]
+    CIG --> PRC[Pull request created]
+```
 
 ---
 
@@ -266,14 +250,14 @@ QA Agent
 
 ---
 
-Validation Workflow
-Pull request created
-        │
-        ▼
-Test pipeline triggered
-        │
-        ▼
-Test results generated
+**Figure 13.4 — Validation Workflow**
+
+```mermaid
+flowchart TB
+    PRC[Pull request created]
+    PRC --> TPT[Test pipeline triggered]
+    TPT --> TRG[Test results generated]
+```
 
 ---
 
@@ -295,14 +279,14 @@ Security Checks
 
 ---
 
-Security Review Workflow
-Code changes submitted
-        │
-        ▼
-Security scan executed
-        │
-        ▼
-Security report generated
+**Figure 13.5 — Security Review Workflow**
+
+```mermaid
+flowchart TB
+    CCS[Code changes submitted]
+    CCS --> SSE[Security scan executed]
+    SSE --> SRG[Security report generated]
+```
 
 ---
 
@@ -325,17 +309,15 @@ Supported strategies include:
 
 ---
 
-Deployment Workflow
-Validated build artifact
-        │
-        ▼
-Deployment pipeline triggered
-        │
-        ▼
-Canary release
-        │
-        ▼
-Production rollout
+**Figure 13.6 — Deployment Workflow**
+
+```mermaid
+flowchart TB
+    VBA[Validated build artifact]
+    VBA --> DPT[Deployment pipeline triggered]
+    DPT --> CR[Canary release]
+    CR --> PRO[Production rollout]
+```
 
 ---
 
@@ -359,14 +341,14 @@ Responsible Systems
 
 ---
 
-Monitoring Workflow
-Deployment completed
-       │
-       ▼
-Monitoring agents observe metrics
-       │
-       ▼
-Performance report generated
+**Figure 13.7 — Monitoring Workflow**
+
+```mermaid
+flowchart TB
+    DC[Deployment completed]
+    DC --> MAO[Monitoring agents observe metrics]
+    MAO --> PRG[Performance report generated]
+```
 
 ---
 
@@ -388,33 +370,20 @@ Cache layer reduced API latency by 35%
 
 ---
 
-Workflow State Machine
-The Autonomous Development Workflow is implemented as a state machine.
-DETECTED
-   │
-   ▼
-ANALYZED
-   │
-   ▼
-DESIGNED
-   │
-   ▼
-TASKED
-   │
-   ▼
-IMPLEMENTED
-   │
-   ▼
-TESTED
-   │
-   ▼
-SECURE
-   │
-   ▼
-DEPLOYED
-   │
-   ▼
-MONITORED
+**Figure 13.8 — Workflow State Machine**
+
+```mermaid
+flowchart TB
+    DET[DETECTED]
+    DET --> ANA[ANALYZED]
+    ANA --> DES[DESIGNED]
+    DES --> TAS[TASKED]
+    TAS --> IMP[IMPLEMENTED]
+    IMP --> TES[TESTED]
+    TES --> SEC[SECURE]
+    SEC --> DEP[DEPLOYED]
+    DEP --> MON[MONITORED]
+```
 
 ---
 
@@ -475,30 +444,19 @@ Only relevant stages are executed when necessary.
 
 ---
 
-Example Workflow
-Example: Feature Development
-Feature request detected
-       │
-       ▼
-Product analysis completed
-       │
-       ▼
-Architecture plan created
-       │
-       ▼
-Tasks generated
-       │
-       ▼
-Code implemented
-       │
-       ▼
-Tests executed
-       │
-       ▼
-Deployment completed
-       │
-       ▼
-Monitoring confirms success
+**Figure 13.9 — Feature Development Example**
+
+```mermaid
+flowchart TB
+    FRD[Feature request detected]
+    FRD --> PAC[Product analysis completed]
+    PAC --> APC[Architecture plan created]
+    APC --> TG[Tasks generated]
+    TG --> CI[Code implemented]
+    CI --> TE[Tests executed]
+    TE --> DC[Deployment completed]
+    DC --> MCS[Monitoring confirms success]
+```
 
 ---
 

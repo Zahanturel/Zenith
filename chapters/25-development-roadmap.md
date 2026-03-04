@@ -1,5 +1,5 @@
 
-# 25. Development Roadmap
+# Chapter 25 — Development Roadmap
 
 Detailed Explanation
 The Development Roadmap defines the structured, phased implementation plan for building the AI Autonomous Development Platform (AADP) from an initial prototype into a full-scale production system.
@@ -24,20 +24,16 @@ Each phase builds upon the previous phase.
 
 ---
 
-Roadmap Architecture Overview
-PHASE 1 ─ Foundational Infrastructure
-        │
-        ▼
-PHASE 2 ─ Core Agent System
-        │
-        ▼
-PHASE 3 ─ Autonomous Development
-        │
-        ▼
-PHASE 4 ─ Distributed Scaling
-        │
-        ▼
-PHASE 5 ─ Self-Improving Platform
+**Figure 25.1 — Roadmap Phases**
+
+```mermaid
+flowchart TB
+    P1[Phase 1: Foundational Infrastructure]
+    P1 --> P2[Phase 2: Core Agent System]
+    P2 --> P3[Phase 3: Autonomous Development]
+    P3 --> P4[Phase 4: Distributed Scaling]
+    P4 --> P5[Phase 5: Self-Improving Platform]
+```
 
 ---
 
@@ -80,20 +76,16 @@ Implement a CI/CD pipeline capable of deploying software changes.
 
 ---
 
-Architecture Diagram
-          TASK SYSTEM
-               │
-               ▼
-          ORCHESTRATOR
-               │
-               ▼
-          AGENT RUNTIME
-               │
-               ▼
-        REPOSITORY ACCESS
-               │
-               ▼
-        DEPLOYMENT PIPELINE
+**Figure 25.2 — Phase 1 Architecture**
+
+```mermaid
+flowchart TB
+    TS[Task System]
+    TS --> O[Orchestrator]
+    O --> AR[Agent Runtime]
+    AR --> RA[Repository Access]
+    RA --> DP[Deployment Pipeline]
+```
 
 ---
 
@@ -143,20 +135,16 @@ Security scanning and deployment validation must be implemented.
 
 ---
 
-Agent Collaboration Architecture
-     PRODUCT AGENT
-           │
-           ▼
-      ARCHITECT AGENT
-           │
-           ▼
-   ENGINEERING AGENTS
-           │
-           ▼
-        QA AGENT
-           │
-           ▼
-       DEVOPS AGENT
+**Figure 25.3 — Agent Collaboration Architecture**
+
+```mermaid
+flowchart TB
+    PA[Product Agent]
+    PA --> AA[Architect Agent]
+    AA --> EA[Engineering Agents]
+    EA --> QA[QA Agent]
+    QA --> DA[DevOps Agent]
+```
 
 ---
 
@@ -199,23 +187,17 @@ The system identifies improvements automatically.
 
 ---
 
-Autonomous Workflow Architecture
-System Monitoring
-        │
-        ▼
-Opportunity Detection
-        │
-        ▼
-Planning Agents
-        │
-        ▼
-Engineering Agents
-        │
-        ▼
-Testing & Validation
-        │
-        ▼
-Deployment
+**Figure 25.4 — Autonomous Workflow Architecture**
+
+```mermaid
+flowchart TB
+    SM[System Monitoring]
+    SM --> OD[Opportunity Detection]
+    OD --> PA[Planning Agents]
+    PA --> EA[Engineering Agents]
+    EA --> TV[Testing and Validation]
+    TV --> DEP[Deployment]
+```
 
 ---
 
@@ -242,15 +224,18 @@ This phase introduces:
 
 ---
 
-Architecture Diagram
-         GLOBAL ORCHESTRATOR
-                │
-      ┌─────────┼─────────┐
-      ▼         ▼         ▼
- AGENT CLUSTER AGENT CLUSTER AGENT CLUSTER
-      │         │         │
-      ▼         ▼         ▼
-TASK QUEUE  TASK QUEUE  TASK QUEUE
+**Figure 25.5 — Global Orchestrator Scaling**
+
+```mermaid
+flowchart TB
+    GO[Global Orchestrator]
+    GO --> AC1[Agent Cluster]
+    GO --> AC2[Agent Cluster]
+    GO --> AC3[Agent Cluster]
+    AC1 --> TQ1[Task Queue]
+    AC2 --> TQ2[Task Queue]
+    AC3 --> TQ3[Task Queue]
+```
 
 ---
 
@@ -277,20 +262,16 @@ This phase introduces:
 
 ---
 
-Self-Improvement Architecture
-System Metrics
-      │
-      ▼
-Performance Analysis
-      │
-      ▼
-Improvement Proposals
-      │
-      ▼
-Controlled Experiments
-      │
-      ▼
-System Updates
+**Figure 25.6 — Self-Improvement Architecture**
+
+```mermaid
+flowchart TB
+    SMM[System Metrics]
+    SMM --> PA[Performance Analysis]
+    PA --> IP[Improvement Proposals]
+    IP --> CE[Controlled Experiments]
+    CE --> SU[System Updates]
+```
 
 ---
 
@@ -363,20 +344,16 @@ Mitigation strategies include:
 
 ---
 
-Example Implementation Workflow
-Phase 1 infrastructure built
-       │
-       ▼
-Phase 2 agent system added
-       │
-       ▼
-Phase 3 autonomous workflows enabled
-       │
-       ▼
-Phase 4 scaling implemented
-       │
-       ▼
-Phase 5 self-improvement activated
+**Figure 25.7 — Implementation Workflow**
+
+```mermaid
+flowchart TB
+    P1B[Phase 1 infrastructure built]
+    P1B --> P2A[Phase 2 agent system added]
+    P2A --> P3A[Phase 3 autonomous workflows enabled]
+    P3A --> P4S[Phase 4 scaling implemented]
+    P4S --> P5S[Phase 5 self-improvement activated]
+```
 
 ---
 

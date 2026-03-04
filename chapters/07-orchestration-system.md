@@ -1,5 +1,5 @@
 
-# 7. Orchestration System
+# Chapter 7 — Orchestration System
 
 Detailed Explanation
 The Orchestration System is the central coordination mechanism of the AI Autonomous Development Platform (AADP). It functions as the control plane that manages the lifecycle of tasks, coordinates agent execution, enforces system policies, and maintains overall system stability.
@@ -63,23 +63,24 @@ All agent actions must pass through the orchestrator to ensure compliance with s
 
 ---
 
-High-Level Architecture
-The orchestration system is composed of several internal subsystems.
-                         ORCHESTRATOR
-                               │
-         ┌─────────────────────┼─────────────────────┐
-         ▼                     ▼                     ▼
-   Workflow Engine       Task Scheduler        Policy Gateway
-         │                     │                     │
-         ▼                     ▼                     ▼
-   Dependency Manager      Agent Router        Risk Evaluator
-         │                     │                     │
-         ▼                     ▼                     ▼
-    Task State Store       Agent Registry       Budget Manager
-         │                     │                     │
-         ▼                     ▼                     ▼
-    (State replication)   Cost Monitor         Quota Enforcer
-The Task State Store persists workflow and task state; "(State replication)" denotes that this store is replicated for orchestrator HA (see Distributed Consensus and Leader Election below).
+**Figure 7.1 — Orchestrator High-Level Architecture**
+
+```mermaid
+flowchart TB
+    O[Orchestrator]
+    O --> WE[Workflow Engine]
+    O --> TS[Task Scheduler]
+    O --> PG[Policy Gateway]
+    WE --> DM[Dependency Manager]
+    TS --> AR[Agent Router]
+    PG --> RE[Risk Evaluator]
+    DM --> TSS[Task State Store]
+    AR --> AReg[Agent Registry]
+    RE --> BM[Budget Manager]
+    TSS --> SR["State replication"]
+    AReg --> CM[Cost Monitor]
+    BM --> QE[Quota Enforcer]
+```
 
 ---
 
@@ -102,22 +103,17 @@ Edges represent dependencies.
 
 ---
 
-Workflow Diagram
-         FEATURE DEVELOPMENT WORKFLOW
+**Figure 7.2 — Feature Development Workflow DAG**
 
-           Task A (Architecture)
-                │
-       ┌────────┴────────┐
-       ▼                 ▼
- Task B (Backend)   Task C (Frontend)
-       │                 │
-       └────────┬────────┘
-                │ (convergence: B and C complete before D)
-                ▼
-         Task D (Testing)
-                │
-                ▼
-         Task E (Deployment)
+```mermaid
+flowchart TB
+    A[Task A: Architecture]
+    A --> B[Task B: Backend]
+    A --> C[Task C: Frontend]
+    B --> D[Task D: Testing]
+    C --> D
+    D --> E[Task E: Deployment]
+```
 
 ---
 
@@ -377,30 +373,19 @@ Orchestrator HA requires a distributed consensus mechanism so that scheduling an
 
 ---
 
-Example Workflow
-Example: Autonomous Bug Resolution
-Bug detected
-      │
-      ▼
-Bug task created
-      │
-      ▼
-Orchestrator schedules analysis
-      │
-      ▼
-Backend Agent analyzes issue
-      │
-      ▼
-Fix implementation
-      │
-      ▼
-QA testing
-      │
-      ▼
-Security validation
-      │
-      ▼
-Deployment
+**Figure 7.3 — Autonomous Bug Resolution Workflow**
+
+```mermaid
+flowchart TB
+    BD[Bug detected]
+    BD --> BTC[Bug task created]
+    BTC --> OSA[Orchestrator schedules analysis]
+    OSA --> BAA[Backend Agent analyzes issue]
+    BAA --> FI[Fix implementation]
+    FI --> QA[QA testing]
+    QA --> SV[Security validation]
+    SV --> DEP[Deployment]
+```
 
 ---
 

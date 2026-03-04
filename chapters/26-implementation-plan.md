@@ -1,5 +1,5 @@
 
-# 26. Implementation Plan
+# Chapter 26 — Implementation Plan
 
 Detailed Explanation
 The Implementation Plan translates the architecture described in this specification into a concrete engineering execution strategy. While the Development Roadmap described high-level phases, the Implementation Plan defines the actual engineering tasks, technology stacks, service boundaries, deployment strategy, and integration sequence required to build the AI Autonomous Development Platform (AADP).
@@ -24,23 +24,23 @@ Each category contains multiple implementation tasks.
 
 ---
 
-Implementation Architecture
-                    CLOUD INFRASTRUCTURE
-                           │
-                           ▼
-                    CORE PLATFORM LAYER
-        ┌──────────────────┼──────────────────┐
-        ▼                  ▼                  ▼
-   ORCHESTRATOR        TASK SYSTEM         AGENT RUNTIME
-        │                  │                  │
-        ▼                  ▼                  ▼
-  CODEBASE SYSTEM     MEMORY SYSTEM       SAFETY SYSTEM
-        │
-        ▼
-   DEPLOYMENT INFRASTRUCTURE
-        │
-        ▼
-    OBSERVABILITY STACK
+**Figure 26.1 — Implementation Architecture**
+
+```mermaid
+flowchart TB
+    CI[Cloud Infrastructure]
+    CI --> CPL[Core Platform Layer]
+    CPL --> O[Orchestrator]
+    CPL --> TSY[Task System]
+    CPL --> AR[Agent Runtime]
+    O --> CBS[Codebase System]
+    TSY --> MS[Memory System]
+    AR --> SS[Safety System]
+    CBS --> DI[Deployment Infrastructure]
+    MS --> DI
+    SS --> DI
+    DI --> OBS[Observability Stack]
+```
 
 ---
 
@@ -61,17 +61,15 @@ Recommended infrastructure components include:
 
 ---
 
-Infrastructure Setup Workflow
-Provision cloud environment
-        │
-        ▼
-Deploy Kubernetes clusters
-        │
-        ▼
-Configure networking
-        │
-        ▼
-Deploy base infrastructure services
+**Figure 26.2 — Infrastructure Setup Workflow**
+
+```mermaid
+flowchart TB
+    PCE[Provision cloud environment]
+    PCE --> DKC[Deploy Kubernetes clusters]
+    DKC --> CN[Configure networking]
+    CN --> DBIS[Deploy base infrastructure services]
+```
 
 ---
 
@@ -108,14 +106,14 @@ Services communicate using:
 
 ---
 
-Service Interaction Diagram
-       ORCHESTRATOR
-           │
-           ▼
-      TASK SERVICE
-           │
-           ▼
-      AGENT RUNTIME
+**Figure 26.3 — Service Interaction**
+
+```mermaid
+flowchart TB
+    O[Orchestrator]
+    O --> TS[Task Service]
+    TS --> AR[Agent Runtime]
+```
 
 ---
 
@@ -134,20 +132,16 @@ The runtime includes:
 
 ---
 
-Agent Execution Workflow
-Task received
-      │
-      ▼
-Retrieve context
-      │
-      ▼
-Reasoning engine executes
-      │
-      ▼
-Action executed
-      │
-      ▼
-Result returned
+**Figure 26.4 — Agent Execution Workflow**
+
+```mermaid
+flowchart TB
+    TR[Task received]
+    TR --> RC[Retrieve context]
+    RC --> REE[Reasoning engine executes]
+    REE --> AE[Action executed]
+    AE --> RR[Result returned]
+```
 
 ---
 
@@ -186,17 +180,15 @@ The memory system must implement:
 
 ---
 
-Knowledge System Architecture
-Repositories
-     │
-     ▼
-Code Parsing System
-     │
-     ▼
-Semantic Index
-     │
-     ▼
-Knowledge Retrieval API
+**Figure 26.5 — Knowledge System Architecture**
+
+```mermaid
+flowchart TB
+    REP[Repositories]
+    REP --> CPS[Code Parsing System]
+    CPS --> SI[Semantic Index]
+    SI --> KRA[Knowledge Retrieval API]
+```
 
 ---
 
@@ -215,17 +207,15 @@ The system must implement:
 
 ---
 
-Workflow Execution Architecture
-Workflow created
-      │
-      ▼
-Tasks generated
-      │
-      ▼
-Scheduler assigns tasks
-      │
-      ▼
-Agents execute tasks
+**Figure 26.6 — Workflow Execution Architecture**
+
+```mermaid
+flowchart TB
+    WC[Workflow created]
+    WC --> TG[Tasks generated]
+    TG --> SA[Scheduler assigns tasks]
+    SA --> AET[Agents execute tasks]
+```
 
 ---
 
@@ -243,17 +233,15 @@ Deployment infrastructure must include:
 
 ---
 
-Deployment Pipeline Architecture
-Source code
-      │
-      ▼
-Build pipeline
-      │
-      ▼
-Artifact registry
-      │
-      ▼
-Deployment controller
+**Figure 26.7 — Deployment Pipeline Architecture**
+
+```mermaid
+flowchart TB
+    SC[Source code]
+    SC --> BP[Build pipeline]
+    BP --> AREG[Artifact registry]
+    AREG --> DC[Deployment controller]
+```
 
 ---
 
@@ -272,17 +260,15 @@ The system must implement:
 
 ---
 
-Observability Pipeline
-System events
-      │
-      ▼
-Telemetry collectors
-      │
-      ▼
-Metrics database
-      │
-      ▼
-Monitoring dashboards
+**Figure 26.8 — Observability Pipeline**
+
+```mermaid
+flowchart TB
+    SE[System events]
+    SE --> TC[Telemetry collectors]
+    TC --> MD[Metrics database]
+    MD --> MDS[Monitoring dashboards]
+```
 
 ---
 
@@ -301,17 +287,15 @@ The system must implement:
 
 ---
 
-Governance Architecture
-Agent action request
-        │
-        ▼
-Policy evaluation
-        │
-        ▼
-Security validation
-        │
-        ▼
-Action approved or rejected
+**Figure 26.9 — Governance Architecture**
+
+```mermaid
+flowchart TB
+    AAR[Agent action request]
+    AAR --> PE[Policy evaluation]
+    PE --> SV[Security validation]
+    SV --> AAOR[Action approved or rejected]
+```
 
 ---
 
@@ -328,17 +312,15 @@ Local environments should include:
 
 ---
 
-Development Workflow
-Clone repository
-      │
-      ▼
-Start local services
-      │
-      ▼
-Run development agents
-      │
-      ▼
-Execute test workflows
+**Figure 26.10 — Development Workflow**
+
+```mermaid
+flowchart TB
+    CR[Clone repository]
+    CR --> SLS[Start local services]
+    SLS --> RDA[Run development agents]
+    RDA --> ETW[Execute test workflows]
+```
 
 ---
 
@@ -368,20 +350,16 @@ Platform services must be deployed using:
 
 ---
 
-Example Implementation Workflow
-Infrastructure deployed
-      │
-      ▼
-Core services implemented
-      │
-      ▼
-Agent runtime added
-      │
-      ▼
-Knowledge systems integrated
-      │
-      ▼
-Deployment pipeline enabled
+**Figure 26.11 — Example Implementation Workflow**
+
+```mermaid
+flowchart TB
+    ID[Infrastructure deployed]
+    ID --> CSI[Core services implemented]
+    CSI --> ARA[Agent runtime added]
+    ARA --> KSI[Knowledge systems integrated]
+    KSI --> DPE[Deployment pipeline enabled]
+```
 
 ---
 

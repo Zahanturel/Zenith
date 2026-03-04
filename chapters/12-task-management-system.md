@@ -1,5 +1,5 @@
 
-# 12. Task Management System
+# Chapter 12 — Task Management System
 
 Detailed Explanation
 The Task Management System (TMS) is the operational backbone of the AI Autonomous Development Platform (AADP). It defines how work is created, prioritized, scheduled, tracked, executed, retried, and completed across the entire system.
@@ -72,28 +72,22 @@ Automatically retry tasks or escalate failures.
 
 ---
 
-Task Management Architecture
-The Task Management System is composed of multiple subsystems.
-                    TASK CREATION
-                         │
-                         ▼
-                   TASK QUEUE SYSTEM
-                         │
-        ┌────────────────┼─────────────────┐
-        ▼                ▼                 ▼
-  PRIORITY ENGINE   DEPENDENCY MANAGER   TASK STORE
-        │                │                 │
-        ▼                ▼                 ▼
-              TASK SCHEDULER
-                     │
-                     ▼
-                 AGENT POOLS
-                     │
-                     ▼
-               TASK RESULTS
-                     │
-                     ▼
-                TASK MONITOR
+**Figure 12.1 — Task Management Architecture**
+
+```mermaid
+flowchart TB
+    TC[Task Creation]
+    TC --> TQS[Task Queue System]
+    TQS --> PE[Priority Engine]
+    TQS --> DM[Dependency Manager]
+    TQS --> TS[Task Store]
+    PE --> TSC[Task Scheduler]
+    DM --> TSC
+    TS --> TSC
+    TSC --> AP[Agent Pools]
+    AP --> TR[Task Results]
+    TR --> TM[Task Monitor]
+```
 
 ---
 
@@ -113,14 +107,14 @@ Tasks may originate from:
 
 ---
 
-Example Task Creation Workflow
-Planning session identifies new feature
-         │
-         ▼
-Task generation engine creates tasks
-         │
-         ▼
-Tasks inserted into task queue
+**Figure 12.2 — Task Creation Workflow**
+
+```mermaid
+flowchart TB
+    PSI[Planning session identifies new feature]
+    PSI --> TGE[Task generation engine creates tasks]
+    TGE --> TIQ[Tasks inserted into task queue]
+```
 
 ---
 
@@ -199,15 +193,14 @@ C depends on B
 
 ---
 
-Dependency Graph
-Tasks are represented in a Directed Acyclic Graph (DAG).
-Task A
-  │
-  ▼
-Task B
-  │
-  ▼
-Task C
+**Figure 12.3 — Task Dependency DAG**
+
+```mermaid
+flowchart TB
+    TA[Task A]
+    TA --> TB[Task B]
+    TB --> TC[Task C]
+```
 
 ---
 
@@ -224,14 +217,14 @@ Responsibilities
 
 ---
 
-Scheduling Workflow
-Task becomes ready
-        │
-        ▼
-Scheduler identifies eligible agents
-        │
-        ▼
-Task assigned to agent
+**Figure 12.4 — Scheduling Workflow**
+
+```mermaid
+flowchart TB
+    TBR[Task becomes ready]
+    TBR --> SIE[Scheduler identifies eligible agents]
+    SIE --> TAA[Task assigned to agent]
+```
 
 ---
 
@@ -280,14 +273,14 @@ Responsibilities
 
 ---
 
-Monitoring Workflow
-Task execution started
-        │
-        ▼
-Task monitor tracks progress
-        │
-        ▼
-Completion or failure recorded
+**Figure 12.5 — Monitoring Workflow**
+
+```mermaid
+flowchart TB
+    TES[Task execution started]
+    TES --> TMT[Task monitor tracks progress]
+    TMT --> CFR[Completion or failure recorded]
+```
 
 ---
 
@@ -308,14 +301,14 @@ max_retries = 3
 
 ---
 
-Escalation Workflow
-Task fails repeatedly
-        │
-        ▼
-Escalation triggered
-        │
-        ▼
-Human review required
+**Figure 12.6 — Escalation Workflow**
+
+```mermaid
+flowchart TB
+    TFR[Task fails repeatedly]
+    TFR --> ET[Escalation triggered]
+    ET --> HRR[Human review required]
+```
 
 ---
 
@@ -373,27 +366,18 @@ Task storage databases are sharded across multiple nodes.
 
 ---
 
-Example Workflow
-Example: Bug Fix Workflow
-Bug report created
-      │
-      ▼
-Task created
-      │
-      ▼
-Scheduler assigns backend agent
-      │
-      ▼
-Bug fix implemented
-      │
-      ▼
-QA task triggered
-      │
-      ▼
-Security scan executed
-      │
-      ▼
-Deployment task created
+**Figure 12.7 — Bug Fix Workflow**
+
+```mermaid
+flowchart TB
+    BRC[Bug report created]
+    BRC --> TC[Task created]
+    TC --> SAB[Scheduler assigns backend agent]
+    SAB --> BFI[Bug fix implemented]
+    BFI --> QTT[QA task triggered]
+    QTT --> SSE[Security scan executed]
+    SSE --> DTC[Deployment task created]
+```
 
 ---
 

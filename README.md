@@ -17,6 +17,8 @@ aadp-book/
 ├── index.md               # Introduction and table of contents (source)
 ├── full-specification.md  # Single-file version of the full spec
 ├── references.md          # References and further reading
+├── book-frontmatter/      # Title page, preface (copied to src/)
+├── theme/                 # Custom CSS and Pandoc header for PDF
 ├── VERSION                # Book version (e.g. v1.0)
 ├── README.md              # This file
 ├── LICENSE                # MIT
@@ -41,7 +43,7 @@ aadp-book/
 │
 └── scripts/               # Build and maintenance scripts
     ├── split_to_chapters.py   # Regenerate chapters + full-spec from .txt
-    ├── prepare_mdbook.sh      # Copy index + chapters into src/ (Unix)
+    ├── prepare_mdbook.sh      # Copy index + chapters + front matter into src/ (Unix)
     └── prepare_mdbook.ps1     # Same for Windows
 ```
 
@@ -80,36 +82,50 @@ If `full-specification.txt` is not present, place your source `.txt` in the repo
 
 ---
 
-## Building the book (mdBook)
+## Building the book
+
+**Website (HTML)**
+
+```bash
+# Prepare source (copy index, chapters, front matter into src/)
+bash scripts/prepare_mdbook.sh   # or ./scripts/prepare_mdbook.ps1 on Windows
+mdbook build
+```
+
+Output is in the **book/** directory. Open `book/index.html` in a browser or use `mdbook serve` for live preview.
+
+**PDF (printable book)**
+
+After building the website, generate a PDF with [mdbook-pandoc](https://github.com/max-heller/mdbook-pandoc):
+
+```bash
+mdbook build
+mdbook-pandoc book
+```
+
+The PDF is written to **book/pandoc/pdf/AI-Autonomous-Development-Platform.pdf** (or **book/** when only the pandoc renderer is used). You need [Pandoc](https://pandoc.org/) and a LaTeX engine (e.g. [TeX Live](https://www.tug.org/texlive/)) installed. Install the renderer with:
+
+```bash
+cargo install mdbook-pandoc
+```
+
+If you use the browser’s **Print → Save as PDF** on the built HTML instead, open the print dialog, go to **More settings**, and turn **off** “Headers and footers” so the browser does not add date, URL, or title in the margins.
+
+---
+
+## Installation and build details
 
 The book is built with [mdBook](https://rust-lang.github.io/mdBook/). You need **Rust/Cargo** installed to run mdBook.
 
-**1. Install mdBook (and optional Mermaid support):**
+**Install mdBook and optional tools:**
 
 ```bash
 cargo install mdbook
 cargo install mdbook-mermaid   # optional, for Mermaid diagrams
+cargo install mdbook-pandoc   # optional, for PDF output
 ```
 
-**2. Prepare the book source** (required — copies `index.md`, `full-specification.md`, `references.md`, and `chapters/*.md` into `src/`):
-
-```bash
-# On Unix / macOS / WSL
-bash scripts/prepare_mdbook.sh
-
-# On Windows PowerShell
-./scripts/prepare_mdbook.ps1
-```
-
-You must run this step before building so that the "Full specification (single file)" page and all chapters have content.
-
-**3. Build the book:**
-
-```bash
-mdbook build
-```
-
-Output is written to the **book/** directory (HTML, CSS, JS). You can open `book/index.html` in a browser.
+The prepare step copies `index.md`, `full-specification.md`, `references.md`, `book-frontmatter/*.md`, and `chapters/*.md` into `src/`. You must run it before building after any change to those source files.
 
 ---
 

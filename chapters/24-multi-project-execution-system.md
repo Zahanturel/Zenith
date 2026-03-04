@@ -1,5 +1,5 @@
 
-# 24. Multi-Project Execution System
+# Chapter 24 — Multi-Project Execution System
 
 Detailed Explanation
 The Multi-Project Execution System (MPES) enables the AI Autonomous Development Platform (AADP) to operate on many independent software projects simultaneously while maintaining strict isolation between them.
@@ -28,25 +28,27 @@ Through these integrations the system can coordinate large-scale autonomous deve
 
 ---
 
-Multi-Project Architecture
-                     ORCHESTRATOR
-                          │
-            ┌─────────────┼─────────────┐
-            ▼             ▼             ▼
-        PROJECT A      PROJECT B      PROJECT C
-            │             │             │
-            ▼             ▼             ▼
-        TASK QUEUE     TASK QUEUE     TASK QUEUE
-            │             │             │
-            ▼             ▼             ▼
-        AGENT POOL      AGENT POOL     AGENT POOL
-            │             │             │
-            ▼             ▼             ▼
-        REPOSITORIES   REPOSITORIES   REPOSITORIES
-            │             │             │
-            ▼             ▼             ▼
-        DEPLOYMENT      DEPLOYMENT     DEPLOYMENT
-Each project runs inside an isolated project namespace.
+**Figure 24.1 — Multi-Project Architecture**
+
+```mermaid
+flowchart TB
+    O[Orchestrator]
+    O --> PA[Project A]
+    O --> PB[Project B]
+    O --> PC[Project C]
+    PA --> TQA[Task Queue]
+    PB --> TQB[Task Queue]
+    PC --> TQC[Task Queue]
+    TQA --> APA[Agent Pool]
+    TQB --> APB[Agent Pool]
+    TQC --> APC[Agent Pool]
+    APA --> REPA[Repositories]
+    APB --> REPB[Repositories]
+    APC --> REPC[Repositories]
+    REPA --> DEPA[Deployment]
+    REPB --> DEPB[Deployment]
+    REPC --> DEPC[Deployment]
+```
 
 ---
 
@@ -136,20 +138,23 @@ A namespace defines the boundaries for:
 
 ---
 
-Namespace Diagram
-PROJECT A
-   │
-   ├── Task Queue A
-   ├── Memory Store A
-   ├── Agent Workspace A
-   └── Repository Access A
+**Figure 24.2 — Project Namespace Structure**
 
-PROJECT B
-   │
-   ├── Task Queue B
-   ├── Memory Store B
-   ├── Agent Workspace B
-   └── Repository Access B
+```mermaid
+flowchart LR
+    subgraph PA[Project A]
+        TQA[Task Queue A]
+        MSA[Memory Store A]
+        AWA[Agent Workspace A]
+        RAA[Repository Access A]
+    end
+    subgraph PB[Project B]
+        TQB[Task Queue B]
+        MSB[Memory Store B]
+        AWB[Agent Workspace B]
+        RAB[Repository Access B]
+    end
+```
 
 ---
 
@@ -210,18 +215,15 @@ The system stores such entries in a Global Knowledge Layer.
 
 ---
 
-Knowledge Flow
-Project A incident
-      │
-      ▼
-Knowledge stored
-      │
-      ▼
-Global Knowledge Layer
-      │
-      ▼
-Project B retrieves insight
-Only knowledge classified as safe for reuse is shared globally.
+**Figure 24.3 — Cross-Project Knowledge Flow**
+
+```mermaid
+flowchart TB
+    PAI[Project A incident]
+    PAI --> KS[Knowledge stored]
+    KS --> GKL[Global Knowledge Layer]
+    GKL --> PBR[Project B retrieves insight]
+```
 
 ---
 

@@ -1,5 +1,5 @@
 
-# 6. Model Management System
+# Chapter 6 — Model Management System
 
 Detailed Explanation
 The Model Management System (MMS) provides centralized control over all AI models used by the AI Autonomous Development Platform (AADP).
@@ -22,24 +22,21 @@ This abstraction allows the system to support multiple model providers and dynam
 
 ---
 
-Model Management Architecture
-Architecture: Agents → Orchestrator → Model Router → Model Providers
-Agents do not call the Model Router directly. All inference requests are mediated by the Orchestrator, which enforces policy, quotas, and cost controls before forwarding to the Model Router.
-                  AGENTS
-                    │
-                    ▼
-              ORCHESTRATOR
-         (policy hooks, quotas, budget checks)
-                    │
-                    ▼
-             MODEL ROUTER
-                    │
-       ┌────────────┼────────────┐
-       ▼            ▼            ▼
-   MODEL A      MODEL B      MODEL C
-       │            │            │
-       ▼            ▼            ▼
-  PROVIDER 1    PROVIDER 2    PROVIDER 3
+**Figure 6.1 — Model Management Architecture**
+
+```mermaid
+flowchart TB
+    AG[Agents]
+    AG --> O[Orchestrator]
+    O --> MR[Model Router]
+    MR --> M1[Model A]
+    MR --> M2[Model B]
+    MR --> M3[Model C]
+    M1 --> P1[Provider 1]
+    M2 --> P2[Provider 2]
+    M3 --> P3[Provider 3]
+```
+
 Agents never call models directly. All model requests pass through the Orchestrator to the Model Router.
 
 ---
@@ -121,15 +118,14 @@ This ensures efficient use of compute resources.
 Model Fallback System
 Model providers may occasionally fail or become unavailable.
 The Model Management System therefore includes an automatic fallback mechanism.
-If the primary model fails:
-Primary Model Failure
-       │
-       ▼
-Fallback Model Selected
-       │
-       ▼
-Inference Request Retried
-Fallback models must provide compatible capabilities.
+**Figure 6.2 — Model Fallback Flow**
+
+```mermaid
+flowchart TB
+    PMF[Primary Model Failure]
+    PMF --> FMS[Fallback Model Selected]
+    FMS --> IRR[Inference Request Retried]
+```
 
 ---
 
@@ -237,21 +233,16 @@ Scaling mechanisms include:
 
 ---
 
-Example Workflow
-Example: Agent Code Generation
-Backend Agent requests code generation
-        │
-        ▼
-Model Router evaluates task complexity
-        │
-        ▼
-Code-optimized model selected
-        │
-        ▼
-Inference executed
-        │
-        ▼
-Generated code returned to agent
+**Figure 6.3 — Agent Code Generation Workflow**
+
+```mermaid
+flowchart TB
+    A1[Backend Agent requests code generation]
+    A1 --> A2[Model Router evaluates task complexity]
+    A2 --> A3[Code-optimized model selected]
+    A3 --> A4[Inference executed]
+    A4 --> A5[Generated code returned to agent]
+```
 
 ---
 

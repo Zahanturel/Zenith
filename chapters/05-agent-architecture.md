@@ -1,5 +1,5 @@
 
-# 5. Agent Architecture
+# Chapter 5 — Agent Architecture
 
 Detailed Explanation
 The Agent Architecture defines the internal design, lifecycle, communication model, and runtime behavior of autonomous agents operating within the AI Autonomous Development Platform (AADP).
@@ -38,37 +38,20 @@ This cycle ensures that agent behavior remains structured and observable.
 
 ---
 
-Agent Runtime Architecture
-The following diagram illustrates the internal architecture of an agent.
-                     AGENT PROCESS
-                          │
-                          ▼
-                   TASK RETRIEVAL
-                          │
-                          ▼
-                CONTEXT RETRIEVAL LAYER
-          (Memory, Codebase Knowledge, APIs)
-                          │
-                          ▼
-                   REASONING ENGINE
-     (Requests inference via Orchestrator → Model Router; no direct model calls)
-                          │
-                          ▼
-              TOOL INVOCATION MANAGER
-     (External systems: repos, CI/CD, APIs — mediated by Orchestrator)
-                          │
-                          ▼
-                   ACTION EXECUTOR
-        (Code Generation, API Calls, Analysis)
-                          │
-                          ▼
-                   RESULT GENERATOR
-                          │
-                          ▼
-                TASK COMPLETION REPORT
-                          │
-                          ▼
-                 ORCHESTRATOR FEEDBACK
+**Figure 5.1 — Agent Process Architecture**
+
+```mermaid
+flowchart TB
+    AP[Agent Process]
+    AP --> TR[Task Retrieval]
+    TR --> CR[Context Retrieval Layer]
+    CR --> RE[Reasoning Engine]
+    RE --> TIM[Tool Invocation Manager]
+    TIM --> AE[Action Executor]
+    AE --> RG[Result Generator]
+    RG --> TCR[Task Completion Report]
+    TCR --> OF[Orchestrator Feedback]
+```
 
 ---
 
@@ -164,23 +147,17 @@ Agents follow a structured lifecycle managed by the orchestrator.
 
 ---
 
-Lifecycle Stages
-Agent Created
-      │
-      ▼
-Agent Registered
-      │
-      ▼
-Waiting for Task
-      │
-      ▼
-Task Execution
-      │
-      ▼
-Result Submission
-      │
-      ▼
-Idle or Next Task
+**Figure 5.2 — Agent Lifecycle Stages**
+
+```mermaid
+flowchart TB
+    AC[Agent Created]
+    AC --> AR[Agent Registered]
+    AR --> WT[Waiting for Task]
+    WT --> TE[Task Execution]
+    TE --> RS[Result Submission]
+    RS --> IN[Idle or Next Task]
+```
 
 ---
 
@@ -243,17 +220,15 @@ Agents communicate with the orchestrator and other agents through structured mes
 
 ---
 
-Message Flow
-Agent A
-   │
-   ▼
-Message Queue
-   │
-   ▼
-Orchestrator
-   │
-   ▼
-Agent B
+**Figure 5.3 — Message Flow**
+
+```mermaid
+flowchart TB
+    A[Agent A]
+    A --> MQ[Message Queue]
+    MQ --> O[Orchestrator]
+    O --> B[Agent B]
+```
 
 ---
 
@@ -373,24 +348,17 @@ This ensures that workflow DAG execution, multi-step tasks, and collaboration re
 
 ---
 
-Example Workflow
-Feature Implementation
-Architect Agent creates system design
-        │
-        ▼
-Backend Agent implements service
-        │
-        ▼
-Frontend Agent implements UI
-        │
-        ▼
-QA Agent runs tests
-        │
-        ▼
-Security Agent scans code
-        │
-        ▼
-DevOps Agent deploys service
+**Figure 5.4 — Feature Implementation Workflow**
+
+```mermaid
+flowchart TB
+    A1[Architect Agent creates system design]
+    A1 --> A2[Backend Agent implements service]
+    A2 --> A3[Frontend Agent implements UI]
+    A3 --> A4[QA Agent runs tests]
+    A4 --> A5[Security Agent scans code]
+    A5 --> A6[DevOps Agent deploys service]
+```
 
 ---
 

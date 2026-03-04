@@ -1,5 +1,5 @@
 
-# 19. Sandboxed Execution Environment
+# Chapter 19 — Sandboxed Execution Environment
 
 Detailed Explanation
 The Sandboxed Execution Environment (SEE) provides a secure and isolated runtime for executing code generated or modified by autonomous agents within the AI Autonomous Development Platform (AADP).
@@ -16,24 +16,21 @@ Integration with CI/CD: CI/CD pipelines (Section 14 — Deployment Infrastructur
 
 ---
 
-Sandboxed Execution Architecture
-                AGENT TASK
-                    │
-                    ▼
-             EXECUTION REQUEST
-                    │
-                    ▼
-             SANDBOX MANAGER
-                    │
-                    ▼
-          EPHEMERAL CONTAINER
-        ┌────────────┼────────────┐
-        ▼            ▼            ▼
-   FILESYSTEM     NETWORK      RESOURCE
-    ISOLATION     CONTROL       LIMITS
-                    │
-                    ▼
-            EXECUTION RESULTS
+**Figure 19.1 — Sandboxed Execution Architecture**
+
+```mermaid
+flowchart TB
+    AT[Agent Task]
+    AT --> ER[Execution Request]
+    ER --> SBM[Sandbox Manager]
+    SBM --> EC[Ephemeral Container]
+    EC --> FI[Filesystem Isolation]
+    EC --> NC[Network Control]
+    EC --> RL[Resource Limits]
+    FI --> RES[Execution Results]
+    NC --> RES
+    RL --> RES
+```
 
 ---
 
@@ -136,22 +133,16 @@ These limits prevent runaway execution tasks.
 
 ---
 
-Execution Lifecycle
-The sandbox execution process follows a defined lifecycle.
-Agent requests execution
-        │
-        ▼
-Sandbox Manager provisions container
-        │
-        ▼
-Code executed inside sandbox
-        │
-        ▼
-Execution logs collected
-        │
-        ▼
-Container destroyed
-Execution artifacts such as logs or test results are stored outside the sandbox.
+**Figure 19.2 — Execution Lifecycle**
+
+```mermaid
+flowchart TB
+    ARE[Agent requests execution]
+    ARE --> SMP[Sandbox Manager provisions container]
+    SMP --> CE[Code executed inside sandbox]
+    CE --> ELC[Execution logs collected]
+    ELC --> CD[Container destroyed]
+```
 
 ---
 
@@ -206,21 +197,16 @@ Execution requests are processed through distributed task queues.
 
 ---
 
-Example Workflow
-Example: Running Agent-Generated Tests
-Agent generates unit tests
-        │
-        ▼
-Execution request created
-        │
-        ▼
-Sandbox container launched
-        │
-        ▼
-Tests executed
-        │
-        ▼
-Results returned to agent
+**Figure 19.3 — Agent-Generated Tests Workflow**
+
+```mermaid
+flowchart TB
+    AGT[Agent generates unit tests]
+    AGT --> ERC[Execution request created]
+    ERC --> SCL[Sandbox container launched]
+    SCL --> TE[Tests executed]
+    TE --> RRA[Results returned to agent]
+```
 
 ---
 

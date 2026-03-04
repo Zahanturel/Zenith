@@ -1,0 +1,54 @@
+/* Professional book styling — print and screen */
+
+@page {
+  margin: 1in;
+  size: A4;
+}
+
+@media print {
+  body {
+    font-family: "Inter", "Georgia", serif;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  h1 {
+    page-break-before: always;
+  }
+
+  h1:first-of-type {
+    page-break-before: avoid;
+  }
+
+  h2, h3 {
+    page-break-after: avoid;
+  }
+
+  pre, figure, table {
+    page-break-inside: avoid;
+  }
+
+  .content main {
+    max-width: 100%;
+  }
+
+  /* Keep Mermaid diagrams intact when printing to PDF */
+  .mermaid,
+  pre.mermaid,
+  [class*="mermaid"] {
+    page-break-inside: avoid;
+    max-width: 100%;
+  }
+
+  .mermaid svg {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Screen: ensure chapters start on new page when printing from browser */
+@media print {
+  .chapter h1 {
+    page-break-before: always;
+  }
+}

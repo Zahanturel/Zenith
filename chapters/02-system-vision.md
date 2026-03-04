@@ -1,5 +1,5 @@
 
-# 2. System Vision
+# Chapter 2 — System Vision
 
 Detailed Explanation
 The System Vision defines the long-term mission, architectural philosophy, and operational model of the AI Autonomous Development Platform (AADP).
@@ -57,30 +57,19 @@ This design creates a hierarchical agent ecosystem similar to a real engineering
 # 2. Persistent Autonomous Operation
 
 The platform is designed to operate continuously, rather than being triggered only by user prompts.
-The system runs a permanent operational loop:
-Analyze System State
-        │
-        ▼
-Identify Opportunities or Problems
-        │
-        ▼
-Plan Improvements
-        │
-        ▼
-Execute Tasks
-        │
-        ▼
-Validate Results
-        │
-        ▼
-Deploy Changes
-        │
-        ▼
-Observe Outcomes
-        │
-        ▼
-Learn and Improve
-This continuous loop allows the system to maintain and improve software systems over time.
+**Figure 2.1 — Persistent Operation Loop**
+
+```mermaid
+flowchart TB
+    ASS[Analyze System State]
+    ASS --> IOP[Identify Opportunities or Problems]
+    IOP --> PI[Plan Improvements]
+    PI --> ET[Execute Tasks]
+    ET --> VR[Validate Results]
+    VR --> DC[Deploy Changes]
+    DC --> OO[Observe Outcomes]
+    OO --> LI[Learn and Improve]
+```
 
 ---
 
@@ -156,41 +145,24 @@ The Research Agent and Self-Improvement Agent drive this evolution.
 
 ---
 
-System Vision Architecture
-The following diagram illustrates the conceptual vision of the system.
-                   HUMAN STRATEGIC CONTROL
-                           │
-                           ▼
-                    GOVERNANCE LAYER
-         (Policy, Compliance, Human Approval)
-                           │
-                           ▼
-                    ORCHESTRATION CORE
-         (Task Scheduling, Workflow Control,
-           Resource Allocation, Cost Control)
-                           │
-    ┌──────────────────────┼──────────────────────┐
-   ▼              			  ▼  			               ▼
-AGENT ORGANIZATION     KNOWLEDGE SYSTEM      SAFETY SYSTEM
-(Product, Architect,   (Memory + Codebase    (Policies,
- Engineers, QA,         Understanding)       Security,
- DevOps, Research)                           Risk Controls)
-                           │
-                           ▼
-                SOFTWARE DEVELOPMENT FACTORY
-        (Design → Build → Test → Deploy → Monitor)
-                           │
-                           ▼
-                    RUNNING SOFTWARE
-                           │
-                           ▼
-                    PRODUCTION DATA
-                           │
-                           ▼
-                       FEEDBACK LOOP
-                           │
-                           ▼
-                 SYSTEM LEARNING & IMPROVEMENT
+**Figure 2.2 — System Vision Architecture**
+
+```mermaid
+flowchart TB
+    HSC[Human Strategic Control]
+    HSC --> GL[Governance Layer]
+    GL --> OC[Orchestration Core]
+    OC --> AO[Agent Organization]
+    OC --> KS[Knowledge System]
+    OC --> SS[Safety System]
+    AO --> SDF[Software Development Factory]
+    KS --> SDF
+    SS --> SDF
+    SDF --> RS[Running Software]
+    RS --> PD[Production Data]
+    PD --> FL[Feedback Loop]
+    FL --> SLI[System Learning and Improvement]
+```
 
 ---
 
@@ -272,36 +244,21 @@ PolicyRule (high-level view; see Section 10 for canonical)
 
 ---
 
-Example Workflow
-Example: Autonomous Feature Development
-New Feature Idea
-       │
-       ▼
-Product Manager Agent
-       │
-       ▼
-Architect Agent
-       │
-       ▼
-Task Breakdown
-       │
-       ▼
-Engineering Agents
-       │
-       ▼
-QA Testing
-       │
-       ▼
-Security Validation
-       │
-       ▼
-DevOps Deployment
-       │
-       ▼
-Production Monitoring
-       │
-       ▼
-Self-Improvement Analysis
+**Figure 2.3 — Autonomous Feature Development**
+
+```mermaid
+flowchart TB
+    NFI[New Feature Idea]
+    NFI --> PM[Product Manager Agent]
+    PM --> AA[Architect Agent]
+    AA --> TB[Task Breakdown]
+    TB --> EA[Engineering Agents]
+    EA --> QAT[QA Testing]
+    QAT --> SV[Security Validation]
+    SV --> DD[DevOps Deployment]
+    DD --> PMON[Production Monitoring]
+    PMON --> SIA[Self-Improvement Analysis]
+```
 
 ---
 
