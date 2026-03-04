@@ -1,9 +1,16 @@
 /* ==========================================================================
-   AADP Documentation — Base styles and content (soft-light theme)
+   AADP Documentation — Base styles and layout architecture
+   Clear structural hierarchy: page → content region → sections
    ========================================================================== */
 
 :root {
   color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html {
@@ -70,22 +77,17 @@ dt:target::before {
 }
 
 :target {
-  scroll-margin-top: calc(var(--menu-bar-height) + 0.5em);
+  scroll-margin-top: calc(var(--menu-bar-height) + 1rem);
 }
 
-/* ========== Page layout — three-column (sidebar | content card | right TOC) ========== */
-
-.page {
-  outline: 0;
-  padding: var(--page-padding);
-  margin-block-start: calc(0px - var(--menu-bar-height));
-  min-height: 100vh;
-}
+/* ========== Page layout — single scroll container, clear regions ========== */
 
 .page-wrapper {
   box-sizing: border-box;
   background-color: var(--bg);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 html:not(.js) .page-wrapper,
@@ -98,9 +100,20 @@ html:not(.js) .page-wrapper,
   transition: margin-right 0.3s ease, transform 0.3s ease;
 }
 
-/* Content card: main article surface */
+.page {
+  outline: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--page-padding);
+  margin-block-start: calc(0px - var(--menu-bar-height));
+  min-height: 100vh;
+}
+
+/* Content region: card + right TOC live inside .doc-layout (injected) */
 .content {
   overflow-y: auto;
+  overflow-x: hidden;
   background: var(--content-card-bg);
   border: 1px solid var(--borders);
   border-radius: var(--card-radius);
@@ -318,7 +331,7 @@ sup {
   visibility: visible;
 }
 
-/* ========== Sidebar / chapter list ========== */
+/* ========== Sidebar / chapter list (hierarchy in book.css) ========== */
 
 .chapter li.part-title {
   color: var(--sidebar-fg);
@@ -436,7 +449,7 @@ dd > p {
   margin-right: 8px;
 }
 
-/* ========== Book header (top bar) — soft-light ========== */
+/* ========== Book header (top bar) — fixed height, layout alignment ========== */
 
 .book-header,
 .zenith-header {
@@ -445,11 +458,13 @@ dd > p {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: var(--space-2);
+  min-height: var(--layout-header-height);
   padding: var(--space-2) var(--space-4);
   background: var(--sidebar-bg);
   color: var(--fg);
   border-bottom: 1px solid var(--borders);
   font-size: 0.95rem;
+  box-sizing: border-box;
 }
 
 .book-header .brand,
@@ -511,20 +526,16 @@ pre code {
   height: auto;
 }
 
-/* ========== Sidebar navigation ========== */
+/* ========== Sidebar navigation (base; hierarchy in book.css) ========== */
 
 .sidebar {
-  font-size: 0.95rem;
-}
-
-.sidebar .sidebar-scrollbox {
-  padding: var(--space-3) var(--space-2);
+  font-size: 0.9375rem;
 }
 
 .sidebar a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .chapter li a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }

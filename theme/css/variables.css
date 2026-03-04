@@ -57,6 +57,17 @@
   --page-padding: 24px;
   --menu-bar-height: 0px;
 
+  /* Layout structure — deterministic hierarchy */
+  --layout-header-height: 56px;
+  --layout-content-top: 0px;
+  --content-section-spacing: 2rem;
+  --sidebar-item-padding-y: 6px;
+  --sidebar-item-padding-x: 12px;
+  --sidebar-level-indent: 16px;
+  --sidebar-separator-width: 1px;
+  --nav-wrapper-margin-top: 48px;
+  --toc-sticky-top: 24px;
+
   /* Spacing */
   --space-1: 8px;
   --space-2: 12px;

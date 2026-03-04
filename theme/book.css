@@ -1,9 +1,9 @@
 /* ==========================================================================
-   AADP Documentation — Layout, typography, sidebar, code, tables, responsive
-   Stripe/Linear/Vercel-style — three-column layout + content card
+   AADP Documentation — Layout architecture, navigation, sections, responsive
+   Deterministic structure: sidebar | doc-layout (content + page-toc)
    ========================================================================== */
 
-/* ---------- Three-column doc layout ---------- */
+/* ---------- Doc layout: content + right TOC — balanced and centered ---------- */
 .doc-layout {
   display: flex;
   gap: var(--column-gap);
@@ -12,15 +12,17 @@
   width: 100%;
   max-width: calc(var(--content-max-width) + var(--column-gap) + var(--toc-width));
   margin: 0 auto;
-  padding: 0 var(--space-3);
+  padding: var(--space-4) 0 var(--space-6);
+  flex: 1;
+  min-width: 0;
 }
 
-/* Right-hand "On this page" TOC */
+/* Right-hand "On this page" TOC — stable position and spacing */
 .page-toc {
   width: var(--toc-width);
   flex-shrink: 0;
   position: sticky;
-  top: var(--space-5);
+  top: var(--toc-sticky-top);
   padding-top: var(--space-2);
   font-size: 13px;
   color: var(--fg-secondary);
@@ -32,19 +34,20 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--fg-secondary);
-  margin-bottom: var(--space-2);
+  margin: 0 0 var(--space-2) 0;
 }
 
 .page-toc ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  border-left: 1px solid var(--borders);
-  padding-left: var(--space-2);
+  border-left: 2px solid var(--borders);
+  padding-left: var(--space-3);
 }
 
 .page-toc li {
   margin-bottom: var(--space-1);
+  line-height: 1.4;
 }
 
 .page-toc li.toc-h3 {
@@ -57,7 +60,6 @@
   text-decoration: none;
   display: block;
   padding: 2px 0;
-  line-height: 1.4;
 }
 
 .page-toc a:hover {
@@ -69,39 +71,87 @@
   font-weight: 500;
 }
 
-/* ---------- Sidebar — clear separation from content ---------- */
+/* ---------- Sidebar — clear hierarchy and separation ---------- */
 .sidebar {
   background-color: var(--sidebar-bg) !important;
   color: var(--sidebar-fg);
-  border-right: 1px solid var(--borders);
+  border-right: var(--sidebar-separator-width) solid var(--borders);
+}
+
+body.has-book-header .sidebar {
+  top: var(--layout-header-height);
+  height: calc(100vh - var(--layout-header-height));
 }
 
 .sidebar .sidebar-scrollbox {
   padding: var(--space-3) var(--space-2);
+  box-sizing: border-box;
+}
+
+.chapter {
+  line-height: 1.5;
+}
+
+.chapter > li {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.chapter > li + li {
+  margin-top: 2px;
 }
 
 .sidebar .chapter a {
   color: var(--sidebar-fg);
   border-radius: 6px;
-  padding: 6px 12px;
-  margin: 2px 4px;
+  padding: var(--sidebar-item-padding-y) var(--sidebar-item-padding-x);
+  margin: 0 4px;
   display: block;
+  text-decoration: none;
+  transition: background-color 0.12s ease, color 0.12s ease;
 }
 
 .sidebar .chapter a:hover {
   background: var(--sidebar-hover-bg);
-  text-decoration: none;
 }
 
-.sidebar .chapter li.active > a {
+.sidebar .chapter li.active > a,
+.sidebar .chapter li a.active {
   background: var(--sidebar-active-bg);
   font-weight: 600;
   color: var(--heading);
 }
 
-/* ---------- Typography scale ---------- */
-/* H1 36px | H2 28px | H3 22px | H4 18px | Body 16px | Code 14px | line-height 1.7 */
+.sidebar .chapter li.part-title {
+  padding: var(--sidebar-item-padding-y) var(--sidebar-item-padding-x);
+  margin: var(--space-2) 4px var(--space-1);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--fg-secondary);
+}
 
+.sidebar .chapter .section,
+.sidebar .chapter li ol {
+  padding-inline-start: var(--sidebar-level-indent);
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.sidebar .chapter .section li a,
+.sidebar .chapter li ol li a {
+  font-size: 0.9em;
+}
+
+/* ---------- Page nav (prev/next) — consistent separation from content ---------- */
+.nav-wrapper {
+  margin-top: var(--nav-wrapper-margin-top);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--borders);
+  clear: both;
+}
+
+/* ---------- Typography and section spacing ---------- */
 .content h1 {
   font-size: 36px;
   font-weight: 700;
@@ -116,10 +166,14 @@
   font-weight: 700;
   color: var(--heading);
   line-height: 1.7;
-  margin-top: 40px;
+  margin-top: var(--content-section-spacing);
   margin-bottom: 0.5em;
   padding-bottom: 0.25em;
   border-bottom: 1px solid var(--borders);
+}
+
+.content h2:first-of-type {
+  margin-top: 0;
 }
 
 .content h3 {
@@ -127,7 +181,7 @@
   font-weight: 600;
   color: var(--heading);
   line-height: 1.7;
-  margin-top: 28px;
+  margin-top: var(--content-section-spacing);
   margin-bottom: 0.5em;
 }
 
@@ -136,7 +190,7 @@
   font-weight: 600;
   color: var(--heading);
   line-height: 1.7;
-  margin-top: 24px;
+  margin-top: 1.25rem;
   margin-bottom: 0.4em;
 }
 
@@ -146,7 +200,7 @@
   font-weight: 600;
   color: var(--fg-secondary);
   line-height: 1.7;
-  margin-top: 20px;
+  margin-top: 1rem;
   margin-bottom: 0.35em;
 }
 
@@ -217,8 +271,8 @@
 .content figure,
 .content .figure,
 .content .mermaid {
-  margin-top: var(--space-5);
-  margin-bottom: var(--space-5);
+  margin-top: var(--content-section-spacing);
+  margin-bottom: var(--content-section-spacing);
   text-align: center;
 }
 
@@ -236,12 +290,20 @@
 }
 
 .content hr {
-  margin: var(--space-5) 0;
+  margin: var(--content-section-spacing) 0;
   border: none;
   border-top: 1px solid var(--borders);
 }
 
-/* ---------- Responsive: collapse sidebar, hide right TOC ---------- */
+/* ---------- Menu bar — align with page layout ---------- */
+#mdbook-menu-bar {
+  margin-left: calc(-1 * var(--page-padding));
+  margin-right: calc(-1 * var(--page-padding));
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
+}
+
+/* ---------- Responsive: single column, sidebar collapses via mdBook ---------- */
 @media (max-width: 1024px) {
   .page-toc {
     display: none;
@@ -249,6 +311,8 @@
 
   .doc-layout {
     max-width: var(--content-max-width);
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
   }
 
   .content {
@@ -258,7 +322,7 @@
 
 @media (max-width: 768px) {
   .doc-layout {
-    padding: 0 var(--space-2);
+    padding: var(--space-3) var(--space-2) var(--space-5);
   }
 
   .content {
@@ -276,9 +340,11 @@
   .content h3 {
     font-size: 20px;
   }
-}
 
-/* Sidebar collapse is handled by mdBook (e.g. 1080px); we keep layout intact above that. */
+  .nav-wrapper {
+    margin-top: var(--space-6);
+  }
+}
 
 /* ---------- Print ---------- */
 @page {
@@ -289,6 +355,7 @@
 @media print {
   .doc-layout {
     display: block;
+    padding: 0;
   }
 
   .page-toc {

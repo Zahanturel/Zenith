@@ -11,6 +11,7 @@
         header.className = 'book-header';
         header.innerHTML = '<div class="brand">AADP — System Design Specification</div><div class="repo-link"><a href="https://github.com/Zahanturel/Zenith">GitHub</a></div>';
         document.body.insertBefore(header, document.body.firstChild);
+        document.body.classList.add('has-book-header');
     }
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', injectHeader);
@@ -61,15 +62,15 @@
 
             function setActiveToc() {
                 var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                var margin = 100;
+                var viewportThreshold = scrollTop + 120;
                 var activeId = null;
                 headings.forEach(function(h) {
                     var top = h.getBoundingClientRect().top + scrollTop;
-                    if (scrollTop >= top - margin) activeId = h.id;
+                    if (scrollTop >= top - 80) activeId = h.id;
                 });
                 toc.querySelectorAll('a').forEach(function(a) {
                     var isActive = activeId && a.getAttribute('href') === '#' + activeId;
-                    a.classList.toggle('active', isActive);
+                    a.classList.toggle('active', !!isActive);
                 });
             }
             window.addEventListener('scroll', setActiveToc);
