@@ -72,66 +72,85 @@
 .page-toc a:hover { color: #2563EB; }
 .page-toc a.active { color: #2563EB; font-weight: 500; }
 
-/* ---- Left sidebar (reverted to previous implementation) ---- */
+/* ---- Left sidebar: minimal TOC — clean list, no decorative UI ---- */
 .sidebar {
-  background: #ECEFF3 !important;
+  background: #F5F6F8;
   color: #111827;
   border-right: 1px solid #E5E7EB;
 }
 
 .sidebar .sidebar-scrollbox {
-  padding: 16px 12px;
+  padding: 12px 10px 24px 12px;
 }
 
-.chapter {
+/* Root list: sequential table of contents */
+.sidebar .chapter {
   list-style: none;
   padding-left: 0;
+  margin: 0;
+  font-size: 14px;
   line-height: 1.5;
 }
 
-.chapter > li { margin: 0; }
-.chapter > li + li { margin-top: 2px; }
+.sidebar .chapter > li {
+  margin: 0;
+}
 
+/* Section label (e.g. "Front Matter") — minimal, not a link */
+.sidebar .chapter li.part-title {
+  display: block;
+  padding: 14px 12px 6px 12px;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6B7280;
+}
+
+/* Divider between sections */
+.sidebar .chapter .spacer {
+  display: block;
+  height: 0;
+  margin: 8px 12px;
+  padding: 0;
+  border: none;
+  overflow: hidden;
+}
+
+/* Navigation links — minimal, consistent spacing */
 .sidebar .chapter a {
   display: block;
-  padding: 8px 12px;
-  margin: 0 6px;
+  padding: 6px 12px;
+  margin: 0;
   color: #111827;
   text-decoration: none;
-  border-radius: 6px;
-  transition: background 0.15s ease;
 }
 
 .sidebar .chapter a:hover {
-  background: #F0F3F9;
+  background: #EEF2FF;
+  color: #111827;
 }
 
 .sidebar .chapter li.active > a,
 .sidebar .chapter li a.active {
-  background: #E6EBF5;
+  background: #E5E7EB;
   font-weight: 600;
   color: #111827;
 }
 
-.sidebar .chapter li.part-title {
-  padding: 8px 12px;
-  margin: 16px 6px 6px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #4B5563;
-}
-
+/* Nested subsections — indentation only */
 .sidebar .chapter .section,
 .sidebar .chapter li ol {
+  list-style: none;
   padding-left: 16px;
-  margin: 2px 0;
+  margin: 2px 0 0 0;
 }
 
 .sidebar .chapter .section li a,
 .sidebar .chapter li ol li a {
-  font-size: 0.9em;
+  font-size: 13px;
+  padding: 4px 12px 4px 0;
 }
 
 /* ---- Prev/next ---- */
