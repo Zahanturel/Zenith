@@ -10,37 +10,36 @@
   }
 }
 
-/* ---- Three-column layout ---- */
+/* ---- Three-column grid: Sidebar | Main Content | Optional TOC ---- */
 .doc-layout {
   display: flex;
   align-items: flex-start;
-  justify-content: center;
-  gap: 32px;
+  justify-content: flex-start;
+  gap: var(--gap);
   width: 100%;
-  max-width: 1032px;
-  margin: 0 auto;
-  padding: 24px 16px 48px;
+  max-width: calc(var(--card-max-w) + var(--gap) + var(--toc-w));
+  margin: 0;
+  padding: 24px 0 48px 0;
   min-width: 0;
 }
 
-/* ---- Content column (white card is styled in general.css) ---- */
+/* Main content column — no card, part of grid */
 .doc-layout > #mdbook-content.content {
   flex: 1 1 auto;
   min-width: 0;
+  max-width: var(--card-max-w);
 }
 
-/* ---- Right column: On this page ---- */
+/* ---- Right column: optional on-this-page TOC — minimal ---- */
 .page-toc {
-  width: 220px;
+  width: var(--toc-w);
   flex-shrink: 0;
   position: sticky;
   top: 24px;
-  padding: 12px 0 0 20px;
+  padding: 0 0 0 16px;
   font-size: 13px;
-  background: #F9FAFB;
-  border-left: 1px solid #E5E7EB;
-  border-radius: 0 8px 8px 0;
-  margin-left: -1px;
+  color: var(--text-muted);
+  border-left: 1px solid var(--border);
 }
 
 .page-toc-title {
@@ -48,7 +47,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #4B5563;
+  color: var(--text-muted);
   margin: 0 0 12px 0;
 }
 
@@ -57,30 +56,28 @@
   padding: 0;
   margin: 0;
   padding-left: 12px;
-  border-left: 2px solid #E5E7EB;
-  margin-left: -12px;
 }
 
 .page-toc li { margin-bottom: 6px; line-height: 1.4; }
-.page-toc li.toc-h3 { padding-left: 12px; font-size: 12px; }
+.page-toc li.toc-h3 { padding-left: 8px; font-size: 12px; }
 .page-toc a {
-  color: #4B5563;
+  color: var(--text-muted);
   text-decoration: none;
   display: block;
   padding: 2px 0;
 }
-.page-toc a:hover { color: #2563EB; }
-.page-toc a.active { color: #2563EB; font-weight: 500; }
+.page-toc a:hover { color: var(--link); }
+.page-toc a.active { color: var(--link); font-weight: 500; }
 
-/* ---- Left sidebar: minimal TOC — clean list, no decorative UI ---- */
+/* ---- Left sidebar: primary navigation — minimal, text-focused ---- */
 .sidebar {
-  background: #F5F6F8;
-  color: #111827;
-  border-right: 1px solid #E5E7EB;
+  background: var(--sidebar-bg);
+  color: var(--sidebar-fg);
+  border-right: 1px solid var(--border);
 }
 
 .sidebar .sidebar-scrollbox {
-  padding: 12px 10px 24px 12px;
+  padding: 16px 12px 24px 12px;
 }
 
 /* Root list: sequential table of contents */
@@ -123,20 +120,20 @@
   display: block;
   padding: 6px 12px;
   margin: 0;
-  color: #111827;
+  color: var(--text);
   text-decoration: none;
 }
 
 .sidebar .chapter a:hover {
-  background: #EEF2FF;
-  color: #111827;
+  background: #F0F3F9;
+  color: var(--text);
 }
 
 .sidebar .chapter li.active > a,
 .sidebar .chapter li a.active {
-  background: #E5E7EB;
+  background: #E8ECF5;
   font-weight: 600;
-  color: #111827;
+  color: var(--text);
 }
 
 /* Nested subsections — indentation only */
@@ -257,12 +254,14 @@
 }
 .content hr { margin: 32px 0; border: none; border-top: 1px solid #E5E7EB; }
 
-/* ---- Menu bar alignment ---- */
+/* ---- Menu bar: minimal, does not compete with sidebar ---- */
 #mdbook-menu-bar {
   margin-left: calc(-1 * var(--page-padding));
   margin-right: calc(-1 * var(--page-padding));
   padding-left: var(--page-padding);
   padding-right: var(--page-padding);
+  background: #fff;
+  border-bottom: 1px solid var(--border);
 }
 
 /* ---- Responsive ---- */
@@ -274,7 +273,7 @@
 
 @media (max-width: 768px) {
   .doc-layout { padding: 16px 12px 32px; }
-  #mdbook-content.content { padding: 24px !important; }
+  #mdbook-content.content { padding: 16px 0 48px !important; }
   .content h1 { font-size: 28px; }
   .content h2 { font-size: 24px; }
   .content h3 { font-size: 20px; }
@@ -289,10 +288,11 @@
   .page-toc { display: none; }
   body, .page-wrapper { background: #fff; }
   #mdbook-content.content {
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    max-width: 100% !important;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    max-width: 100%;
+    padding: 0;
   }
   .content h1 { page-break-before: always; font-size: 28pt; }
   .content h1:first-of-type { page-break-before: avoid; }

@@ -1,11 +1,11 @@
-/* AADP Documentation — Base and page structure. One scroll, clear card. */
+/* AADP Documentation — Base and layout. Minimal grid: Sidebar | Content | TOC. */
 
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
   font-family: var(--font);
   color: var(--text);
-  background: #F5F6F8;
+  background: #fff;
   -webkit-text-size-adjust: none;
 }
 
@@ -14,7 +14,7 @@ body {
   font-size: var(--text-size);
   line-height: var(--line);
   overflow-x: hidden;
-  background: #F5F6F8;
+  background: #fff;
 }
 
 code {
@@ -46,10 +46,10 @@ h1:target::before, h2:target::before, h3:target::before, h4:target::before, h5:t
 
 :target { scroll-margin-top: calc(var(--menu-bar-height) + 8px); }
 
-/* Page wrapper: full grey background */
+/* Page wrapper: single background, no card */
 .page-wrapper {
   min-height: 100vh;
-  background: #F5F6F8;
+  background: #fff;
   transition: margin-left 0.25s ease, transform 0.25s ease;
 }
 
@@ -62,14 +62,13 @@ h1:target::before, h2:target::before, h3:target::before, h4:target::before, h5:t
   min-height: 100vh;
 }
 
-/* Content = white card. Must look clearly like a card on grey. */
+/* Main content: no card, simple column in grid */
 #mdbook-content.content {
-  background: #FFFFFF !important;
-  border: 1px solid #E5E7EB !important;
-  border-radius: 10px !important;
-  padding: 40px !important;
-  padding-bottom: 64px !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 24px 0 64px 0;
+  box-shadow: none;
   max-width: var(--card-max-w);
   min-width: 0;
 }
