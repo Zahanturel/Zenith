@@ -211,9 +211,10 @@ def build_page(entry_path, summary_entries, template, src_dir):
 def build_full_book_html(src_dir, entries, pages_to_build, out_dir):
     """Build a single full-book.html with all content in SUMMARY order for Print → Save as PDF.
     Excludes full-specification.md so the book is not duplicated (we use chapterized pages only).
+    Excludes index.md because it duplicates README.md (same title, Single-file version, How to read, Table of contents).
     """
-    # Exclude the monolithic full-specification.md to avoid duplicating the entire book
-    book_pages = [(t, p) for t, p in pages_to_build if p.strip().lower() != "full-specification.md"]
+    exclude = {"full-specification.md", "index.md"}
+    book_pages = [(t, p) for t, p in pages_to_build if p.strip().lower() not in exclude]
     # Build section id from path for in-page anchors (e.g. chapters/02-x.md -> ch-chapters-02-x)
     def path_to_section_id(path):
         s = path.strip().replace("\\", "/").replace(".md", "").replace("/", "-")
